@@ -1,0 +1,440 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0E529526-5118-4F22-B321-89D502EF571E}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>ee.iLawyer.App.Wpf</RootNamespace>
+    <AssemblyName>ee.iLawyer.App.Wpf</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Views\favicon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Domain\BLDateHelper.cs" />
+    <Compile Include="Domain\BrushProps.cs" />
+    <Compile Include="Domain\ChineseLunisolarCalendarWithFestival.cs" />
+    <Compile Include="Domain\DragDropHelper.cs" />
+    <Compile Include="Models\Appointment.cs" />
+    <Compile Include="Modules\NewEditProgress.xaml.cs">
+      <DependentUpon>NewEditProgress.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\NewEditTodoItem.xaml.cs">
+      <DependentUpon>NewEditTodoItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Test\MessengerRegisterView.xaml.cs">
+      <DependentUpon>MessengerRegisterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Test\MessengerRegisterViewModel.cs" />
+    <Compile Include="Test\MessengerSenderView.xaml.cs">
+      <DependentUpon>MessengerSenderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Test\MessengerSenderViewModel.cs" />
+    <Compile Include="Test\TestMessage.cs" />
+    <Compile Include="UserControls\Agenda\DayBoxAppointmentControl.xaml.cs">
+      <DependentUpon>DayBoxAppointmentControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Agenda\DayBoxControl.xaml.cs">
+      <DependentUpon>DayBoxControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Agenda\EventDetailPopup.xaml.cs">
+      <DependentUpon>EventDetailPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Agenda\MonthView.xaml.cs">
+      <DependentUpon>MonthView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Agenda\WeekOfDaysControls.xaml.cs">
+      <DependentUpon>WeekOfDaysControls.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ClientCard.xaml.cs">
+      <DependentUpon>ClientCard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\MultiItemSelector.xaml.cs">
+      <DependentUpon>MultiItemSelector.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\WaterDropsButtonGroup.xaml.cs">
+      <DependentUpon>WaterDropsButtonGroup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PropertyPickerItem.cs" />
+    <Compile Include="Modules\ManageProject.xaml.cs">
+      <DependentUpon>ManageProject.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\NewEditProject.xaml.cs">
+      <DependentUpon>NewEditProject.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AreaSelector.xaml.cs">
+      <DependentUpon>AreaSelector.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\CategoryTextBox.xaml.cs">
+      <DependentUpon>CategoryTextBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ClientTypeControl.xaml.cs">
+      <DependentUpon>ClientTypeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ProgressDialog.xaml.cs">
+      <DependentUpon>ProgressDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\CategoryPropertyPicker.xaml.cs">
+      <DependentUpon>CategoryPropertyPicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\PropertyPicker.xaml.cs">
+      <DependentUpon>PropertyPicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\PropertyListPicker.xaml.cs">
+      <DependentUpon>PropertyListPicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AutoCompleteTextBox.xaml.cs">
+      <DependentUpon>AutoCompleteTextBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModelLocator.cs" />
+    <Compile Include="ViewModels\ClientSearchProvider.cs" />
+    <Compile Include="ViewModels\AbstractViewModel.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\ProjectViewModel.cs" />
+    <Compile Include="ViewModels\ClientViewModel.cs" />
+    <Compile Include="ViewModels\CourtViewModel.cs" />
+    <Compile Include="ViewModels\HomeViewModel.cs" />
+    <Compile Include="ViewModels\JudgeViewModel.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Page Include="Dictionaries\ConverterDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dictionaries\EnumItemsSourceDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Modules\NewEditProgress.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\NewEditTodoItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\MainGridBorder.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\SearchPickBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Test\MessengerRegisterView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Test\MessengerSenderView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\Agenda\DayBoxAppointmentControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\Agenda\DayBoxControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\Agenda\EventDetailPopup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\Agenda\MonthView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\Agenda\WeekOfDaysControls.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\ClientCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\MultiItemSelector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\WaterDropsButtonGroup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Login.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\Login.xaml.cs">
+      <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Modules\ManageProject.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\ManageClient.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\ManageCourt.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\Home.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\ManageJudge.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\NewEditProject.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\NewEditClient.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\NewEditCourt.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Modules\NewEditJudge.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dictionaries\ColorsAndAppearance.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\FillWrapPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\SearchBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\TabControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\AreaSelector.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\CategoryTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ClientTypeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ProgressDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\CategoryPropertyPicker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\PropertyPicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\PropertyListPicker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\AutoCompleteTextBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Modules\ManageClient.xaml.cs">
+      <DependentUpon>ManageClient.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ManageCourt.xaml.cs">
+      <DependentUpon>ManageCourt.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Home.xaml.cs">
+      <DependentUpon>Home.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\ManageJudge.xaml.cs">
+      <DependentUpon>ManageJudge.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\NewEditClient.xaml.cs">
+      <DependentUpon>NewEditClient.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\NewEditCourt.xaml.cs">
+      <DependentUpon>NewEditCourt.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\NewEditJudge.xaml.cs">
+      <DependentUpon>NewEditJudge.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\bg_login.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\favicon.ico" />
+    <Resource Include="FodyWeavers.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\ee.library\ee.Core.Framework\ee.Core.Framework.csproj">
+      <Project>{7d3d1f1d-973e-464a-9e60-b33cd0b34163}</Project>
+      <Name>ee.Core.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\ee.library\ee.Core.Wpf\ee.Core.Wpf.csproj">
+      <Project>{1c6e9db7-56d4-4a6f-bc0c-baa98507e5ca}</Project>
+      <Name>ee.Core.Wpf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\ee.library\ee.Core\ee.Core.csproj">
+      <Project>{F8DBEC3E-4A1D-4DE0-A9DE-BB448FE4C3DF}</Project>
+      <Name>ee.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\02.Domain\ee.iLawyer.Ops.Contact\ee.iLawyer.Ops.Contact.csproj">
+      <Project>{8bf78a81-d48f-47dc-9d81-f9e894675c32}</Project>
+      <Name>ee.iLawyer.Ops.Contact</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\02.Domain\ee.iLawyer.ServiceProvider\ee.iLawyer.ServiceProvider.csproj">
+      <Project>{e461d5eb-6093-4ffb-a703-337bfdad7e6a}</Project>
+      <Name>ee.iLawyer.ServiceProvider</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Chartridge046_small.jpg" />
+    <Resource Include="Resources\Contact.png" />
+    <Resource Include="Resources\ProfilePic.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\bg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ForwardGreen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Fody">
+      <Version>4.2.1</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="log4net">
+      <Version>2.0.8</Version>
+    </PackageReference>
+    <PackageReference Include="MaterialDesignColors">
+      <Version>1.2.0</Version>
+    </PackageReference>
+    <PackageReference Include="MaterialDesignThemes">
+      <Version>2.6.0</Version>
+    </PackageReference>
+    <PackageReference Include="PropertyChanged.Fody">
+      <Version>3.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="System.Reactive.Linq">
+      <Version>4.1.5</Version>
+    </PackageReference>
+    <PackageReference Include="XamlDisplayerPackage">
+      <Version>1.0.6</Version>
+    </PackageReference>
+    <PackageReference Include="Z.ExtensionMethods">
+      <Version>2.1.1</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

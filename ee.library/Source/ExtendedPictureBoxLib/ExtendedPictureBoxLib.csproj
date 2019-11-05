@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0EE73A2C-6F5D-4F45-BCBD-35F908193343}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ExtendedPictureBoxLib</RootNamespace>
+    <AssemblyName>ExtendedPictureBoxLib</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Animations, Version=1.1.0.0, Culture=neutral">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ShareDll\Animations.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AnimatedPictureBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AnimatedPictureBox.Designer.cs">
+      <DependentUpon>AnimatedPictureBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AnimatedPictureButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AnimatedPictureButton.Designer.cs">
+      <DependentUpon>AnimatedPictureButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AnimatedPicturesProgressBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AnimatedPicturesProgressBar.Designer.cs">
+      <DependentUpon>AnimatedPicturesProgressBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Animators\ExtendedPictureBoxAlphaAnimator.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Animators\ExtendedPictureBoxAlphaAnimator.Designer.cs">
+      <DependentUpon>ExtendedPictureBoxAlphaAnimator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Animators\ExtendedPictureBoxBackColor2Animator.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Animators\ExtendedPictureBoxBackColor2Animator.Designer.cs">
+      <DependentUpon>ExtendedPictureBoxBackColor2Animator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Animators\ExtendedPictureBoxBackColorGradientRotationAngleAnimator.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Animators\ExtendedPictureBoxBackColorGradientRotationAngleAnimator.Designer.cs">
+      <DependentUpon>ExtendedPictureBoxBackColorGradientRotationAngleAnimator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Animators\ExtendedPictureBoxExtraImageRotationAngleAnimator.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Animators\ExtendedPictureBoxExtraImageRotationAngleAnimator.Designer.cs">
+      <DependentUpon>ExtendedPictureBoxExtraImageRotationAngleAnimator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Animators\ExtendedPictureBoxImageOffsetAnimator.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Animators\ExtendedPictureBoxImageOffsetAnimator.Designer.cs">
+      <DependentUpon>ExtendedPictureBoxImageOffsetAnimator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Animators\ExtendedPictureBoxOffsetAnimatorBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Animators\ExtendedPictureBoxOffsetAnimatorBase.Designer.cs">
+      <DependentUpon>ExtendedPictureBoxOffsetAnimatorBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Animators\ExtendedPictureBoxRotationAngleAnimator.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Animators\ExtendedPictureBoxRotationAngleAnimator.Designer.cs">
+      <DependentUpon>ExtendedPictureBoxRotationAngleAnimator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Animators\ExtendedPictureBoxShadowOffsetAnimator.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Animators\ExtendedPictureBoxShadowOffsetAnimator.Designer.cs">
+      <DependentUpon>ExtendedPictureBoxShadowOffsetAnimator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Animators\ExtendedPictureBoxStateAnimator.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Animators\ExtendedPictureBoxStateAnimator.Designer.cs">
+      <DependentUpon>ExtendedPictureBoxStateAnimator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Animators\ExtendedPictureBoxTextHaloColorAnimator.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Animators\ExtendedPictureBoxTextHaloColorAnimator.Designer.cs">
+      <DependentUpon>ExtendedPictureBoxTextHaloColorAnimator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Animators\ExtendedPictureBoxTextHaloWidthAnimator.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Animators\ExtendedPictureBoxTextHaloWidthAnimator.Designer.cs">
+      <DependentUpon>ExtendedPictureBoxTextHaloWidthAnimator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Animators\ExtendedPictureBoxTextOffsetAnimator.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Animators\ExtendedPictureBoxTextOffsetAnimator.Designer.cs">
+      <DependentUpon>ExtendedPictureBoxTextOffsetAnimator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Animators\ExtendedPictureBoxTextRotationAngleAnimator.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Animators\ExtendedPictureBoxTextRotationAngleAnimator.Designer.cs">
+      <DependentUpon>ExtendedPictureBoxTextRotationAngleAnimator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Animators\ExtendedPictureBoxTextZoomAnimator.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Animators\ExtendedPictureBoxTextZoomAnimator.Designer.cs">
+      <DependentUpon>ExtendedPictureBoxTextZoomAnimator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Animators\ExtendedPictureBoxZoomAnimator.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Animators\ExtendedPictureBoxZoomAnimator.Designer.cs">
+      <DependentUpon>ExtendedPictureBoxZoomAnimator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Design\ColorEditorEx.cs" />
+    <Compile Include="Design\FlagCheckedListBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Design\FlagCheckedListBox.Designer.cs">
+      <DependentUpon>FlagCheckedListBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Design\FlagCheckedListBoxItem.cs" />
+    <Compile Include="Design\FlagEnumEditor.cs" />
+    <Compile Include="Design\PictureBoxStateConverter.cs" />
+    <Compile Include="Design\ProgressStepCollectionEditor.cs" />
+    <Compile Include="Design\ProgressStepConverter.cs" />
+    <Compile Include="ExtendedPictureBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ExtendedPictureBox.Designer.cs">
+      <DependentUpon>ExtendedPictureBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PictureBoxState.cs" />
+    <Compile Include="ProgressStep.cs" />
+    <Compile Include="ProgressStepCollection.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StepAnimators.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AnimatedPictureBox.resx">
+      <DependentUpon>AnimatedPictureBox.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AnimatedPictureButton.resx">
+      <DependentUpon>AnimatedPictureButton.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AnimatedPicturesProgressBar.resx">
+      <DependentUpon>AnimatedPicturesProgressBar.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Design\FlagEnumEditor.resx">
+      <DependentUpon>FlagEnumEditor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Finished.png" />
+    <EmbeddedResource Include="Resources\Initial.png" />
+    <EmbeddedResource Include="Resources\InProgress.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

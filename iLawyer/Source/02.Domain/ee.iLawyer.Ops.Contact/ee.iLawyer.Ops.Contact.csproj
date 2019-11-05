@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8BF78A81-D48F-47DC-9D81-F9E894675C32}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ee.iLawyer.Ops.Contact</RootNamespace>
+    <AssemblyName>ee.iLawyer.Ops.Contact</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Args\AreaArgs.cs" />
+    <Compile Include="Args\ClientArgs.cs" />
+    <Compile Include="Args\CourtArgs.cs" />
+    <Compile Include="Args\JudgeArgs.cs" />
+    <Compile Include="Args\SystemManagement\SystemManagementArgs.cs" />
+    <Compile Include="Args\ProjectArgs.cs" />
+    <Compile Include="Args\PropertyPickArgs.cs" />
+    <Compile Include="AutoMapper\Converters.cs" />
+    <Compile Include="AutoMapper\DtoConverter.cs" />
+    <Compile Include="CacheKeys.cs" />
+    <Compile Include="DTO\Area.cs" />
+    <Compile Include="DTO\MultiItemSelectorItemInfo.cs" />
+    <Compile Include="DTO\Category.cs" />
+    <Compile Include="DTO\CategoryValue.cs" />
+    <Compile Include="DTO\Project.cs" />
+    <Compile Include="DTO\Client.cs" />
+    <Compile Include="DTO\Court.cs" />
+    <Compile Include="DTO\Judge.cs" />
+    <Compile Include="DTO\KeyValue.cs" />
+    <Compile Include="DTO\ProjectAccount.cs" />
+    <Compile Include="DTO\ProjectCause.cs" />
+    <Compile Include="DTO\ProjectCategory.cs" />
+    <Compile Include="DTO\ProjectProgress.cs" />
+    <Compile Include="DTO\ProjectTodoItem.cs" />
+    <Compile Include="DTO\PropertyPicker.cs" />
+    <Compile Include="DTO\SystemManagement\Role.cs" />
+    <Compile Include="DTO\SystemManagement\User.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="Interfaces\IFoundation.cs" />
+    <Compile Include="Interfaces\IILawyerService.cs" />
+    <Compile Include="AutoMapper\AutoMapperConfiguration.cs" />
+    <Compile Include="AutoMapper\MappingProfile.cs" />
+    <Compile Include="Interfaces\ISystemUserManagement.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\ee.library\ee.Core.Framework\ee.Core.Framework.csproj">
+      <Project>{7d3d1f1d-973e-464a-9e60-b33cd0b34163}</Project>
+      <Name>ee.Core.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\ee.library\ee.Core\ee.Core.csproj">
+      <Project>{f8dbec3e-4a1d-4de0-a9de-bb448fe4c3df}</Project>
+      <Name>ee.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ee.iLawyer.Db\ee.iLawyer.Db.csproj">
+      <Project>{1428652c-40b3-4f1a-92f3-f4965726b414}</Project>
+      <Name>ee.iLawyer.Db</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FodyWeavers.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AutoMapper">
+      <Version>8.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="Fody">
+      <Version>4.2.1</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="PropertyChanged.Fody">
+      <Version>3.0.1</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

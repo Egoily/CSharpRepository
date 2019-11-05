@@ -1,0 +1,43 @@
+﻿using ee.iLawyer.App.Wpf.ViewModels;
+using MaterialDesignThemes.Wpf;
+using System;
+using System.Windows.Controls;
+
+namespace ee.iLawyer.App.Wpf.Modules
+{
+    /// <summary>
+    /// Interaction logic for Home.xaml
+    /// </summary>
+    public partial class Home : UserControl
+    {
+        public Home()
+        {
+            InitializeComponent();
+
+        }
+
+        private void DialogHost_OnDialogClosing(object sender, DialogClosingEventArgs eventArgs)
+        {
+
+            if (!Equals(eventArgs.Parameter, true))
+            {
+                return;
+            }
+
+            Console.Write("Do Delete.");
+
+        }
+
+
+
+        private void btnOK_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+        
+        }
+
+        private void DisplayMonthChanged(UserControls.Agenda.MonthChangedEventArgs e)
+        {
+
+        }
+    }
+}

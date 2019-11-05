@@ -1,0 +1,605 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{79E58BD0-D40C-4899-BC83-C1F1B2230332}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EgoDevil.Utilities</RootNamespace>
+    <AssemblyName>EgoDevil.Utilities</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ThumbnailCreator\Exceptions\DestinationSizeNotFoundException.cs" />
+    <Compile Include="ThumbnailCreator\Exceptions\ThumbCreationFailedException.cs" />
+    <Compile Include="ThumbnailCreator\FileFormats.cs" />
+    <Compile Include="ThumbnailCreator\ScalingOptions.cs" />
+    <Compile Include="ThumbnailCreator\ThumbnailCreation.cs" />
+    <Compile Include="UI\AquaButtons\AquaButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\AquaButtons\AquaButtonDesigner.cs" />
+    <Compile Include="BackgroundWorker\BackgroundForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BackgroundWorker\BackgroundForm.Designer.cs">
+      <DependentUpon>BackgroundForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BackgroundWorker\BackgroundThread.cs" />
+    <Compile Include="Compress\Compress.cs" />
+    <Compile Include="UI\ColorComboBox\ColorComboBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\ColorComboBox\ColorComboBox.designer.cs">
+      <DependentUpon>ColorComboBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ColorLabel\ColorLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\ColorLabel\ColorLabel.Designer.cs">
+      <DependentUpon>ColorLabel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\EForm\E3DBorderPrimitive.cs" />
+    <Compile Include="UI\EForm\EAntiAlias.cs" />
+    <Compile Include="UI\EForm\EForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\EForm\EForm.Designer.cs">
+      <DependentUpon>EForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\EForm\EFormHelper.cs" />
+    <Compile Include="UI\EForm\EStatusBar.cs" />
+    <Compile Include="UI\EForm\ETitleBar.cs" />
+    <Compile Include="UI\EForm\EFormCtrlButtons.cs" />
+    <Compile Include="UI\EForm\ETitleBarIconHolder.cs" />
+    <Compile Include="UI\EPanels\EProgressBar\EProgressBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\EPanels\EProgressBar\EProgressBar.Designer.cs">
+      <DependentUpon>EProgressBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\EPanels\EProgressBar\EToolStripProgressBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\EPanels\Renderer\EColorTable.cs" />
+    <Compile Include="UI\EPanels\Renderer\ERenderer.cs" />
+    <Compile Include="UI\EPanels\Renderer\ColorTableBlack.cs" />
+    <Compile Include="UI\EPanels\Renderer\ColorTableBlue.cs" />
+    <Compile Include="UI\EPanels\Renderer\Office2007BlackColorTable.cs" />
+    <Compile Include="UI\EPanels\Renderer\Office2007BlueColorTable.cs" />
+    <Compile Include="UI\EPanels\Renderer\Office2007Renderer.cs" />
+    <Compile Include="UI\EPanels\Renderer\Office2007SilverColorTable.cs" />
+    <Compile Include="UI\EPanels\Renderer\OfficeColorTable.cs" />
+    <Compile Include="UI\EPanels\Renderer\ProfessionalColorTable.cs" />
+    <Compile Include="UI\EPanels\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="UI\EPanels\ESplitter\ESplitter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\EPanels\ESplitter\ESplitter.Designer.cs">
+      <DependentUpon>ESplitter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\EPanels\XPander\BaseEPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\EPanels\XPander\CaptionStyle.cs" />
+    <Compile Include="UI\EPanels\XPander\ColorScheme.cs" />
+    <Compile Include="UI\EPanels\XPander\ColorSchemeChangeEventArgs.cs" />
+    <Compile Include="UI\EPanels\XPander\Constants.cs" />
+    <Compile Include="UI\EPanels\XPander\CustomColors.cs" />
+    <Compile Include="UI\EPanels\XPander\CustomPanelColors.cs" />
+    <Compile Include="UI\EPanels\XPander\CustomXPanderPanelColors.cs" />
+    <Compile Include="UI\EPanels\XPander\DisplayInformation.cs" />
+    <Compile Include="UI\EPanels\XPander\HoverState.cs" />
+    <Compile Include="UI\EPanels\XPander\HoverStateChangeEventArgs.cs" />
+    <Compile Include="UI\EPanels\XPander\IPanel.cs" />
+    <Compile Include="UI\EPanels\XPander\EPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\EPanels\XPander\EPanel.Designer.cs">
+      <DependentUpon>EPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\EPanels\XPander\PanelColors.cs" />
+    <Compile Include="UI\EPanels\XPander\PanelColorsBlack.cs" />
+    <Compile Include="UI\EPanels\XPander\PanelColorsBlue.cs" />
+    <Compile Include="UI\EPanels\XPander\PanelColorsBse.cs" />
+    <Compile Include="UI\EPanels\XPander\PanelColorsOffice.cs" />
+    <Compile Include="UI\EPanels\XPander\PanelColorsOffice2007Black.cs" />
+    <Compile Include="UI\EPanels\XPander\PanelColorsOffice2007Blue.cs" />
+    <Compile Include="UI\EPanels\XPander\PanelColorsOffice2007Silver.cs" />
+    <Compile Include="UI\EPanels\XPander\PanelColorsRed.cs" />
+    <Compile Include="UI\EPanels\XPander\PanelSettingsManager.cs" />
+    <Compile Include="UI\EPanels\XPander\PanelStyle.cs" />
+    <Compile Include="UI\EPanels\XPander\PanelStyleChangeEventArgs.cs" />
+    <Compile Include="UI\EPanels\XPander\UseAntiAlias.cs" />
+    <Compile Include="UI\EPanels\XPander\UseClearTypeGridFit.cs" />
+    <Compile Include="UI\EPanels\XPander\XPanderPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\EPanels\XPander\XPanderPanel.Designer.cs">
+      <DependentUpon>XPanderPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\EPanels\XPander\XPanderPanelList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\EPanels\XPander\XPanderPanelList.Designer.cs">
+      <DependentUpon>XPanderPanelList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\EPanels\XPander\XPanderStateChangeEventArgs.cs" />
+    <Compile Include="UI\TrackBar\TrackBarEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\TrackBar\TrackBarEx.designer.cs">
+      <DependentUpon>TrackBarEx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Docking\AutoHideStripBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Docking\DockAreasEditor.cs" />
+    <Compile Include="UI\Docking\DockContent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Docking\DockContentCollection.cs" />
+    <Compile Include="UI\Docking\DockContentEventArgs.cs" />
+    <Compile Include="UI\Docking\DockContentHandler.cs" />
+    <Compile Include="UI\Docking\DockOutlineBase.cs" />
+    <Compile Include="UI\Docking\DockPane.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Docking\DockPane.SplitterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Docking\DockPaneCaptionBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Docking\DockPaneCollection.cs" />
+    <Compile Include="UI\Docking\DockPanel.AutoHideWindow.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Docking\DockPanel.cs" />
+    <Compile Include="UI\Docking\DockPanel.DockDragHandler.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Docking\DockPanel.DragHandler.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Docking\DockPanel.FocusManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Docking\DockPanel.MdiClientController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Docking\DockPanel.Persistor.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Docking\DockPanel.SplitterDragHandler.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Docking\DockPanelExtender.cs" />
+    <Compile Include="UI\Docking\DockPanelSkin.cs" />
+    <Compile Include="UI\Docking\DockPaneStripBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Docking\DockWindow.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Docking\DockWindow.SplitterControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Docking\DockWindowCollection.cs" />
+    <Compile Include="UI\Docking\DragForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Docking\DummyControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Docking\Enums.cs" />
+    <Compile Include="UI\Docking\FloatWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Docking\FloatWindowCollection.cs" />
+    <Compile Include="UI\Docking\Helpers\DockHelper.cs" />
+    <Compile Include="UI\Docking\Helpers\DrawHelper.cs" />
+    <Compile Include="UI\Docking\Helpers\ResourceHelper.cs" />
+    <Compile Include="UI\Docking\Helpers\Win32Helper.cs" />
+    <Compile Include="UI\Docking\InertButtonBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Docking\Interfaces.cs" />
+    <Compile Include="UI\Docking\Localization.cs" />
+    <Compile Include="UI\Docking\Measures.cs" />
+    <Compile Include="UI\Docking\NestedDockingStatus.cs" />
+    <Compile Include="UI\Docking\NestedPaneCollection.cs" />
+    <Compile Include="UI\Docking\Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="UI\Docking\SplitterBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Docking\Strings.Designer.cs">
+      <DependentUpon>Strings.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="UI\Docking\VisibleNestedPaneCollection.cs" />
+    <Compile Include="UI\Docking\VS2005AutoHideStrip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Docking\VS2005DockPaneCaption.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Docking\VS2005DockPaneStrip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Docking\Win32\Enums.cs" />
+    <Compile Include="UI\Docking\Win32\NativeMethods.cs" />
+    <Compile Include="FaceRender\FaceRender.cs" />
+    <Compile Include="UI\IndustrialCtrls\Base\LBIndustrialCtrlBase.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\IndustrialCtrls\Base\LBIndustrialCtrlBase.Designer.cs">
+      <DependentUpon>LBIndustrialCtrlBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\IndustrialCtrls\Base\Renderer.cs" />
+    <Compile Include="UI\IndustrialCtrls\Button\ButtonRenderer.cs" />
+    <Compile Include="UI\IndustrialCtrls\Button\LBButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\IndustrialCtrls\Button\LBButton.Designer.cs">
+      <DependentUpon>LBButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\IndustrialCtrls\Knob\KnobRenderer.cs" />
+    <Compile Include="UI\IndustrialCtrls\Knob\LBKnob.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\IndustrialCtrls\Knob\LBKnob.Designer.cs">
+      <DependentUpon>LBKnob.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\IndustrialCtrls\Led\LB7SegmentDisplay.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\IndustrialCtrls\Led\LB7SegmentDisplay.Designer.cs">
+      <DependentUpon>LB7SegmentDisplay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\IndustrialCtrls\Led\LB7SegmentDisplayRenderer.cs" />
+    <Compile Include="UI\IndustrialCtrls\Led\LBLed.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\IndustrialCtrls\Led\LBLed.Designer.cs">
+      <DependentUpon>LBLed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\IndustrialCtrls\Led\LedRenderer.cs" />
+    <Compile Include="UI\IndustrialCtrls\Meters\LBAnalogMeter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\IndustrialCtrls\Meters\LBAnalogMeter.Designer.cs">
+      <DependentUpon>LBAnalogMeter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\IndustrialCtrls\Meters\LBDigitalMeter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\IndustrialCtrls\Meters\LBDigitalMeter.Designer.cs">
+      <DependentUpon>LBDigitalMeter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\IndustrialCtrls\Meters\LBDigitalMeterRenderer.cs" />
+    <Compile Include="UI\IndustrialCtrls\Meters\LBMeterThreshold.cs" />
+    <Compile Include="UI\IndustrialCtrls\Meters\MeterRenderer.cs" />
+    <Compile Include="UI\IndustrialCtrls\Utils\ColorMng.cs" />
+    <Compile Include="UI\IndustrialCtrls\Utils\MathFunc.cs" />
+    <Compile Include="LockfreeQueue\LFQueue.cs" />
+    <Compile Include="UI\MediaButtons\MediaButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\MediaButtons\MediaButton.designer.cs">
+      <DependentUpon>MediaButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MessageForm\AnimateShowWnd.cs" />
+    <Compile Include="UI\MessageForm\MsgForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MessageForm\MsgForm.Designer.cs">
+      <DependentUpon>MsgForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Serializer\Serializer.cs" />
+    <Compile Include="UI\UDNumber\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UDNumber\UDNumber.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\UDNumber\UDNumber.Designer.cs">
+      <DependentUpon>UDNumber.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ActivityBar\ActivityBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\ActivityBar\ActivityBar.Designer.cs">
+      <DependentUpon>ActivityBar.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="BackgroundWorker\BackgroundForm.resx">
+      <DependentUpon>BackgroundForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\TrackBar\TrackBarEx.resx">
+      <DependentUpon>TrackBarEx.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\IndustrialCtrls\Button\LBButton.resx">
+      <DependentUpon>LBButton.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\IndustrialCtrls\Knob\LBKnob.resx">
+      <DependentUpon>LBKnob.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\IndustrialCtrls\Led\LB7SegmentDisplay.resx">
+      <DependentUpon>LB7SegmentDisplay.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\IndustrialCtrls\Led\LBLed.resx">
+      <DependentUpon>LBLed.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\IndustrialCtrls\Meters\LBDigitalMeter.resx">
+      <DependentUpon>LBDigitalMeter.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MessageForm\MsgForm.resx">
+      <DependentUpon>MsgForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\UDNumber\UDNumber.resx">
+      <DependentUpon>UDNumber.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UI\IndustrialCtrls\Knob\Knob.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="UI\AquaButtons\AquaButton.resx">
+      <DependentUpon>AquaButton.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Docking\DockPanel.bmp" />
+    <EmbeddedResource Include="UI\Docking\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Docking\Strings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UI\Docking\Resources\DockIndicator_PaneDiamond.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UI\Docking\Resources\DockIndicator_PaneDiamond_Bottom.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UI\Docking\Resources\Dockindicator_PaneDiamond_Fill.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UI\Docking\Resources\DockIndicator_PaneDiamond_Hotspot.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UI\Docking\Resources\DockIndicator_PaneDiamond_HotspotIndex.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UI\Docking\Resources\DockIndicator_PaneDiamond_Left.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UI\Docking\Resources\DockIndicator_PaneDiamond_Right.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UI\Docking\Resources\DockIndicator_PaneDiamond_Top.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UI\Docking\Resources\DockIndicator_PanelBottom.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UI\Docking\Resources\DockIndicator_PanelBottom_Active.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UI\Docking\Resources\DockIndicator_PanelFill.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UI\Docking\Resources\DockIndicator_PanelFill_Active.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UI\Docking\Resources\DockIndicator_PanelLeft.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UI\Docking\Resources\DockIndicator_PanelLeft_Active.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UI\Docking\Resources\DockIndicator_PanelRight.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UI\Docking\Resources\DockIndicator_PanelRight_Active.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UI\Docking\Resources\DockIndicator_PanelTop.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UI\Docking\Resources\DockIndicator_PanelTop_Active.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UI\Docking\Resources\DockPane_AutoHide.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UI\Docking\Resources\DockPane_Close.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UI\Docking\Resources\DockPane_Dock.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UI\Docking\Resources\DockPane_Option.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UI\Docking\Resources\DockPane_OptionOverflow.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="UI\AquaButtons\fill.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\AquaButtons\left.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ColorComboBox\ColorComboBox.resx">
+      <DependentUpon>ColorComboBox.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\EForm\EForm.resx">
+      <DependentUpon>EForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\EPanels\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\EPanels\XPander\EPanel.resx">
+      <DependentUpon>EPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\EPanels\XPander\XPanderPanel.resx">
+      <DependentUpon>XPanderPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\EPanels\XPander\XPanderPanelList.resx">
+      <DependentUpon>XPanderPanelList.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\UDNumber\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\AquaButtons\right.png" />
+    <EmbeddedResource Include="UI\ActivityBar\ActivityBar.resx">
+      <DependentUpon>ActivityBar.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Content Include="UI\EPanels\Resources\ChevronDown.png" />
+    <Content Include="UI\EPanels\Resources\ChevronLeft.png" />
+    <Content Include="UI\EPanels\Resources\ChevronRight.png" />
+    <Content Include="UI\EPanels\Resources\ChevronUp.png" />
+    <Content Include="UI\EPanels\Resources\closePanel.png" />
+    <Content Include="UI\EPanels\Resources\Collapse.jpg" />
+    <Content Include="UI\EPanels\Resources\Collapse_h.jpg" />
+    <Content Include="UI\EPanels\Resources\Expand.jpg" />
+    <Content Include="UI\EPanels\Resources\Expand_h.jpg" />
+    <Content Include="UI\UDNumber\Resources\down.png" />
+    <Content Include="UI\UDNumber\Resources\up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

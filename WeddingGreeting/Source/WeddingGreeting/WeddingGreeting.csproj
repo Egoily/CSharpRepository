@@ -1,0 +1,248 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1FB83FC8-9B81-45B1-9193-02236D069C37}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>WeddingGreeting</RootNamespace>
+    <AssemblyName>WeddingGreeting</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>wedding_rings_128px.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Animations">
+      <HintPath>..\..\..\3rd party\Animations.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Speech" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ControlExtensions.cs" />
+    <Compile Include="Forms\FrmConfigVideoWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmConfigVideoWindow.Designer.cs">
+      <DependentUpon>FrmConfigVideoWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmRegister.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmRegister.Designer.cs">
+      <DependentUpon>FrmRegister.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmGuestManagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmGuestManagement.Designer.cs">
+      <DependentUpon>FrmGuestManagement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmTableLayout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmTableLayout.Designer.cs">
+      <DependentUpon>FrmTableLayout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmVideoSnap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmVideoSnap.Designer.cs">
+      <DependentUpon>FrmVideoSnap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrameControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GlobalConfigMgr.cs" />
+    <Compile Include="GuestMgr.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MoveControl.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SoundRecord.cs" />
+    <Compile Include="SpeechProvider.cs" />
+    <Compile Include="TableConfig.cs" />
+    <Compile Include="UserControls\GuestInfoCtrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\GuestInfoCtrl.Designer.cs">
+      <DependentUpon>GuestInfoCtrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TableControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\TableControl.Designer.cs">
+      <DependentUpon>TableControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VideoPlayer.cs" />
+    <EmbeddedResource Include="Forms\FrmConfigVideoWindow.resx">
+      <DependentUpon>FrmConfigVideoWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmRegister.resx">
+      <DependentUpon>FrmRegister.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmGuestManagement.resx">
+      <DependentUpon>FrmGuestManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmTableLayout.resx">
+      <DependentUpon>FrmTableLayout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmVideoSnap.resx">
+      <DependentUpon>FrmVideoSnap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="UserControls\GuestInfoCtrl.resx">
+      <DependentUpon>GuestInfoCtrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\TableControl.resx">
+      <DependentUpon>TableControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="config.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user_add.png" />
+    <None Include="Resources\user_del.png" />
+    <None Include="Resources\user_edit.png" />
+    <None Include="Resources\user_query.png" />
+    <Content Include="wedding_rings_128px.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\ee.library\Source\ee.Utilities\ee.Utilities.csproj">
+      <Project>{d0aebce7-263a-476d-9c13-90fe3229f7b1}</Project>
+      <Name>ee.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ee.library\Source\ee.Utility.Npoi\ee.Utility.Npoi.csproj">
+      <Project>{434c7301-0b32-4044-84ca-bb40413c7861}</Project>
+      <Name>ee.Utility.Npoi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ee.library\Source\ee.Utility.OpenCv\ee.Utility.OpenCv.csproj">
+      <Project>{89863633-d758-4f3d-ab52-1c35713f40b6}</Project>
+      <Name>ee.Utility.OpenCv</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ee.library\Source\ee.Utility.Player\ee.Utility.Player.csproj">
+      <Project>{eed98acf-105a-45af-af05-8e7a0ca64b88}</Project>
+      <Name>ee.Utility.Player</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ee.library\Source\EgoDevil.Utilities\EgoDevil.Utilities.csproj">
+      <Project>{79e58bd0-d40c-4899-bc83-c1f1b2230332}</Project>
+      <Name>EgoDevil.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ee.library\Source\ExtendedPictureBoxLib\ExtendedPictureBoxLib.csproj">
+      <Project>{0ee73a2c-6f5d-4f45-bcbd-35f908193343}</Project>
+      <Name>ExtendedPictureBoxLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AI.Face\Baidu.AI.Face.csproj">
+      <Project>{b75086c4-aec0-4892-9c94-6096326930d3}</Project>
+      <Name>Baidu.AI.Face</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EAlbums\ee.EAlbums.csproj">
+      <Project>{a8c1461e-a458-40d7-860c-ea099508a81b}</Project>
+      <Name>ee.EAlbums</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ee.Models\ee.Models.csproj">
+      <Project>{bf03b37d-be87-47ce-ae56-612e54b362d8}</Project>
+      <Name>ee.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="log4net">
+      <Version>2.0.8</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>12.0.2</Version>
+    </PackageReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,14 @@
+*/packages
+/packages
+***/bin
+*/obj
+*/.vs
+.vs
+*.csproj.user
+**/obj/
+**/bin/
+/Publish
+*.log
+/Logs
+*.pubxml
+*.pubxml.user

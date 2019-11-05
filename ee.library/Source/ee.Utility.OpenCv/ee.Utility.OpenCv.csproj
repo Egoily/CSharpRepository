@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{89863633-D758-4F3D-AB52-1C35713F40B6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ee.Utility.OpenCv</RootNamespace>
+    <AssemblyName>ee.Utility.OpenCv</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FaceCascadeClassifier.cs" />
+    <Compile Include="FaceHandler.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="cascades\haarcascade_eye.xml" />
+    <Content Include="cascades\haarcascade_eye_tree_eyeglasses.xml" />
+    <Content Include="cascades\haarcascade_frontalcatface.xml" />
+    <Content Include="cascades\haarcascade_frontalcatface_extended.xml" />
+    <Content Include="cascades\haarcascade_frontalface_alt.xml" />
+    <Content Include="cascades\haarcascade_frontalface_alt2.xml" />
+    <Content Include="cascades\haarcascade_frontalface_alt_tree.xml" />
+    <Content Include="cascades\haarcascade_frontalface_default.xml" />
+    <Content Include="cascades\haarcascade_fullbody.xml" />
+    <Content Include="cascades\haarcascade_lefteye_2splits.xml" />
+    <Content Include="cascades\haarcascade_licence_plate_rus_16stages.xml" />
+    <Content Include="cascades\haarcascade_lowerbody.xml" />
+    <Content Include="cascades\haarcascade_profileface.xml" />
+    <Content Include="cascades\haarcascade_righteye_2splits.xml" />
+    <Content Include="cascades\haarcascade_russian_plate_number.xml" />
+    <Content Include="cascades\haarcascade_smile.xml" />
+    <Content Include="cascades\haarcascade_upperbody.xml" />
+    <Content Include="cascades\lbpcascade_frontalcatface.xml" />
+    <Content Include="cascades\lbpcascade_frontalface.xml" />
+    <Content Include="cascades\lbpcascade_profileface.xml" />
+    <Content Include="cascades\lbpcascade_silverware.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="EMGU.CV">
+      <Version>4.1.1.3497</Version>
+    </PackageReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

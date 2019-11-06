@@ -76,7 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NHibernate">
-      <Version>5.2.5</Version>
+      <Version>5.2.6</Version>
     </PackageReference>
     <PackageReference Include="Z.ExtensionMethods">
       <Version>2.1.1</Version>

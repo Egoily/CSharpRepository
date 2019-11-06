@@ -51,9 +51,6 @@
     <Compile Include="DataAccessBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\..\..\ee.library\Source\ee.Core.DataAccess\ee.Core.DataAccess.csproj">
       <Project>{82012aca-724f-4c78-a0fe-e450a887c7d7}</Project>
       <Name>ee.Core.DataAccess</Name>
@@ -68,7 +65,7 @@
       <Version>2.1.2</Version>
     </PackageReference>
     <PackageReference Include="NHibernate">
-      <Version>5.2.5</Version>
+      <Version>5.2.6</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

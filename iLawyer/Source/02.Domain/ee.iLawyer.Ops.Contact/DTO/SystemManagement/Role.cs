@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using AutoMapper;
+using System.Collections.Generic;
 
 namespace ee.iLawyer.Ops.Contact.DTO.SystemManagement
 {
+    [AutoMap(typeof(Db.Entities.RBAC.SysRole))]
     public class Role
     {
 

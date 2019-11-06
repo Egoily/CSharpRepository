@@ -1,10 +1,13 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 
 namespace ee.iLawyer.Ops.Contact.DTO
 {
     /// <summary>
     /// 待办事项
     /// </summary>
+    [AutoMap(typeof(Db.Entities.ProjectTodoItem))]
+    [AutoMap(typeof(Db.Entities.ProjectTodoItem), ReverseMap = true)]
     public class ProjectTodoItem : ICloneable
     {
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,7 @@ namespace ee.iLawyer.Ops.Contact.DTO
     /// <summary>
     /// 项目类别
     /// </summary>
+    [AutoMap(typeof(Db.Entities.Foundation.Picklist))]
     public class ProjectCategory
     {
 

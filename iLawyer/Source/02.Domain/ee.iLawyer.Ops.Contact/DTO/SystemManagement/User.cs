@@ -1,9 +1,10 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 
 namespace ee.iLawyer.Ops.Contact.DTO.SystemManagement
 {
-
+    [AutoMap(typeof(Db.Entities.RBAC.SysUser))]
     public class User
     {
         /// <summary>

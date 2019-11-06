@@ -1,8 +1,11 @@
-﻿namespace ee.iLawyer.Ops.Contact.DTO
+﻿using AutoMapper;
+
+namespace ee.iLawyer.Ops.Contact.DTO
 {
     /// <summary>
     /// 案由
     /// </summary>
+    [AutoMap(typeof(Db.Entities.Foundation.Picklist))]
     public class ProjectCause
     {
 

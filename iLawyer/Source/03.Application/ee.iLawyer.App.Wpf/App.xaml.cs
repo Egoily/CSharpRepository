@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using ee.iLawyer.App.Wpf.Views;
+using System.Windows;
 
 namespace ee.iLawyer.App.Wpf
 {
@@ -9,7 +10,7 @@ namespace ee.iLawyer.App.Wpf
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            var view = new Test.MessengerRegisterView();
+            var view = new MainWindow();
             view.ShowDialog();
         }
     }

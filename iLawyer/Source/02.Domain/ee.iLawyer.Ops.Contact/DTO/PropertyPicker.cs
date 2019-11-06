@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using AutoMapper;
+using AutoMapper.Configuration.Annotations;
+using System.Collections.Generic;
 
 namespace ee.iLawyer.Ops.Contact.DTO
 {
+    [AutoMap(typeof(Db.Entities.Foundation.Picklist))]
     public class PropertyPicker
     {
         /// <summary>
@@ -19,10 +22,12 @@ namespace ee.iLawyer.Ops.Contact.DTO
         /// <summary>
         /// 
         /// </summary>
+        [SourceMember(nameof(Db.Entities.Foundation.Picklist.Value))]
         public virtual string Icon { get; set; }
         /// <summary>
         /// 
         /// </summary>
+        [SourceMember(nameof(Db.Entities.Foundation.Picklist.SubValue))]
         public virtual int PickerType { get; set; }
         /// <summary>
         /// 

@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿
+using AutoMapper;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,6 +8,10 @@ namespace ee.iLawyer.Ops.Contact.AutoMapper
 {
     public static class DtoConverter
     {
+        private static IMapper mapper;
+        public static IMapper Mapper => mapper ?? (mapper = AutoMapperConfiguration.Configuration.CreateMapper());
+
+
         public static DTO.Area Convert(Db.Entities.Foundation.Area source)
         {
             return Mapper.Map<DTO.Area>(source);

@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using AutoMapper;
+using System.Collections.Generic;
 
 namespace ee.iLawyer.Ops.Contact.DTO
 {
+    [AutoMap(typeof(DTO.PropertyPicker))]
     public class Category
     {
         /// <summary>

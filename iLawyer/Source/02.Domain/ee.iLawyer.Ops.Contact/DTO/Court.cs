@@ -1,4 +1,5 @@
-﻿using PropertyChanged;
+﻿using AutoMapper;
+using PropertyChanged;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace ee.iLawyer.Ops.Contact.DTO
     /// </summary>
     [AddINotifyPropertyChangedInterface]
     [DataContract]
+    [AutoMap(typeof(Db.Entities.Court))]
     public class Court:ICloneable
     {
 

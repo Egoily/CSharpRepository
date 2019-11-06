@@ -1,10 +1,13 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 
 namespace ee.iLawyer.Ops.Contact.DTO
 {
     /// <summary>
     /// 项目进展
     /// </summary>
+    [AutoMap(typeof(Db.Entities.ProjectProgress))]
+    [AutoMap(typeof(Db.Entities.ProjectProgress), ReverseMap = true)]
     public class ProjectProgress : ICloneable
     {
         /// <summary>

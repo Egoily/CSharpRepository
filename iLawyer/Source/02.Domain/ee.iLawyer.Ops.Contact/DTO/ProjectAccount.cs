@@ -1,8 +1,12 @@
-﻿namespace ee.iLawyer.Ops.Contact.DTO
+﻿using AutoMapper;
+
+namespace ee.iLawyer.Ops.Contact.DTO
 {
     /// <summary>
     /// 帐目
     /// </summary>
+    [AutoMap(typeof(Db.Entities.ProjectAccount))]
+    [AutoMap(typeof(Db.Entities.ProjectAccount),ReverseMap =true)]//= CreateMap<DTO.ProjectAccount, Db.Entities.ProjectAccount>();
     public class ProjectAccount
     {
         /// <summary>

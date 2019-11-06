@@ -1,6 +1,10 @@
-﻿namespace ee.iLawyer.Ops.Contact.DTO
+﻿using AutoMapper;
+using ee.iLawyer.Ops.Contact.AutoMapper;
+
+namespace ee.iLawyer.Ops.Contact.DTO
 {
     //[AddINotifyPropertyChangedInterface]
+    [AutoMap(typeof(Db.Entities.ClientProperties), TypeConverter = typeof(ClientPropertyItemTypeConverter))]//=        CreateMap<IList<Db.Entities.ClientProperties>, List<DTO.CategoryValue>>().ConvertUsing<ClientPropertyItemTypeConverter>();
     public class CategoryValue
     {
         public int Id { get; set; }

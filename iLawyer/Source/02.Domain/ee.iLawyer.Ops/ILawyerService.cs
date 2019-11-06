@@ -32,7 +32,6 @@ namespace ee.iLawyer.Ops
             {
                 return;
             }
-            AutoMapperConfiguration.Configure();
 
             // create our  session factory
             //SessionManager.Builder = new SqliteSessionFactoryBuilder();

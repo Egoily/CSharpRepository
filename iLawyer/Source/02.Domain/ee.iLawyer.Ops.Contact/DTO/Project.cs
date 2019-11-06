@@ -1,10 +1,13 @@
-﻿using PropertyChanged;
+﻿using AutoMapper;
+using AutoMapper.Configuration.Annotations;
+using PropertyChanged;
 using System;
 using System.Collections.Generic;
 
 namespace ee.iLawyer.Ops.Contact.DTO
 {
     [AddINotifyPropertyChangedInterface]
+    [AutoMap(typeof(Db.Entities.Project))]
     public class Project : ICloneable
     {
 
@@ -36,6 +39,7 @@ namespace ee.iLawyer.Ops.Contact.DTO
         /// <summary>
         /// 关联客户列表
         /// </summary>
+        [Ignore]
         public virtual IList<Client> InvolvedClients { get; set; }
         /// <summary>
         /// 其他当事人
@@ -64,14 +68,17 @@ namespace ee.iLawyer.Ops.Contact.DTO
         /// <summary>
         /// 帐目
         /// </summary>
+        [Ignore]
         public virtual ProjectAccount Account { get; set; }
         /// <summary>
         /// 待办事项
         /// </summary>
+        [Ignore]
         public virtual IList<ProjectTodoItem> TodoList { get; set; }
         /// <summary>
         /// 项目进展
         /// </summary>
+        [Ignore]
         public virtual IList<ProjectProgress> Progresses { get; set; }
 
         public Project()

@@ -19,7 +19,6 @@ namespace ee.iLawyer.ServiceProvider
         public static TimeSpan ExpiredTimeSpan = new TimeSpan(12, 0, 0);
         public static void Load()
         {
-            Ops.Contact.AutoMapper.AutoMapperConfiguration.Configure();
             var provinces = Provinces;
             var courts = Courts;
             var projectCauses = ProjectCauses;

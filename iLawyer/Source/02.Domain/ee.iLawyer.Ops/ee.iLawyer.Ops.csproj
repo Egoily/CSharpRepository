@@ -49,16 +49,16 @@
     <Compile Include="ServiceProcessor.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\ee.library\ee.Core.DataAccess\ee.Core.DataAccess.csproj">
+    <ProjectReference Include="..\..\..\..\ee.library\Source\ee.Core.DataAccess\ee.Core.DataAccess.csproj">
       <Project>{82012aca-724f-4c78-a0fe-e450a887c7d7}</Project>
       <Name>ee.Core.DataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\ee.library\ee.Core.Framework\ee.Core.Framework.csproj">
+    <ProjectReference Include="..\..\..\..\ee.library\Source\ee.Core.Framework\ee.Core.Framework.csproj">
       <Project>{7d3d1f1d-973e-464a-9e60-b33cd0b34163}</Project>
       <Name>ee.Core.Framework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\ee.library\ee.Core\ee.Core.csproj">
-      <Project>{f8dbec3e-4a1d-4de0-a9de-bb448fe4c3df}</Project>
+    <ProjectReference Include="..\..\..\..\ee.library\Source\ee.Core\ee.Core.csproj">
+      <Project>{a01c4da2-f6bb-469b-9bfc-e294c02b94d5}</Project>
       <Name>ee.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\ee.iLawyer.DataAccessBuilder.SqlServer\ee.iLawyer.DataAccessBuilder.SqlServer.csproj">

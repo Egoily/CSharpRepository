@@ -375,16 +375,16 @@
     <Resource Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\ee.library\ee.Core.Framework\ee.Core.Framework.csproj">
+    <ProjectReference Include="..\..\..\..\ee.library\Source\ee.Core.Framework\ee.Core.Framework.csproj">
       <Project>{7d3d1f1d-973e-464a-9e60-b33cd0b34163}</Project>
       <Name>ee.Core.Framework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\ee.library\ee.Core.Wpf\ee.Core.Wpf.csproj">
+    <ProjectReference Include="..\..\..\..\ee.library\Source\ee.Core.Wpf\ee.Core.Wpf.csproj">
       <Project>{1c6e9db7-56d4-4a6f-bc0c-baa98507e5ca}</Project>
       <Name>ee.Core.Wpf</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\ee.library\ee.Core\ee.Core.csproj">
-      <Project>{F8DBEC3E-4A1D-4DE0-A9DE-BB448FE4C3DF}</Project>
+    <ProjectReference Include="..\..\..\..\ee.library\Source\ee.Core\ee.Core.csproj">
+      <Project>{a01c4da2-f6bb-469b-9bfc-e294c02b94d5}</Project>
       <Name>ee.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\02.Domain\ee.iLawyer.Ops.Contact\ee.iLawyer.Ops.Contact.csproj">

@@ -54,8 +54,8 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\ee.library\ee.Core.DataAccess\ee.Core.DataAccess.csproj">
-      <Project>{82012ACA-724F-4C78-A0FE-E450A887C7D7}</Project>
+    <ProjectReference Include="..\..\..\..\ee.library\Source\ee.Core.DataAccess\ee.Core.DataAccess.csproj">
+      <Project>{82012aca-724f-4c78-a0fe-e450a887c7d7}</Project>
       <Name>ee.Core.DataAccess</Name>
     </ProjectReference>
     <ProjectReference Include="..\ee.iLawyer.Db\ee.iLawyer.Db.csproj">

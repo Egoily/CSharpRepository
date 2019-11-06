@@ -46,12 +46,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\ee.library\ee.Core.Framework\ee.Core.Framework.csproj">
-      <Project>{7D3D1F1D-973E-464A-9E60-B33CD0B34163}</Project>
+    <ProjectReference Include="..\..\..\..\ee.library\Source\ee.Core.Framework\ee.Core.Framework.csproj">
+      <Project>{7d3d1f1d-973e-464a-9e60-b33cd0b34163}</Project>
       <Name>ee.Core.Framework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\ee.library\ee.Core\ee.Core.csproj">
-      <Project>{F8DBEC3E-4A1D-4DE0-A9DE-BB448FE4C3DF}</Project>
+    <ProjectReference Include="..\..\..\..\ee.library\Source\ee.Core\ee.Core.csproj">
+      <Project>{a01c4da2-f6bb-469b-9bfc-e294c02b94d5}</Project>
       <Name>ee.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\02.Domain\ee.iLawyer.Ops.Contact\ee.iLawyer.Ops.Contact.csproj">

@@ -42,7 +42,7 @@ namespace ee.iLawyer.App.Wpf.Modules
                 IsNew = true;
                 TreatedObject = new Court();
             }
-            areaSelector.Provinces = Cacher.Provinces;
+            //areaSelector.ItemsSource = Cacher.Areas;
         }
 
 

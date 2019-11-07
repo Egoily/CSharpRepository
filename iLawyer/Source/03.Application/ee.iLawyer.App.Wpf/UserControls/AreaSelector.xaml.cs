@@ -1,9 +1,10 @@
-﻿using System;
+﻿using ee.iLawyer.Ops.Contact.DTO;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using ee.iLawyer.Ops.Contact.DTO;
 namespace ee.iLawyer.App.Wpf.UserControls
 {
     /// <summary>
@@ -12,35 +13,16 @@ namespace ee.iLawyer.App.Wpf.UserControls
     public partial class AreaSelector : UserControl, INotifyPropertyChanged
     {
 
-        private IList<Area> _provinces = new List<Area>();
-
-        public static readonly DependencyProperty ProvinceProperty = DependencyProperty.Register("Province", typeof(string), typeof(AreaSelector), new FrameworkPropertyMetadata(string.Empty));
-        public static readonly DependencyProperty CityProperty = DependencyProperty.Register("City", typeof(string), typeof(AreaSelector), new FrameworkPropertyMetadata(string.Empty));
-        public static readonly DependencyProperty CountyProperty = DependencyProperty.Register("County", typeof(string), typeof(AreaSelector), new FrameworkPropertyMetadata(string.Empty));
-        public static readonly DependencyProperty ProvinceCodeProperty = DependencyProperty.Register("ProvinceCode", typeof(string), typeof(AreaSelector), new FrameworkPropertyMetadata(string.Empty));
-        public static readonly DependencyProperty CityCodeProperty = DependencyProperty.Register("CityCode", typeof(string), typeof(AreaSelector), new FrameworkPropertyMetadata(string.Empty));
-        public static readonly DependencyProperty CountyCodeProperty = DependencyProperty.Register("CountyCode", typeof(string), typeof(AreaSelector), new FrameworkPropertyMetadata(string.Empty));
-
+      
+        public static readonly DependencyProperty SelectedProvinceProperty = DependencyProperty.Register("SelectedProvince", typeof(string), typeof(AreaSelector), new FrameworkPropertyMetadata(string.Empty));
+        public static readonly DependencyProperty SelectedCityProperty = DependencyProperty.Register("SelectedCity", typeof(string), typeof(AreaSelector), new FrameworkPropertyMetadata(string.Empty));
+        public static readonly DependencyProperty SelectedCountyProperty = DependencyProperty.Register("SelectedCounty", typeof(string), typeof(AreaSelector), new FrameworkPropertyMetadata(string.Empty));
+        public static readonly DependencyProperty SelectedProvinceCodeProperty = DependencyProperty.Register("SelectedProvinceCode", typeof(string), typeof(AreaSelector), new FrameworkPropertyMetadata(string.Empty));
+        public static readonly DependencyProperty SelectedCityCodeProperty = DependencyProperty.Register("SelectedCityCode", typeof(string), typeof(AreaSelector), new FrameworkPropertyMetadata(string.Empty));
+        public static readonly DependencyProperty SelectedCountyCodeProperty = DependencyProperty.Register("SelectedCountyCode", typeof(string), typeof(AreaSelector), new FrameworkPropertyMetadata(string.Empty));
 
 
-        public IList<Area> Provinces
-        {
-            get
-            {
-                return _provinces;
-            }
-            set
-            {
-                _provinces.Clear();
-                if (value != null)
-                {
-                    foreach (var province in value)
-                    {
-                        _provinces.Add(province);
-                    }
-                }
-            }
-        }
+
 
         public AreaSelector()
         {
@@ -52,93 +34,148 @@ namespace ee.iLawyer.App.Wpf.UserControls
 
         private void SelectedArea_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            Console.WriteLine(Province + " " + City + " " + County);
+            Console.WriteLine(SelectedProvince + " " + SelectedCity + " " + SelectedCounty);
         }
 
 
-        private string _province;
-        private string _city;
-        private string _county;
+        //private ObservableCollection<Area> _itemsSource = new ObservableCollection<Area>();
 
-        private string _provinceCode;
-        private string _cityCode;
-        private string _countyCode;
+        //public ObservableCollection<Area> ItemsSource
+        //{
+        //    get
+        //    {
+        //        return _itemsSource;
+        //    }
+        //    set
+        //    {
+        //        _itemsSource.Clear();
+        //        if (value != null)
+        //        {
+        //            foreach (var province in value)
+        //            {
+        //                _itemsSource.Add(province);
+        //            }
+        //        }
+        //        if (PropertyChanged != null)
+        //        {
+        //            PropertyChanged.Invoke(this, new PropertyChangedEventArgs("ItemsSource"));
+        //        }
+        //    }
+        //}
 
-        public string Province
+
+
+
+        public ObservableCollection<Area> ItemsSource
         {
-            get { return _province; }
+            get { return (ObservableCollection<Area>)GetValue(ItemsSourceProperty); }
+            set { SetValue(ItemsSourceProperty, value); }
+        }
+
+        public static readonly DependencyProperty ItemsSourceProperty =
+            DependencyProperty.Register("ItemsSource", typeof(ObservableCollection<Area>), typeof(AreaSelector),
+                new PropertyMetadata(new ObservableCollection<Area>(), OnPropertyChanged));
+
+
+        private static void OnPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+    
+        }
+
+
+
+
+
+
+
+        private string _selectedProvince;
+        private string _selectedCity;
+        private string _selectedCounty;
+
+        private string _selectedProvinceCode;
+        private string _selectedCityCode;
+        private string _selectedCountyCode;
+
+        public string SelectedProvince
+        {
+            get { return _selectedProvince; }
             set
             {
-                _province = value;
-                _city = null;
+                _selectedProvince = value;
+                _selectedCity = null;
+
                 if (PropertyChanged != null)
                 {
-                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("Province"));
+                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("SelectedProvince"));
                 }
             }
         }
-        public string City
+        public string SelectedCity
         {
-            get { return _city; }
+            get { return _selectedCity; }
             set
             {
-                _city = value;
-                _county = null;
+                _selectedCity = value;
+                _selectedCounty = null;
+
                 if (PropertyChanged != null)
                 {
-                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("City"));
+                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("SelectedCity"));
                 }
             }
         }
-        public string County
+        public string SelectedCounty
         {
-            get { return _county; }
+            get { return _selectedCounty; }
             set
             {
-                _county = value;
+                _selectedCounty = value;
                 if (PropertyChanged != null)
                 {
-                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("County"));
+                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("SelectedCounty"));
                 }
             }
         }
 
 
-        public string ProvinceCode
+        public string SelectedProvinceCode
         {
-            get { return _provinceCode; }
+            get { return _selectedProvinceCode; }
             set
             {
-                _provinceCode = value;
-                _cityCode = string.Empty;
+                _selectedProvinceCode = value;
+                _selectedCityCode = string.Empty;
+
+
                 if (PropertyChanged != null)
                 {
-                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("ProvinceCode"));
+                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("SelectedProvinceCode"));
                 }
             }
         }
-        public string CityCode
+        public string SelectedCityCode
         {
-            get { return _cityCode; }
+            get { return _selectedCityCode; }
             set
             {
-                _cityCode = value;
-                _countyCode = string.Empty;
+                _selectedCityCode = value;
+                _selectedCountyCode = string.Empty;
+
                 if (PropertyChanged != null)
                 {
-                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("CityCode"));
+                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("SelectedCityCode"));
                 }
             }
         }
-        public string CountyCode
+        public string SelectedCountyCode
         {
-            get { return _countyCode; }
+            get { return _selectedCountyCode; }
             set
             {
-                _countyCode = value;
+                _selectedCountyCode = value;
                 if (PropertyChanged != null)
                 {
-                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("CountyCode"));
+                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("SelectedCountyCode"));
                 }
             }
         }

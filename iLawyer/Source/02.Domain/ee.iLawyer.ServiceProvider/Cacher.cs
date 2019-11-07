@@ -19,7 +19,7 @@ namespace ee.iLawyer.ServiceProvider
         public static TimeSpan ExpiredTimeSpan = new TimeSpan(12, 0, 0);
         public static void Load()
         {
-            var provinces = Provinces;
+            var areas = Areas;
             var courts = Courts;
             var projectCauses = ProjectCauses;
             var projectCategories = ProjectCategories;
@@ -28,28 +28,28 @@ namespace ee.iLawyer.ServiceProvider
         /// <summary>
         /// 省市
         /// </summary>
-        public static IList<Area> Provinces
+        public static ObservableCollection<Area> Areas
         {
             get
             {
                 try
                 {
-                    var areas = MemoryCacher.CacheItem<IList<Area>>(CacheKeys.AreaInfo,
+                    var areas = MemoryCacher.CacheItem(CacheKeys.AreaInfo,
                         delegate ()
                         {
                             var server = new ILawyerServiceProvider();
                             var response = server.GetAreas(new GetAreasRequest());
                             if (response.Code == ErrorCodes.Ok && (response.QueryList?.Any() ?? false))
                             {
-                                return response.QueryList.ToList();
+                                return new ObservableCollection<Area>(response.QueryList.ToList());
                             }
-                            return new List<Area>();
+                            return new ObservableCollection<Area>();
                         }, ExpiredTimeSpan);
                     return areas;
                 }
                 catch (Exception)
                 {
-                    return new List<Area>();
+                    return new ObservableCollection<Area>();
                 }
             }
         }

@@ -19,8 +19,8 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <ComboBox Grid.Column="0" x:Name="cbbProvince" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                  ItemsSource="{Binding Path=Provinces}" 
-                  DisplayMemberPath="Name" SelectedValuePath="AreaCode"  Text="{Binding Path=Province,Mode=TwoWay}" SelectedValue="{Binding Path=ProvinceCode,Mode=TwoWay}" >
+                  ItemsSource="{Binding Path=ItemsSource}" 
+                  DisplayMemberPath="Name" SelectedValuePath="AreaCode"  Text="{Binding Path=SelectedProvince,Mode=TwoWay}" SelectedValue="{Binding Path=SelectedProvinceCode,Mode=TwoWay}" >
             <materialDesign:HintAssist.Hint >
                 <StackPanel Orientation="Horizontal" >
                     <materialDesign:PackIcon Kind="AlphaPBox" />
@@ -30,7 +30,7 @@
         </ComboBox>
         <ComboBox Grid.Column="1" x:Name="cbbCity"  Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                   ItemsSource="{Binding Path=SelectedItem.Children,ElementName=cbbProvince}" 
-                  DisplayMemberPath="Name" SelectedValuePath="AreaCode" Text="{Binding Path=City,Mode=TwoWay}" SelectedValue="{Binding Path=CityCode,Mode=TwoWay}" >
+                  DisplayMemberPath="Name" SelectedValuePath="AreaCode" Text="{Binding Path=SelectedCity,Mode=TwoWay}" SelectedValue="{Binding Path=SelectedCityCode,Mode=TwoWay}" >
             <materialDesign:HintAssist.Hint >
                 <StackPanel Orientation="Horizontal" >
                     <materialDesign:PackIcon Kind="AlphaCBox" />
@@ -40,7 +40,7 @@
         </ComboBox>
         <ComboBox Grid.Column="2" x:Name="cbbCounty" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                   ItemsSource="{Binding Path=SelectedItem.Children,ElementName=cbbCity}"
-                  DisplayMemberPath="Name" SelectedValuePath="AreaCode" Text="{Binding Path=County,Mode=TwoWay}"  SelectedValue="{Binding Path=CountyCode,Mode=TwoWay}" >
+                  DisplayMemberPath="Name" SelectedValuePath="AreaCode" Text="{Binding Path=SelectedCounty,Mode=TwoWay}"  SelectedValue="{Binding Path=SelectedCountyCode,Mode=TwoWay}" >
             <materialDesign:HintAssist.Hint >
                 <StackPanel Orientation="Horizontal" >
                     <materialDesign:PackIcon Kind="AlphaDBox" />

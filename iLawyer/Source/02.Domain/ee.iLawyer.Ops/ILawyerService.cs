@@ -1,19 +1,19 @@
-﻿using ee.iLawyer.Db.Entities;
+﻿using ee.Core.Data;
+using ee.Core.DataAccess;
+using ee.Core.DataAccess.Repository;
+using ee.Core.Exceptions;
+using ee.Core.Framework;
+using ee.Core.Framework.Schema;
 using ee.iLawyer.Ops.Contact.Args;
 using ee.iLawyer.Ops.Contact.Args.SystemManagement;
 using ee.iLawyer.Ops.Contact.AutoMapper;
 using ee.iLawyer.Ops.Contact.Interfaces;
-using ee.Core.DataAccess;
-using ee.Core.DataAccess.Repository;
 using NHibernate.Criterion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using ee.Core.Framework.Schema;
-using ee.Core.Framework;
-using ee.Core.Exceptions;
-using ee.Core.Data;
+
 
 namespace ee.iLawyer.Ops
 {
@@ -109,7 +109,7 @@ namespace ee.iLawyer.Ops
                                var tree = RecursionUtility.GetTree<Db.Entities.Foundation.Area, string>(query.Item1);
 
 
-                               response.QueryList = tree.Select(DtoConverter.Convert).ToList();
+                               response.QueryList = tree.Select(DtoConverter.Mapper.Map<Contact.DTO.Area>).ToList();
                            }
                        }
                        return response;
@@ -151,7 +151,7 @@ namespace ee.iLawyer.Ops
                            if (query.Item1.Any())
                            {
                                var tree = RecursionUtility.GetTree<Db.Entities.Foundation.Picklist, int?>(query.Item1);
-                               response.QueryList = tree.Select(DtoConverter.ConvertToProjectCategory).ToList();
+                               response.QueryList = tree.Select(DtoConverter.Mapper.Map<Contact.DTO.ProjectCategory>).ToList();
                            }
                        }
                        return response;
@@ -173,7 +173,7 @@ namespace ee.iLawyer.Ops
                            if (query.Item1.Any())
                            {
                                var tree = RecursionUtility.GetTree<Db.Entities.Foundation.Picklist, int?>(query.Item1);
-                               response.QueryList = tree.Select(DtoConverter.ConvertToProjectCause).ToList();
+                               response.QueryList = tree.Select(DtoConverter.Mapper.Map<Contact.DTO.ProjectCause>).ToList();
                            }
                        }
 
@@ -202,7 +202,7 @@ namespace ee.iLawyer.Ops
                           if (query.Item1.Any())
                           {
                               var tree = RecursionUtility.GetTree<Db.Entities.Foundation.Picklist, int?>(query.Item1);
-                              response.QueryList = (string.IsNullOrEmpty(req.Code) ? tree?.ToList() : tree?.Where(x => x.Code == request.Code))?.Select(DtoConverter.ConvertToPropertyPicker).ToList();
+                              response.QueryList = (string.IsNullOrEmpty(req.Code) ? tree?.ToList() : tree?.Where(x => x.Code == request.Code))?.Select(DtoConverter.Mapper.Map<Contact.DTO.PropertyPicker>).ToList();
                           }
 
                       }
@@ -276,8 +276,15 @@ namespace ee.iLawyer.Ops
                           {
                               throw new EeException(ErrorCodes.IllegalStatus, "The status of user is illegal.");
                           }
+                          //DON't do that because that code will insert rows into database.
+                          //if (user.IsAdmin)
+                          //{
+                          //    user.Permissions = repo.Query<Db.Entities.RBAC.SysModule>()?.ToList();
+                          //    user. PermissionGroups = repo.Query<Db.Entities.RBAC.SysPermissionGroup>().ToList();
+                          //}
+                          response.Object = DtoConverter.Mapper.Map<Contact.DTO.SystemManagement.User>(user);
 
-                          response.Object = DtoConverter.Convert(user);
+
 
                           user.LastLoginTime = DateTime.Now;
                           repo.Update(user);
@@ -344,8 +351,8 @@ namespace ee.iLawyer.Ops
                                  addedPermissionIds = req.PermissionIds.Except(user.Permissions.Select(x => x.Id)).ToList();
                                  removedPermissionGroupIds = user.PermissionGroups.Select(x => x.Id.Value).Except(req.PermissionGroupIds).ToList();
                                  addedPermissionGroupIds = req.PermissionGroupIds.Except(user.PermissionGroups.Select(x => x.Id.Value)).ToList();
-                                 removedPermissionRestrictionIds = user.Restrictions.Select(x => x.Id).Except(req.PermissionRestrictionIds).ToList();
-                                 addedPermissionRestrictionIds = req.PermissionRestrictionIds.Except(user.Restrictions.Select(x => x.Id)).ToList();
+                                 removedPermissionRestrictionIds = user.PermissionRestrictions.Select(x => x.Id).Except(req.PermissionRestrictionIds).ToList();
+                                 addedPermissionRestrictionIds = req.PermissionRestrictionIds.Except(user.PermissionRestrictions.Select(x => x.Id)).ToList();
                                  break;
                              case Contact.OperatePattern.Increase:
                                  addedRoleIds = req.RoleIds.ToList();
@@ -426,7 +433,7 @@ namespace ee.iLawyer.Ops
 
                          if (removedPermissionRestrictionIds.Any())
                          {
-                             user.Restrictions.RemoveWhere(x => removedPermissionRestrictionIds.Contains(x.Id));
+                             user.PermissionRestrictions.RemoveWhere(x => removedPermissionRestrictionIds.Contains(x.Id));
                          }
                          if (addedPermissionRestrictionIds.Any())
                          {
@@ -437,7 +444,7 @@ namespace ee.iLawyer.Ops
                              var addedPermissionRestrictions = repo.Query<Db.Entities.RBAC.SysModule>(queryCriterions);
                              if (addedPermissionRestrictions != null && addedPermissionRestrictions.Any())
                              {
-                                 user.Restrictions.AddRangeIfNotContains(addedPermissionRestrictions.ToArray());
+                                 user.PermissionRestrictions.AddRangeIfNotContains(addedPermissionRestrictions.ToArray());
                              }
                          }
                          #endregion
@@ -606,7 +613,7 @@ namespace ee.iLawyer.Ops
                        using (var repo = new NhEntityRepository<Db.Entities.Court>())
                        {
                            var entity = repo.GetById(request.Id);
-                           response.Object = DtoConverter.Convert(entity);
+                           response.Object = DtoConverter.Mapper.Map<Contact.DTO.Court>(entity);
                        }
                        return response;
                    }
@@ -680,7 +687,7 @@ namespace ee.iLawyer.Ops
                            response.Total = query.Item2;
                            if (query.Item1.Any())
                            {
-                               response.QueryList = query.Item1.ToList().Select(DtoConverter.Convert).ToList();
+                               response.QueryList = query.Item1.ToList().Select(DtoConverter.Mapper.Map<Contact.DTO.Court>).ToList();
                            }
                        }
                        return response;
@@ -776,7 +783,7 @@ namespace ee.iLawyer.Ops
                        using (var repo = new NhEntityRepository<Db.Entities.Judge>())
                        {
                            var entity = repo.GetById(request.Id);
-                           response.Object = DtoConverter.Convert(entity);
+                           response.Object = DtoConverter.Mapper.Map<Contact.DTO.Judge>(entity);
                        }
                        return response;
                    }
@@ -842,7 +849,7 @@ namespace ee.iLawyer.Ops
                            response.Total = query.Item2;
                            if (query.Item1.Any())
                            {
-                               response.QueryList = query.Item1.ToList().Select(DtoConverter.Convert).ToList();
+                               response.QueryList = query.Item1.ToList().Select(DtoConverter.Mapper.Map<Contact.DTO.Judge>).ToList();
                            }
                        }
                        return response;
@@ -879,10 +886,10 @@ namespace ee.iLawyer.Ops
                                CreateTime = now,
 
                            };
-                           var properties = new List<ClientProperties>();
+                           var properties = new List<Db.Entities.ClientProperties>();
                            foreach (var p in req.Properties)
                            {
-                               var clientPropertyItem = new ClientProperties()
+                               var clientPropertyItem = new Db.Entities.ClientProperties()
                                {
                                    CreateTime = now,
                                    Value = p.Value,
@@ -929,7 +936,7 @@ namespace ee.iLawyer.Ops
                                foreach (var item in toRemove.ToList())
                                {
                                    client.Properties.Remove(item);
-                                   var clientPropertyItem = repo.GetById<ClientProperties>(item.Id);
+                                   var clientPropertyItem = repo.GetById<Db.Entities.ClientProperties>(item.Id);
                                    if (clientPropertyItem != null)
                                    {
                                        repo.Delete(clientPropertyItem);
@@ -963,7 +970,7 @@ namespace ee.iLawyer.Ops
                                //add
                                else
                                {
-                                   var clientPropertyItem = new ClientProperties()
+                                   var clientPropertyItem = new Db.Entities.ClientProperties()
                                    {
                                        CreateTime = now,
                                        Value = p.Value,
@@ -1012,7 +1019,7 @@ namespace ee.iLawyer.Ops
                        using (var repo = new NhEntityRepository<Db.Entities.Client>())
                        {
                            var entity = repo.GetById(request.Id);
-                           response.Object = DtoConverter.Convert(entity);
+                           response.Object = DtoConverter.Mapper.Map<Contact.DTO.Client>(entity);
                        }
                        return response;
                    }
@@ -1051,7 +1058,7 @@ namespace ee.iLawyer.Ops
                            response.Total = query.Item2;
                            if (query.Item1.Any())
                            {
-                               response.QueryList = query.Item1.ToList().Select(DtoConverter.Convert).ToList();
+                               response.QueryList = query.Item1.ToList().Select(DtoConverter.Mapper.Map<Contact.DTO.Client>).ToList();
                            }
                        }
                        return response;
@@ -1090,7 +1097,7 @@ namespace ee.iLawyer.Ops
                                Owner = repo.GetById<Db.Entities.RBAC.SysUser>(req.OwnerId),
                                CreateTime = now,
                            };
-                           project.AddAccount(DtoConverter.Convert(req.Account));
+                           project.AddAccount(DtoConverter.Mapper.Map<Db.Entities.ProjectAccount>(req.Account));
 
                            var involvedClients = new List<Db.Entities.ProjectClient>();
                            var todoList = new List<Db.Entities.ProjectTodoItem>();
@@ -1106,7 +1113,7 @@ namespace ee.iLawyer.Ops
                                        var existedClient = repo.GetById<Db.Entities.Client>(id);
                                        if (existedClient != null)
                                        {
-                                           var projectClient = new ProjectClient()
+                                           var projectClient = new Db.Entities.ProjectClient()
                                            {
                                                Id = 0,
                                                InProject = project,
@@ -1158,7 +1165,7 @@ namespace ee.iLawyer.Ops
                            project.DealDate = req.DealDate;
                            project.UpdateTime = DateTime.Now;
 
-                           project.UpdateAccount(DtoConverter.Convert(req.Account));
+                           project.UpdateAccount(DtoConverter.Mapper.Map<Db.Entities.ProjectAccount>(req.Account));
 
                            project.Category = repo.GetById<Db.Entities.Foundation.Picklist>(req.CategoryCode);
                            project.Owner = repo.GetById<Db.Entities.RBAC.SysUser>(req.OwnerId);

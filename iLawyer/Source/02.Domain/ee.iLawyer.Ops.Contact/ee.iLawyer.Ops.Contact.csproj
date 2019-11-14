@@ -70,6 +70,8 @@
     <Compile Include="DTO\ProjectTodoItem.cs" />
     <Compile Include="DTO\PropertyPicker.cs" />
     <Compile Include="DTO\SystemManagement\Role.cs" />
+    <Compile Include="DTO\SystemManagement\Module.cs" />
+    <Compile Include="DTO\SystemManagement\PermissionGroup.cs" />
     <Compile Include="DTO\SystemManagement\User.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Interfaces\IFoundation.cs" />

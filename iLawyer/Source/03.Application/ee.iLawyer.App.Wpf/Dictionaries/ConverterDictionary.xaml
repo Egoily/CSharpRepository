@@ -7,5 +7,5 @@
     <converters:FirstCharConverter x:Key="FirstCharConverter"/>
     <converters:NullableToVisibilityConverter x:Key="NullableToVisibilityConverter" />
     <converters:NullableToReverseVisibilityConverter x:Key="NullableToReverseVisibilityConverter" />
-
+    <converters:VisibilityConverter x:Key="VisibilityConverter" />
 </ResourceDictionary>

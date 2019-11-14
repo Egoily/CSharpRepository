@@ -20,7 +20,7 @@ namespace ee.iLawyer.App.Wpf.ViewModels
     [AddINotifyPropertyChangedInterface]
     [BizModule(1,"Root", "法院管理", "法院管理", "", typeof(ManageCourt))]
     [Ioc(null, false, true)]
-    public class CourtViewModel : AbstractViewModel
+    public class CourtViewModel : AbstractDataManipulationViewModel
     {
         private ILawyerServiceProvider serviceProvider;
         public ObservableCollection<Court> Courts { get; set; }
@@ -175,9 +175,9 @@ namespace ee.iLawyer.App.Wpf.ViewModels
             Cacher.UpdateCourts();
         }
 
-        public override void DeleteItem(object sender, DialogClosingEventArgs eventArgs)
+        public override void DeleteItem(object sender, EventArgs args)
         {
-
+            var eventArgs = args as DialogClosingEventArgs;
             if (!Equals(eventArgs.Parameter, true))
             {
                 return;

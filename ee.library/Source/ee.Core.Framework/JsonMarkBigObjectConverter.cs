@@ -62,7 +62,7 @@ namespace ee.Core.Framework
 
 
             var type = value.GetType();
-            if (type.IsAnsiClass)
+            if (!type.IsPrimitive && !type.Equals(typeof(string)))
             {
                 if (value is Array)
                 {

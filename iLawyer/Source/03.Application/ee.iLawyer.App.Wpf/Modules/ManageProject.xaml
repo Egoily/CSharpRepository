@@ -6,6 +6,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:modules="clr-namespace:ee.iLawyer.App.Wpf.Modules"
+             xmlns:serviceProvider="clr-namespace:ee.iLawyer.ServiceProvider;assembly=ee.iLawyer.ServiceProvider"
              mc:Ignorable="d" 
              DataContext="{Binding Source={StaticResource Locator},Path=Project}"
              >
@@ -15,8 +16,14 @@
         </DockPanel.Resources>
 
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-            <Button Name="btnAdd" Content="新增" Command="{Binding NewCommand}"/>
-            <Button x:Name="btnQuery" Content="查询" Command="{Binding QueryCommand}" Margin="10,0,0,0"/>
+            <Button x:Name="btnAdd"
+                    Content="新增" 
+                    Visibility="{Binding Source={x:Static serviceProvider:Cacher.CurrentResources},Converter={StaticResource VisibilityConverter}, ConverterParameter=root.project.new}"
+                    Command="{Binding NewCommand}"/>
+            <Button x:Name="btnQuery" 
+                    Content="查询" 
+                     Visibility="{Binding Source={x:Static serviceProvider:Cacher.CurrentResources},Converter={StaticResource VisibilityConverter}, ConverterParameter=root.project.query}"
+                    Command="{Binding QueryCommand}" Margin="10,0,0,0"/>
         </StackPanel>
         <DataGrid 
             ItemsSource="{Binding Projects}" 

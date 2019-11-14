@@ -1,18 +1,18 @@
-﻿using MaterialDesignThemes.Wpf;
-using System.Windows.Input;
+﻿using ee.Core.Framework.Schema;
 using ee.Core.Wpf.Designs;
-using ee.Core.Framework.Schema;
+using System;
+using System.Windows.Input;
 
 namespace ee.iLawyer.App.Wpf.ViewModels
 {
-    public abstract class AbstractViewModel: IViewModel
+    public abstract class AbstractDataManipulationViewModel : IViewModel
     {
         public virtual ICommand QueryCommand => new RelayCommand<object>(ExecuteQueryCommand);
         public virtual ICommand NewCommand => new RelayCommand<object>(ExecuteNewCommandAsync);
         public virtual ICommand EditCommand => new RelayCommand<object>(ExecuteEditCommandAsync);
         public virtual ICommand DeleteCommand => new RelayCommand<object>(ExecuteDeleteCommand);
 
-        public AbstractViewModel()
+        public AbstractDataManipulationViewModel()
         {
         }
 
@@ -26,7 +26,7 @@ namespace ee.iLawyer.App.Wpf.ViewModels
         public abstract void ExecuteEditCommandAsync(object o);
         public abstract void ExecuteDeleteCommand(object o);
 
-        public abstract void DeleteItem(object sender, DialogClosingEventArgs eventArgs);
+        public abstract void DeleteItem(object sender, EventArgs eventArgs);
 
         public virtual void ExecuteQueryCommand(object o)
         {

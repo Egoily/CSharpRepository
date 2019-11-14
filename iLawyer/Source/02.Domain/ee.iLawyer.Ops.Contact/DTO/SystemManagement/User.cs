@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using AutoMapper.Configuration.Annotations;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ee.iLawyer.Ops.Contact.DTO.SystemManagement
 {
@@ -32,19 +34,53 @@ namespace ee.iLawyer.Ops.Contact.DTO.SystemManagement
         /// </summary>
         public virtual int Status { get; set; }
         /// <summary>
+        /// 是否是超级管理员
+        /// </summary>
+        public virtual bool IsAdmin { get; set; }
+        /// <summary>
         /// 创建时间
         /// </summary>
         public virtual DateTime CreateTime { get; set; }
         /// <summary>
-        /// 
+        /// 更新时间
         /// </summary>
         public virtual DateTime? UpdateTime { get; set; }
-
+        /// <summary>
+        /// 是否需要重置密码
+        /// </summary>
         public virtual bool NeedResetPwd { get; set; }
-
+        /// <summary>
+        /// 所属角色
+        /// </summary>
         public virtual IList<Role> Roles { get; set; }
 
 
-        public virtual IList<string> Resources { get; set; }
+        /// <summary>
+        /// 拥有或限制的私人权限(限制的权限优先级高于拥有的相同权限)
+        /// </summary>
+        [ValueResolver(typeof(AutoMapper.UserPermissionsValueResolver))]
+        public virtual IList<Module> Permissions { get; set; }
+
+        /// <summary>
+        /// 拥有或限制的权限组(限制的权限组优先级高于拥有的相同的权限组)
+        /// </summary>
+        [ValueResolver(typeof(AutoMapper.UserPermissionGroupsValueResolver))]
+        public virtual IList<PermissionGroup> PermissionGroups { get; set; }
+
+
+
+        /// <summary>
+        /// 资源,用于控制权限
+        /// </summary>
+        public virtual IList<string> Resources
+        {
+            get
+            {
+                var resources = Permissions?.Where(x => x.IsDisabled == true)?.Select(x => x.Code)
+                    .Union(PermissionGroups?.Where(x => x.IsDisabled == true)?.Select(x => x.Name));
+                return resources?.Distinct()?.ToList();
+            }
+        }
+
     }
 }

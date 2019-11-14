@@ -65,9 +65,9 @@ namespace ee.Core.ComponentModel
         public IList<BizModule> GetCallingAssemblyBizModules(string[] filter = null)
         {
             var allModules = GetAssemblyBizModules(Assembly.GetCallingAssembly());
-            if (filter != null && filter.Any())
+            if (filter != null)
             {
-                return allModules?.Where(x => !filter.Contains(x.MetadataToken))?.ToList();
+                return allModules?.Where(x => filter.Contains(x.MetadataToken))?.ToList();
             }
             else
             {
@@ -78,9 +78,9 @@ namespace ee.Core.ComponentModel
         public IList<BizModule> GetEntryAssemblyBizModules(string[] filter = null)
         {
             var allModules = GetAssemblyBizModules(Assembly.GetEntryAssembly());
-            if (filter != null && filter.Any())
+            if (filter != null)
             {
-                return allModules?.Where(x => !filter.Contains(x.MetadataToken))?.ToList();
+                return allModules?.Where(x => filter.Contains(x.MetadataToken))?.ToList();
             }
             else
             {

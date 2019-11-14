@@ -52,6 +52,7 @@
     <Compile Include="Converters\EnumDicItemsSourceConverter.cs" />
     <Compile Include="Converters\EnumItemsSourceConverter.cs" />
     <Compile Include="Converters\ValueConverter.cs" />
+    <Compile Include="Designs\AbstractDataManipulationViewModel.cs" />
     <Compile Include="Designs\Command\CommandImpl.cs" />
     <Compile Include="Designs\Command\ReactiveRelayCommand.cs" />
     <Compile Include="Designs\Command\RelayCommand.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="Designs\IView.cs" />
     <Compile Include="Designs\RequiredValidationRule.cs" />
     <Compile Include="Designs\WatermarkBehavior.cs" />
+    <Compile Include="Designs\WindowAttachedBehavior.cs" />
     <Compile Include="ExControls\ButtonEx.cs" />
     <Compile Include="ExControls\CircularProgressBar.xaml.cs">
       <DependentUpon>CircularProgressBar.xaml</DependentUpon>
@@ -140,6 +142,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ee.Core.Framework\ee.Core.Framework.csproj">
+      <Project>{7D3D1F1D-973E-464A-9E60-B33CD0B34163}</Project>
+      <Name>ee.Core.Framework</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ee.Core\ee.Core.csproj">
       <Project>{2f4ab1c8-7d82-424d-b076-027562f9d949}</Project>
       <Name>ee.Core</Name>

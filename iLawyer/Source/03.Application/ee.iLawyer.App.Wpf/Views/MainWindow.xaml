@@ -15,7 +15,8 @@
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{StaticResource MaterialDesignFont}" Icon="favicon.ico">
+        FontFamily="{StaticResource MaterialDesignFont}" Icon="favicon.ico"
+        >
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -72,11 +73,7 @@
 
                     <DockPanel Background="AliceBlue">
 
-                        <ScrollViewer 
-                            HorizontalScrollBarVisibility="{Binding ElementName=ModuleItemsListBox, Path=SelectedItem.HorizontalScrollBarVisibilityRequirement}"
-                            VerticalScrollBarVisibility="{Binding ElementName=ModuleItemsListBox, Path=SelectedItem.VerticalScrollBarVisibilityRequirement}" 
-                            Padding="{Binding ElementName=ModuleItemsListBox, Path=SelectedItem.MarginRequirement}">
-
+                        <ScrollViewer>
                             <codedisplayer:XamlDisplayerHost Content="{Binding ElementName=ModuleItemsListBox, Path=SelectedItem.Content}" />
                         </ScrollViewer>
 

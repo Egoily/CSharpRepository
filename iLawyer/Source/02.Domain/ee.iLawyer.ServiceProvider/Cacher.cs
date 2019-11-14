@@ -4,6 +4,7 @@ using ee.iLawyer.Ops.Contact;
 using ee.iLawyer.Ops.Contact.Args;
 using ee.iLawyer.Ops.Contact.AutoMapper;
 using ee.iLawyer.Ops.Contact.DTO;
+using ee.iLawyer.Ops.Contact.DTO.SystemManagement;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,6 +14,22 @@ namespace ee.iLawyer.ServiceProvider
 {
     public static class Cacher
     {
+
+        public static User Loginer { get; set; }
+
+        public static ObservableCollection<string> CurrentResources
+        {
+            get
+            {
+                if (Loginer == null || Loginer.Resources == null)
+                {
+                    return null;
+                }
+                return new ObservableCollection<string>(Loginer?.Resources);
+            }
+        }
+
+
         /// <summary>
         /// 过期时间
         /// </summary>

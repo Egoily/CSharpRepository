@@ -2,6 +2,8 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MessengerRegisterView" Height="300" Width="300"
+        xmlns:designs="clr-namespace:ee.Core.Wpf.Designs;assembly=ee.Core.Wpf"
+        designs:WindowAttachedBehavior.IsCloseView="{Binding IsCloseView}"
         DataContext="{Binding Source={StaticResource Locator},Path=MessengerRegister}">
     <Grid>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" >
@@ -11,7 +13,8 @@
 
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="15,15,0,0" >
         <Button Content="打开子窗口" Command="{Binding ShowSenderWindow}" ></Button>
-        </StackPanel>
+        <Button Content="关闭子窗口" Command="{Binding CloseSenderWindow}" ></Button>
+            </StackPanel>
         </StackPanel>
 
     </Grid>

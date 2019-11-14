@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ee.Core.Http
 {
@@ -144,6 +145,60 @@ namespace ee.Core.Http
             return request.GetResponse() as HttpWebResponse;
         }
 
+        public static async Task<HttpWebResponse> RequestAsync(HttpRequestMethod method, string uri, string para = null, string body = null, int? timeout = null, MediaType mediaType = MediaType.Json, Encoding encoding = null, string userAgent = null, CookieCollection cookies = null)
+        {
+            if (string.IsNullOrEmpty(uri))
+            {
+                throw new ArgumentNullException("uri");
+            }
+            if (para != null)
+            {
+                uri = uri.Contains('?') ? uri.Trim('&') : uri + "?";
+                uri += para.Trim('&');
+            }
+
+            HttpWebRequest request = null;
+
+            if (uri.ToLower().StartsWith("https", StringComparison.OrdinalIgnoreCase))
+            {
+                ServicePointManager.ServerCertificateValidationCallback =
+                    new RemoteCertificateValidationCallback(CheckValidationResult);
+                request = WebRequest.Create(uri) as HttpWebRequest;
+                request.ProtocolVersion = HttpVersion.Version10;
+            }
+            else
+            {
+                request = WebRequest.Create(uri) as HttpWebRequest;
+            }
+            request.Method = method.ToString();
+            request.ContentType = ToContentTypeString(mediaType);
+            request.UserAgent = !string.IsNullOrEmpty(userAgent) ? userAgent : DefaultUserAgent;
+            request.Timeout = timeout ?? 0;
+
+            if (cookies != null)
+            {
+                request.CookieContainer = new CookieContainer();
+                request.CookieContainer.Add(cookies);
+            }
+
+            if (!string.IsNullOrEmpty(body))
+            {
+                if (encoding == null)
+                {
+                    encoding = Encoding.UTF8;
+                }
+                byte[] data = encoding.GetBytes(body);
+                using (Stream stream = request.GetRequestStream())
+                {
+                    stream.Write(data, 0, data.Length);
+                }
+            }
+            else
+            {
+                request.ContentLength = 0;
+            }
+            return await request.GetResponseAsync() as HttpWebResponse;
+        }
 
 
 
@@ -151,10 +206,17 @@ namespace ee.Core.Http
         {
             return Request(HttpRequestMethod.GET, uri, para, null, timeout, MediaType.XWwwFormUrlencoded, encoding, userAgent, cookies);
         }
-
+        public static async Task<HttpWebResponse> GetAsync(string uri, string para = null, int? timeout = null, Encoding encoding = null, string userAgent = null, CookieCollection cookies = null)
+        {
+            return await RequestAsync(HttpRequestMethod.GET, uri, para, null, timeout, MediaType.XWwwFormUrlencoded, encoding, userAgent, cookies);
+        }
         public static HttpWebResponse Post(string uri, string para = null, string body = null, int? timeout = null, MediaType mediaType = MediaType.Json, Encoding encoding = null, string userAgent = null, CookieCollection cookies = null)
         {
             return Request(HttpRequestMethod.POST, uri, para, body, timeout, mediaType, encoding, userAgent, cookies);
+        }
+        public static async Task<HttpWebResponse> PostAsync(string uri, string para = null, string body = null, int? timeout = null, MediaType mediaType = MediaType.Json, Encoding encoding = null, string userAgent = null, CookieCollection cookies = null)
+        {
+            return await RequestAsync(HttpRequestMethod.POST, uri, para, body, timeout, mediaType, encoding, userAgent, cookies);
         }
 
 
@@ -162,6 +224,13 @@ namespace ee.Core.Http
         public static string GetToString(string uri, string para = null, int? timeout = null, Encoding encoding = null, string userAgent = null, CookieCollection cookies = null)
         {
             using (var response = Get(uri, para, timeout, encoding, userAgent, cookies))
+            {
+                return ToString(response);
+            }
+        }
+        public static async Task<string> GetToStringAsync(string uri, string para = null, int? timeout = null, Encoding encoding = null, string userAgent = null, CookieCollection cookies = null)
+        {
+            using (var response = await GetAsync(uri, para, timeout, encoding, userAgent, cookies))
             {
                 return ToString(response);
             }
@@ -174,7 +243,13 @@ namespace ee.Core.Http
                 return ToString(response);
             }
         }
-
+        public static async Task<string> PostToStringAsync(string uri, string para = null, string body = null, int? timeout = null, MediaType mediaType = MediaType.Json, Encoding encoding = null, string userAgent = null, CookieCollection cookies = null)
+        {
+            using (var response = await PostAsync(uri, para, body, timeout, mediaType, encoding, userAgent, cookies))
+            {
+                return ToString(response);
+            }
+        }
 
 
 

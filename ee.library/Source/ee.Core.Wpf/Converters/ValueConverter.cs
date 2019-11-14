@@ -1,7 +1,10 @@
 ﻿using ee.Core.Wpf.Helpers;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Globalization;
+using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 
@@ -249,4 +252,77 @@ namespace ee.Core.Wpf.Converters
             return Binding.DoNothing;
         }
     }
+
+
+    public class VisibilityConverter : IValueConverter
+    {
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null || parameter == null)
+            {
+                return Visibility.Visible;
+            }
+
+            if (value is string)
+            {
+                if ((string)value == "Visible")
+                {
+                    return Visibility.Visible;
+                }
+                else
+                {
+                    return Visibility.Collapsed;
+                }
+            }
+            else if (value is IList<string>)
+            {
+                if ((value as IList<string>).Contains(parameter.ToString()))
+                {
+                    return Visibility.Visible;
+                }
+                else
+                {
+                    return Visibility.Collapsed;
+                }
+            }
+            else if (value is string[])
+            {
+
+                if ((value as string[]).ToList().Contains(parameter.ToString()))
+                {
+                    return Visibility.Visible;
+                }
+                else
+                {
+                    return Visibility.Collapsed;
+                }
+            }
+            else if (value is ObservableCollection<string>)
+            {
+
+                if ((value as ObservableCollection<string>).Contains(parameter.ToString()))
+                {
+                    return Visibility.Visible;
+                }
+                else
+                {
+                    return Visibility.Collapsed;
+                }
+            }
+
+            else
+            {
+                return Visibility.Visible;
+            }
+        }
+
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return Binding.DoNothing;
+        }
+    }
+
+
 }

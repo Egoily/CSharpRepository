@@ -1,14 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using CodeDisplayer;
+using ee.Core.Framework.Messaging;
+using ee.iLawyer.App.Wpf.ViewModels;
+using ee.iLawyer.ServiceProvider;
+using MaterialDesignThemes.Wpf;
+using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
-using CodeDisplayer;
-using MaterialDesignThemes.Wpf;
-using System.IO;
-using ee.iLawyer.ServiceProvider;
-using ee.iLawyer.App.Wpf.ViewModels;
 
 namespace ee.iLawyer.App.Wpf.Views
 {
@@ -18,9 +19,16 @@ namespace ee.iLawyer.App.Wpf.Views
     public partial class MainWindow : Window
     {
         public static Snackbar Snackbar;
+
+     
+
         public MainWindow()
         {
             InitializeComponent();
+
+
+          
+
             var sourceLocation = File.Exists(@"..\..\Views\MainWindow.xaml") ? XamlDisplayerPanel.SourceEnum.LoadFromLocal : XamlDisplayerPanel.SourceEnum.LoadFromRemote;
 
             XamlDisplayerPanel.Initialize(
@@ -48,16 +56,20 @@ namespace ee.iLawyer.App.Wpf.Views
 
             Snackbar = this.MainSnackbar;
 
- 
         }
-     
+ 
+
         private void UIElement_OnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             //until we had a StaysOpen glag to Drawer, this will help with scroll bars
             var dependencyObject = Mouse.Captured as DependencyObject;
             while (dependencyObject != null)
             {
-                if (dependencyObject is ScrollBar) return;
+                if (dependencyObject is ScrollBar)
+                {
+                    return;
+                }
+
                 dependencyObject = VisualTreeHelper.GetParent(dependencyObject);
             }
 
@@ -68,5 +80,7 @@ namespace ee.iLawyer.App.Wpf.Views
         {
 
         }
+
+
     }
 }

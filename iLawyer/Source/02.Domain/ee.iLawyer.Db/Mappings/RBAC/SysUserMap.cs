@@ -25,9 +25,9 @@ namespace ee.iLawyer.Db.Mappings.RBAC
 
             HasManyToMany(x => x.Roles).LazyLoad().ParentKeyColumn("UserId").ChildKeyColumn("RoleId").Table("Sys_UserRole").NotFound.Ignore();
             HasManyToMany(x => x.Permissions).LazyLoad().ParentKeyColumn("UserId").ChildKeyColumn("ModuleId").Table("Sys_UserPermission").NotFound.Ignore();
-            HasManyToMany(x => x.Restrictions).LazyLoad().ParentKeyColumn("UserId").ChildKeyColumn("ModuleId").Table("Sys_UserPermissionRestriction").NotFound.Ignore();
+            HasManyToMany(x => x.PermissionRestrictions).LazyLoad().ParentKeyColumn("UserId").ChildKeyColumn("ModuleId").Table("Sys_UserPermissionRestriction").NotFound.Ignore();
             HasManyToMany(x => x.PermissionGroups).LazyLoad().ParentKeyColumn("UserId").ChildKeyColumn("PermissionGroupId").Table("Sys_UserPermissionGroup").NotFound.Ignore();
-
+            HasManyToMany(x => x.PermissionGroupRestrictions).LazyLoad().ParentKeyColumn("UserId").ChildKeyColumn("PermissionGroupId").Table("Sys_UserPermissionGroupRestriction").NotFound.Ignore();
 
         }
     }

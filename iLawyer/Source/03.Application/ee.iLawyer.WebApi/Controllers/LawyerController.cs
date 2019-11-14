@@ -1,6 +1,7 @@
 ﻿using ee.Core.Framework.Schema;
 using ee.iLawyer.Ops;
 using ee.iLawyer.Ops.Contact.Args;
+using ee.iLawyer.Ops.Contact.Args.SystemManagement;
 using System.Reflection;
 using System.Web.Http;
 
@@ -63,6 +64,63 @@ namespace ee.iLawyer.WebApi.Controllers
                   .Build();
         }
 
+        #endregion
+
+        #region * System User Management
+        [Route("sys/register"), HttpPost]
+        public BaseDataResponse Register(RegisterRequest request)
+        {
+            return ServiceProcessor.CreateProcessor<RegisterRequest, BaseDataResponse>(MethodBase.GetCurrentMethod())
+                .Input(request, true)
+                .Process(req => { return Service.Register(req); })
+                .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<BaseDataResponse>(Converters.ToBaseDataResponse))
+                .Build();
+        }
+        [Route("sys/login"), HttpPost]
+        public BaseDataResponse Login(LoginRequest request)
+        {
+            return ServiceProcessor.CreateProcessor<LoginRequest, BaseDataResponse>(MethodBase.GetCurrentMethod())
+                .Input(request, true)
+                .Process(req => { return Service.Login(req); })
+                .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<BaseDataResponse>(Converters.ToBaseDataResponse))
+                .Build();
+        }
+        [Route("sys/logout"), HttpPost]
+        public BaseDataResponse Logout(LogoutRequest request)
+        {
+            return ServiceProcessor.CreateProcessor<LogoutRequest, BaseDataResponse>(MethodBase.GetCurrentMethod())
+                .Input(request, true)
+                .Process(req => { return Service.Logout(req); })
+                .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<BaseDataResponse>(Converters.ToBaseDataResponse))
+                .Build();
+        }
+        [Route("sys/grant"), HttpPost]
+        public BaseDataResponse Grant(GrantRequest request)
+        {
+            return ServiceProcessor.CreateProcessor<GrantRequest, BaseDataResponse>(MethodBase.GetCurrentMethod())
+                .Input(request, true)
+                .Process(req => { return Service.Grant(req); })
+                .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<BaseDataResponse>(Converters.ToBaseDataResponse))
+                .Build();
+        }
+        [Route("sys/updateuser"), HttpPost]
+        public BaseDataResponse UpdateUser(UpdateUserRequest request)
+        {
+            return ServiceProcessor.CreateProcessor<UpdateUserRequest, BaseDataResponse>(MethodBase.GetCurrentMethod())
+                .Input(request, true)
+                .Process(req => { return Service.UpdateUser(req); })
+                .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<BaseDataResponse>(Converters.ToBaseDataResponse))
+                .Build();
+        }
+        [Route("sys/changepassword"), HttpPost]
+        public BaseDataResponse ChangePassword(ChangePasswordRequest request)
+        {
+            return ServiceProcessor.CreateProcessor<ChangePasswordRequest, BaseDataResponse>(MethodBase.GetCurrentMethod())
+                .Input(request, true)
+                .Process(req => { return Service.ChangePassword(req); })
+                .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<BaseDataResponse>(Converters.ToBaseDataResponse))
+                .Build();
+        }
         #endregion
 
         #region * Court

@@ -4,24 +4,6 @@
         <name>ee.iLawyer.WebApi</name>
     </assembly>
     <members>
-        <member name="M:ee.iLawyer.WebApi.Controllers.LawyerController.GetProjectCategories">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:ee.iLawyer.WebApi.Controllers.LawyerController.GetProjectCauses">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:ee.iLawyer.WebApi.Controllers.LawyerController.GetPropertyPicks(ee.iLawyer.Ops.Contact.Args.GetPropertyPicksRequest)">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:ee.iLawyer.WebApi.Controllers.InfrastructureController.GetAreas(System.Int32,System.Int32)">
             <summary>
             Gets the list of area infos
@@ -43,6 +25,24 @@
             <returns></returns>
         </member>
         <member name="M:ee.iLawyer.WebApi.Controllers.InfrastructureController.GetPropertyPicks">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ee.iLawyer.WebApi.Controllers.LawyerController.GetProjectCategories">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ee.iLawyer.WebApi.Controllers.LawyerController.GetProjectCauses">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ee.iLawyer.WebApi.Controllers.LawyerController.GetPropertyPicks(ee.iLawyer.Ops.Contact.Args.GetPropertyPicksRequest)">
             <summary>
             
             </summary>

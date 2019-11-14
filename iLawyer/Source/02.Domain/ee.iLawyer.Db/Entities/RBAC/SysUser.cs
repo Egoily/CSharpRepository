@@ -63,10 +63,14 @@ namespace ee.iLawyer.Db.Entities.RBAC
         /// <summary>
         /// 
         /// </summary>
-        public virtual IList<SysModule> Restrictions { get; set; }
+        public virtual IList<SysModule> PermissionRestrictions { get; set; }
         /// <summary>
         /// 
         /// </summary>
         public virtual IList<SysPermissionGroup> PermissionGroups { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public virtual IList<SysPermissionGroup> PermissionGroupRestrictions { get; set; }
     }
 }

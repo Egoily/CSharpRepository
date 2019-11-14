@@ -9,6 +9,11 @@ namespace ee.Core.Framework.Schema
     {
         public virtual int Code { get; set; }
         public virtual string Message { get; set; }
+
+        public virtual bool IsOk()
+        {
+            return Code == 0;
+        }
     }
 
     public class BaseDataResponse : BaseResponse
@@ -67,9 +72,9 @@ namespace ee.Core.Framework.Schema
         {
             return new BaseObjectResponse<T>()
             {
-                Code = source.Code,
-                Message = source.Message,
-                Object = JsonConvert.DeserializeObject<T>(source.Data)
+                Code = source?.Code??-1,
+                Message = source?.Message??null,
+                Object = JsonConvert.DeserializeObject<T>(source?.Data??"")
             };
         }
         public static BaseDataResponse ToBaseDataResponse<T>(this BaseQueryResponse<T> source)

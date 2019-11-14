@@ -1,13 +1,16 @@
 ﻿using ee.Core.Framework.Schema;
 using ee.Core.Http;
 using ee.iLawyer.Ops.Contact.Args;
+using ee.iLawyer.Ops.Contact.Args.SystemManagement;
 using ee.iLawyer.Ops.Contact.DTO;
+using ee.iLawyer.Ops.Contact.DTO.SystemManagement;
 using ee.iLawyer.Ops.Contact.Interfaces;
 using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 namespace ee.iLawyer.ServiceProvider
 {
-    public class ILawyerServiceProvider : IILawyerService
+    public class ILawyerServiceProvider : IILawyerService, IFoundation, ISystemUserManagement
     {
         public string EndPoint = @"http://localhost:2155";
 
@@ -16,6 +19,19 @@ namespace ee.iLawyer.ServiceProvider
             var uri = EndPoint + resource;
             var response = HttpInvoker.PostToString(uri, null, JsonConvert.SerializeObject(request), timeout);
             return JsonConvert.DeserializeObject<BaseDataResponse>(response);
+        }
+        private Task<BaseDataResponse> ProcessAsync(string resource, BaseRequest request, int? timeout = 10 * 1000)
+        {
+            var uri = EndPoint + resource;
+
+            return Task.Run(() =>
+            {
+                var response =  HttpInvoker.PostToString(uri, null, JsonConvert.SerializeObject(request), timeout);
+                return JsonConvert.DeserializeObject<BaseDataResponse>(response);
+            });
+
+
+           
         }
         public BaseResponse CreateClient(CreateClientRequest request)
         {
@@ -169,6 +185,42 @@ namespace ee.iLawyer.ServiceProvider
         public BaseResponse UpdateProject(UpdateProjectRequest request)
         {
             var resource = @"/api/lawyer/project/update";
+            return Process(resource, request);
+        }
+
+        public BaseResponse Register(RegisterRequest request)
+        {
+            var resource = @"/api/lawyer/sys/register";
+            return Process(resource, request);
+        }
+
+        public BaseObjectResponse<User> Login(LoginRequest request)
+        {
+            var resource = @"/api/lawyer/sys/login";
+            return Process(resource, request).ToBaseObjectResponse<User>();
+        }
+
+        public BaseResponse Logout(LogoutRequest request)
+        {
+            var resource = @"/api/lawyer/sys/logout";
+            return Process(resource, request);
+        }
+
+        public BaseResponse Grant(GrantRequest request)
+        {
+            var resource = @"/api/lawyer/sys/grant";
+            return Process(resource, request);
+        }
+
+        public BaseResponse UpdateUser(UpdateUserRequest request)
+        {
+            var resource = @"/api/lawyer/sys/updateuser";
+            return Process(resource, request);
+        }
+
+        public BaseResponse ChangePassword(ChangePasswordRequest request)
+        {
+            var resource = @"/api/lawyer/sys/changepassword";
             return Process(resource, request);
         }
     }

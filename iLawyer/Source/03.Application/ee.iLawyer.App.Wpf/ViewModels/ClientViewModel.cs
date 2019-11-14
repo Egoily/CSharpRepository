@@ -21,7 +21,7 @@ namespace ee.iLawyer.App.Wpf.ViewModels
     [AddINotifyPropertyChangedInterface] 
     [BizModule(3,"Root", "客户管理", "客户管理", "", typeof(ManageClient))]
     [Ioc(null,false,true)]
-    public class ClientViewModel : AbstractViewModel
+    public class ClientViewModel : AbstractDataManipulationViewModel
     {
         private ILawyerServiceProvider serviceProvider;
         public ObservableCollection<Client> Clients { get; protected set; }
@@ -176,9 +176,9 @@ namespace ee.iLawyer.App.Wpf.ViewModels
             Query();
         }
 
-        public override void DeleteItem(object sender, DialogClosingEventArgs eventArgs)
+        public override void DeleteItem(object sender, EventArgs args)
         {
-
+            var eventArgs = args as DialogClosingEventArgs;
             if (!Equals(eventArgs.Parameter, true))
             {
                 return;

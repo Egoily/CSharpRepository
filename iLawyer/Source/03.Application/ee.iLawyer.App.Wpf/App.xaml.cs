@@ -30,7 +30,7 @@ namespace ee.iLawyer.App.Wpf
 
             var window = CreateInstance<Window>(windowName);
 
-            window?.ShowDialog();
+            window?.Show();
         }
 
         private T CreateInstance<T>(string typeName)

@@ -9,7 +9,6 @@
         xmlns:designs="clr-namespace:ee.Core.Wpf.Designs;assembly=ee.Core.Wpf"
         mc:Ignorable="d"
         designs:WindowAttachedBehavior.IsCloseView="{Binding IsCloseView}"
-        designs:WindowAttachedBehavior.IsHideView="{Binding IsHideView}"
         Title="iLawyer"
         Height="450"  Width="800" WindowStyle="None" 
         WindowStartupLocation="CenterScreen"  

@@ -7,6 +7,7 @@ using ee.iLawyer.Ops.Contact.Args.SystemManagement;
 using ee.iLawyer.Ops.Contact.DTO.SystemManagement;
 using ee.iLawyer.ServiceProvider;
 using PropertyChanged;
+using System;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -102,7 +103,7 @@ namespace ee.iLawyer.App.Wpf.ViewModels
                     };
                     response = serviceProvider.Login(request);
                 });
-                ;
+                
                 var timeouttask = Task.Delay(3000);
                 var completedTask = await Task.WhenAny(LoginTask, timeouttask);
                 if (completedTask == timeouttask)
@@ -119,7 +120,12 @@ namespace ee.iLawyer.App.Wpf.ViewModels
                         this.Report = "加载用户信息 . . .";
                         Cacher.Loginer = response.Object;
                         Success = true;
-                        Messenger.Default.Send("MainWindow", "ShowView");
+
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            Messenger.Default.Send("MainWindow", "ShowView");
+                        });
+
                         ExcuteCloseViewCommand();
                     }
                     else

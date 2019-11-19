@@ -6,6 +6,13 @@ namespace ee.iLawyer.Ops.Contact.Interfaces
 {
     public interface ISystemUserManagement
     {
+
+
+        BaseQueryResponse<PermissionModule> GetPermissionModules(BaseRequest request);
+        BaseQueryResponse<Role> GetRoles(GetRolesRequest request);
+        BaseQueryResponse<User> QueryUser(QueryUserRequest request);
+
+
         BaseResponse Register(RegisterRequest request);
         BaseObjectResponse<User> Login(LoginRequest request);
         BaseResponse Logout(LogoutRequest request);

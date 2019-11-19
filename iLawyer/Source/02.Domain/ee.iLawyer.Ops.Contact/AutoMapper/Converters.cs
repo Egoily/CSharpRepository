@@ -52,64 +52,24 @@ namespace ee.iLawyer.Ops.Contact.AutoMapper
 
 
 
-    public class UserResourcesValueResolver : IValueResolver<Db.Entities.RBAC.SysUser, DTO.SystemManagement.User, IList<string>>
+    public class UserPermissionsValueResolver : IValueResolver<Db.Entities.RBAC.SysUser, DTO.SystemManagement.User, IList<PermissionModule>>
     {
-        public IList<string> Resolve(SysUser source, User destination, IList<string> destMember, ResolutionContext context)
+        public IList<PermissionModule> Resolve(SysUser source, User destination, IList<PermissionModule> destMember, ResolutionContext context)
         {
-            var resources = (from c in source.Permissions select (c.Code))
-                .Union(from c in source.Roles.SelectMany(x => x.Permissions) select (c.Code))
-                .Except(from c in source.PermissionRestrictions select (c.Code));
-            return resources?.Distinct()?.ToList();
-        }
-    }
-    public class PermissionGroupsValueResolver : IValueResolver<Db.Entities.RBAC.SysUser, DTO.SystemManagement.User, IList<string>>
-    {
-        public IList<string> Resolve(SysUser source, User destination, IList<string> destMember, ResolutionContext context)
-        {
-            var permissionGroups = source.PermissionGroups.Select(x => x.Name);
-            return permissionGroups?.Distinct()?.ToList();
-        }
-    }
+            var result = new List<PermissionModule>();
+            var permissions = source?.PermissionModules.Union(source?.Roles?.SelectMany(x => x.PermissionModules));
 
+            var permissionRestrictions = source?.Restrictions;
 
-
-
-
-
-
-    public class UserPermissionsValueResolver : IValueResolver<Db.Entities.RBAC.SysUser, DTO.SystemManagement.User, IList<Module>>
-    {
-        public IList<Module> Resolve(SysUser source, User destination, IList<Module> destMember, ResolutionContext context)
-        {
-            var result = new List<Module>();
-            var permissions = source?.Permissions.Union(source?.Roles?.SelectMany(x => x.Permissions));
-
-            var permissionRestrictions = source?.PermissionRestrictions;
-
-            permissions?.Distinct()?.ToList().ForEach(x => result.Add(new Module(x, true)));
-            permissionRestrictions?.Distinct()?.ToList().ForEach(x => result.Add(new Module(x, false)));
+            permissions?.Distinct()?.ToList().ForEach(x => result.Add(new PermissionModule(x, true)));
+            permissionRestrictions?.Distinct()?.ToList().ForEach(x => result.Add(new PermissionModule(x, false)));
 
 
             return result;
         }
     }
 
-    public class UserPermissionGroupsValueResolver : IValueResolver<Db.Entities.RBAC.SysUser, DTO.SystemManagement.User, IList<PermissionGroup>>
-    {
-        public IList<PermissionGroup> Resolve(SysUser source, User destination, IList<PermissionGroup> destMember, ResolutionContext context)
-        {
-            var result = new List<PermissionGroup>();
-            var permissionGroups = source?.PermissionGroups.Union(source?.Roles?.SelectMany(x => x.PermissionGroup)); ;
 
-            var permissionGroupRestrictions = source?.PermissionGroupRestrictions;
-
-            permissionGroups?.Distinct()?.ToList().ForEach(x => result.Add(new PermissionGroup(x, true)));
-            permissionGroupRestrictions?.Distinct()?.ToList().ForEach(x => result.Add(new PermissionGroup(x, false)));
-
-
-            return result;
-        }
-    }
 
 
 

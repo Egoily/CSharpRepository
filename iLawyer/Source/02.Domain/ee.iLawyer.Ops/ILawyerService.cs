@@ -7,6 +7,7 @@ using ee.Core.Framework.Schema;
 using ee.iLawyer.Ops.Contact.Args;
 using ee.iLawyer.Ops.Contact.Args.SystemManagement;
 using ee.iLawyer.Ops.Contact.AutoMapper;
+using ee.iLawyer.Ops.Contact.DTO.SystemManagement;
 using ee.iLawyer.Ops.Contact.Interfaces;
 using NHibernate.Criterion;
 using System;
@@ -217,6 +218,21 @@ namespace ee.iLawyer.Ops
 
         #region * ISystemUserManagement
 
+        public BaseQueryResponse<PermissionModule> GetPermissionModules(BaseRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public BaseQueryResponse<Role> GetRoles(GetRolesRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public BaseQueryResponse<User> QueryUser(QueryUserRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
         public BaseResponse Register(RegisterRequest request)
         {
             return ServiceProcessor.CreateProcessor<RegisterRequest, BaseResponse>(MethodBase.GetCurrentMethod(), request)
@@ -280,7 +296,6 @@ namespace ee.iLawyer.Ops
                           //if (user.IsAdmin)
                           //{
                           //    user.Permissions = repo.Query<Db.Entities.RBAC.SysModule>()?.ToList();
-                          //    user. PermissionGroups = repo.Query<Db.Entities.RBAC.SysPermissionGroup>().ToList();
                           //}
                           response.Object = DtoConverter.Mapper.Map<Contact.DTO.SystemManagement.User>(user);
 
@@ -311,15 +326,12 @@ namespace ee.iLawyer.Ops
                     }
                     if (request.PermissionIds == null)
                     {
-                        request.PermissionIds = new List<int>();
+                        request.PermissionIds = new List<string>();
                     }
-                    if (request.PermissionGroupIds == null)
-                    {
-                        request.PermissionGroupIds = new List<int>();
-                    }
+               
                     if (request.PermissionRestrictionIds == null)
                     {
-                        request.PermissionRestrictionIds = new List<int>();
+                        request.PermissionRestrictionIds = new List<string>();
                     }
                 })
                  .Process(req =>
@@ -335,35 +347,33 @@ namespace ee.iLawyer.Ops
                          }
                          var addedRoleIds = new List<int>();
                          var removedRoleIds = new List<int>();
-                         var addedPermissionIds = new List<int>();
-                         var removedPermissionIds = new List<int>();
-                         var addedPermissionGroupIds = new List<int>();
-                         var removedPermissionGroupIds = new List<int>();
-                         var addedPermissionRestrictionIds = new List<int>();
-                         var removedPermissionRestrictionIds = new List<int>();
+                         var addedPermissionIds = new List<string>();
+                         var removedPermissionIds = new List<string>();
+  
+                         var addedPermissionRestrictionIds = new List<string>();
+                         var removedPermissionRestrictionIds = new List<string>();
 
                          switch (req.Pattern)
                          {
                              case Contact.OperatePattern.Hybrid:
                                  removedRoleIds = user.Roles.Select(x => x.Id.Value).Except(req.RoleIds).ToList();
                                  addedRoleIds = req.RoleIds.Except(user.Roles.Select(x => x.Id.Value)).ToList();
-                                 removedPermissionIds = user.Permissions.Select(x => x.Id).Except(req.PermissionIds).ToList();
-                                 addedPermissionIds = req.PermissionIds.Except(user.Permissions.Select(x => x.Id)).ToList();
-                                 removedPermissionGroupIds = user.PermissionGroups.Select(x => x.Id.Value).Except(req.PermissionGroupIds).ToList();
-                                 addedPermissionGroupIds = req.PermissionGroupIds.Except(user.PermissionGroups.Select(x => x.Id.Value)).ToList();
-                                 removedPermissionRestrictionIds = user.PermissionRestrictions.Select(x => x.Id).Except(req.PermissionRestrictionIds).ToList();
-                                 addedPermissionRestrictionIds = req.PermissionRestrictionIds.Except(user.PermissionRestrictions.Select(x => x.Id)).ToList();
+                                 removedPermissionIds = user.PermissionModules.Select(x => x.Id).Except(req.PermissionIds).ToList();
+                                 addedPermissionIds = req.PermissionIds.Except(user.PermissionModules.Select(x => x.Id)).ToList();
+                   
+                                 removedPermissionRestrictionIds = user.Restrictions.Select(x => x.Id).Except(req.PermissionRestrictionIds).ToList();
+                                 addedPermissionRestrictionIds = req.PermissionRestrictionIds.Except(user.Restrictions.Select(x => x.Id)).ToList();
                                  break;
                              case Contact.OperatePattern.Increase:
                                  addedRoleIds = req.RoleIds.ToList();
                                  addedPermissionIds = req.PermissionIds.ToList();
-                                 addedPermissionGroupIds = req.PermissionGroupIds.ToList();
+                        
                                  addedPermissionRestrictionIds = req.PermissionRestrictionIds.ToList();
                                  break;
                              case Contact.OperatePattern.Decrease:
                                  removedRoleIds = req.RoleIds.ToList();
                                  removedPermissionIds = req.PermissionIds.ToList();
-                                 removedPermissionGroupIds = req.PermissionGroupIds.ToList();
+          
                                  removedPermissionRestrictionIds = req.PermissionRestrictionIds.ToList();
                                  break;
                              default:
@@ -393,58 +403,40 @@ namespace ee.iLawyer.Ops
 
                          if (removedPermissionIds.Any())
                          {
-                             user.Permissions.RemoveWhere(x => removedPermissionIds.Contains(x.Id));
+                             user.PermissionModules.RemoveWhere(x => removedPermissionIds.Contains(x.Id));
                          }
                          if (addedPermissionIds.Any())
                          {
                              var queryCriterions = new List<ICriterion>
                              {
-                                 Restrictions.On<Db.Entities.RBAC.SysModule>(y => y.Id).IsIn(req.PermissionIds.ToArray())
+                                 Restrictions.On<Db.Entities.RBAC.SysPermissionModule>(y => y.Id).IsIn(req.PermissionIds.ToArray())
                              };
-                             var addedPermissions = repo.Query<Db.Entities.RBAC.SysModule>(queryCriterions);
+                             var addedPermissions = repo.Query<Db.Entities.RBAC.SysPermissionModule>(queryCriterions);
                              if (addedPermissions != null && addedPermissions.Any())
                              {
-                                 user.Permissions.AddRangeIfNotContains(addedPermissions.ToArray());
+                                 user.PermissionModules.AddRangeIfNotContains(addedPermissions.ToArray());
                              }
                          }
                          #endregion
 
-                         #region *Permission group
-
-                         if (removedPermissionGroupIds.Any())
-                         {
-                             user.PermissionGroups.RemoveWhere(x => removedPermissionGroupIds.Contains(x.Id.Value));
-                         }
-                         if (addedPermissionGroupIds.Any())
-                         {
-                             var queryCriterions = new List<ICriterion>
-                             {
-                                 Restrictions.On<Db.Entities.RBAC.SysPermissionGroup>(y => y.Id).IsIn(req.PermissionGroupIds.ToArray())
-                             };
-                             var addedPermissionGroups = repo.Query<Db.Entities.RBAC.SysPermissionGroup>(queryCriterions);
-                             if (addedPermissionGroups != null && addedPermissionGroups.Any())
-                             {
-                                 user.PermissionGroups.AddRangeIfNotContains(addedPermissionGroups.ToArray());
-                             }
-                         }
-                         #endregion
+                  
 
                          #region *Permission restriction
 
                          if (removedPermissionRestrictionIds.Any())
                          {
-                             user.PermissionRestrictions.RemoveWhere(x => removedPermissionRestrictionIds.Contains(x.Id));
+                             user.Restrictions.RemoveWhere(x => removedPermissionRestrictionIds.Contains(x.Id));
                          }
                          if (addedPermissionRestrictionIds.Any())
                          {
                              var queryCriterions = new List<ICriterion>
                              {
-                                 Restrictions.On<Db.Entities.RBAC.SysModule>(y => y.Id).IsIn(req.PermissionRestrictionIds.ToArray())
+                                 Restrictions.On<Db.Entities.RBAC.SysPermissionModule>(y => y.Id).IsIn(req.PermissionRestrictionIds.ToArray())
                              };
-                             var addedPermissionRestrictions = repo.Query<Db.Entities.RBAC.SysModule>(queryCriterions);
+                             var addedPermissionRestrictions = repo.Query<Db.Entities.RBAC.SysPermissionModule>(queryCriterions);
                              if (addedPermissionRestrictions != null && addedPermissionRestrictions.Any())
                              {
-                                 user.PermissionRestrictions.AddRangeIfNotContains(addedPermissionRestrictions.ToArray());
+                                 user.Restrictions.AddRangeIfNotContains(addedPermissionRestrictions.ToArray());
                              }
                          }
                          #endregion

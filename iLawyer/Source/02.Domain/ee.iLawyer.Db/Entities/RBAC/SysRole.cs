@@ -18,9 +18,7 @@ namespace ee.iLawyer.Db.Entities.RBAC
         /// </summary>
         public virtual string Description { get; set; }
 
-        public virtual IList<SysModule> Permissions { get; set; }
-
-        public virtual IList<SysPermissionGroup> PermissionGroup { get; set; }
+        public virtual IList<SysPermissionModule> PermissionModules { get; set; }
 
         public virtual IList<SysUser> Users { get; set; }
 

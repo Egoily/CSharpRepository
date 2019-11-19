@@ -80,13 +80,11 @@
     <Compile Include="Mappings\ProjectMap.cs" />
     <Compile Include="Mappings\ProjectProgressMap.cs" />
     <Compile Include="Mappings\ProjectTodoListMap.cs" />
-    <Compile Include="Mappings\RBAC\SysModuleMap.cs" />
-    <Compile Include="Mappings\RBAC\SysPermissionGroupMap.cs" />
+    <Compile Include="Mappings\RBAC\SysPermissionModuleMap.cs" />
     <Compile Include="Mappings\RBAC\SysRoleMap.cs" />
     <Compile Include="Mappings\RBAC\SysUserMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Entities\RBAC\SysPermissionGroup.cs" />
-    <Compile Include="Entities\RBAC\SysModule.cs" />
+    <Compile Include="Entities\RBAC\SysPermissionModule.cs" />
     <Compile Include="Entities\RBAC\SysRole.cs" />
     <Compile Include="Entities\RBAC\SysUser.cs" />
   </ItemGroup>

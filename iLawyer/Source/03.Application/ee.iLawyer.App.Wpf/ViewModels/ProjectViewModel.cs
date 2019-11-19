@@ -1,7 +1,6 @@
 ﻿using ee.Core.ComponentModel;
 using ee.Core.Framework;
 using ee.Core.Framework.Schema;
-using ee.Core.Wpf.Designs;
 using ee.iLawyer.App.Wpf.Modules;
 using ee.iLawyer.App.Wpf.UserControls;
 using ee.iLawyer.Ops.Contact.Args;
@@ -19,7 +18,7 @@ using System.Windows.Controls;
 namespace ee.iLawyer.App.Wpf.ViewModels
 {
     [AddINotifyPropertyChangedInterface]
-    [BizModule(4,"Root", "案件管理", "案件管理", "", typeof(ManageProject))]
+    [BizModule(4, "Root", "案件管理", "module.project", "", typeof(ManageProject))]
     [Ioc(null, false, true)]
     public class ProjectViewModel : AbstractDataManipulationViewModel
     {

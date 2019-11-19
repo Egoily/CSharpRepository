@@ -24,5 +24,7 @@ namespace ee.iLawyer.Ops.Contact.DTO.SystemManagement
         public virtual Role Parent { get; set; }
         public virtual IList<Role> Children { get; set; }
 
+        public virtual IList<PermissionModule> PermissionModules { get; set; }
+
     }
 }

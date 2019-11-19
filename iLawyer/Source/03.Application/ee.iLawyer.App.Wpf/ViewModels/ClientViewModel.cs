@@ -19,7 +19,7 @@ using ee.Core.Wpf.Designs;
 namespace ee.iLawyer.App.Wpf.ViewModels
 {
     [AddINotifyPropertyChangedInterface] 
-    [BizModule(3,"Root", "客户管理", "客户管理", "", typeof(ManageClient))]
+    [BizModule(3,"Root", "客户管理", "module.client", "", typeof(ManageClient))]
     [Ioc(null,false,true)]
     public class ClientViewModel : AbstractDataManipulationViewModel
     {

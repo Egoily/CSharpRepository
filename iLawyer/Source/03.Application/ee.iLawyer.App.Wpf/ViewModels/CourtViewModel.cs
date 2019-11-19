@@ -18,7 +18,7 @@ using System.Windows.Controls;
 namespace ee.iLawyer.App.Wpf.ViewModels
 {
     [AddINotifyPropertyChangedInterface]
-    [BizModule(1,"Root", "法院管理", "法院管理", "", typeof(ManageCourt))]
+    [BizModule(1,"Root", "法院管理", "module.court", "", typeof(ManageCourt))]
     [Ioc(null, false, true)]
     public class CourtViewModel : AbstractDataManipulationViewModel
     {

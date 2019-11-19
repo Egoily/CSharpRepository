@@ -1,8 +1,9 @@
-﻿using ee.Core.Logging;
+﻿using ee.Core.DataAccess;
+using ee.Core.Logging;
 using ee.iLawyer.Ops.Contact.Args.SystemManagement;
-using ee.Core.DataAccess;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ee.iLawyer.Ops.Tests
 {
@@ -11,6 +12,8 @@ namespace ee.iLawyer.Ops.Tests
     {
         private ILawyerService service;
 
+        private IList<Contact.DTO.SystemManagement.PermissionModule> permissionModules;
+        private IList<Contact.DTO.SystemManagement.Role> roles;
         private static void Build()
         {
             SessionManager.Builder = new DataAccessBuilder.SqlServer.DataAccessBuilder();
@@ -22,6 +25,9 @@ namespace ee.iLawyer.Ops.Tests
             Logger.Configure("ee.iLawyer.Ops.Tests");
             Build();
             service = new ILawyerService();
+
+            permissionModules = service.GetPermissionModules(new Core.Framework.Schema.BaseRequest()).QueryList.ToList();
+            roles = service.GetRoles(new GetRolesRequest()).QueryList.ToList();
         }
 
 
@@ -58,14 +64,18 @@ namespace ee.iLawyer.Ops.Tests
         [TestMethod()]
         public void Grant_Increase()
         {
+
+            var user = service.Login(new LoginRequest() { LoginName = "Test", Password = "Test" });
+
+
+
             var request = new GrantRequest()
             {
-                UserId = 5,
+                UserId = user.Object.Id,
                 Pattern = Contact.OperatePattern.Increase,
-                RoleIds = new List<int> { 3 },
-                PermissionGroupIds = new List<int> { 1, 2 },
-                PermissionIds = new List<int> { 1, 2, 3, 4 },
-                PermissionRestrictionIds = new List<int> { 1, 2, 3 },
+                RoleIds = roles.Where(x => x.Code == "Assistant").Select(x => x.Id),
+                PermissionIds = permissionModules.Take(4).Select(x => x.Id),
+                PermissionRestrictionIds = permissionModules.Take(3).Select(x => x.Id),
 
             };
             var response = service.Grant(request);
@@ -75,14 +85,14 @@ namespace ee.iLawyer.Ops.Tests
         [TestMethod()]
         public void Grant_Decrease()
         {
+            var user = service.Login(new LoginRequest() { LoginName = "Test", Password = "Test" });
             var request = new GrantRequest()
             {
-                UserId = 5,
+                UserId = user.Object.Id,
                 Pattern = Contact.OperatePattern.Decrease,
                 RoleIds = new List<int> { 3 },
-                PermissionGroupIds = new List<int> { 2 },
-                PermissionIds = new List<int> { 2, 3, 4 },
-                PermissionRestrictionIds = new List<int> { 2, 3 },
+                PermissionIds = permissionModules.Skip(1).Take(3).Select(x => x.Id),
+                PermissionRestrictionIds = permissionModules.Skip(1).Take(2).Select(x => x.Id),
 
             };
             var response = service.Grant(request);
@@ -92,14 +102,14 @@ namespace ee.iLawyer.Ops.Tests
         [TestMethod()]
         public void Grant_Hybrid()
         {
+            var user = service.Login(new LoginRequest() { LoginName = "Test", Password = "Test" });
             var request = new GrantRequest()
             {
-                UserId = 5,
+                UserId = user.Object.Id,
                 Pattern = Contact.OperatePattern.Hybrid,
                 RoleIds = new List<int> { 3 },
-                PermissionGroupIds = new List<int> { 1, 3, 5, 7 },
-                PermissionIds = new List<int> { 2, 4, 6, 8 },
-                PermissionRestrictionIds = new List<int> { 1, 3, 4, 5 },
+                PermissionIds = new List<string> { permissionModules[2].Id, permissionModules[4].Id, permissionModules[6].Id, permissionModules[8].Id },
+                PermissionRestrictionIds = new List<string> { permissionModules[1].Id, permissionModules[3].Id, permissionModules[4].Id, permissionModules[5].Id },
 
             };
             var response = service.Grant(request);
@@ -109,9 +119,10 @@ namespace ee.iLawyer.Ops.Tests
         [TestMethod()]
         public void Grant_Hybrid_Clear()
         {
+            var user = service.Login(new LoginRequest() { LoginName = "Test", Password = "Test" });
             var request = new GrantRequest()
             {
-                UserId = 5,
+                UserId = user.Object.Id,
                 Pattern = Contact.OperatePattern.Hybrid,
             };
             var response = service.Grant(request);

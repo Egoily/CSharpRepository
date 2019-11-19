@@ -4,6 +4,16 @@ using System.Collections.Generic;
 namespace ee.iLawyer.Ops.Contact.Args.SystemManagement
 {
 
+    public class GetRolesRequest : BaseRequest
+    {
+        public virtual bool WithPermissionModule { get; set; }
+    }
+    public class QueryUserRequest : BaseRequest
+    {
+        public virtual string UserName { get; set; }
+        public virtual IEnumerable<int> RoleIds { get; set; }
+    }
+
     public class RegisterRequest : BaseRequest
     {
         public virtual string UserName { get; set; }
@@ -28,9 +38,8 @@ namespace ee.iLawyer.Ops.Contact.Args.SystemManagement
         public virtual OperatePattern Pattern { get; set; }
         public virtual int UserId { get; set; }
         public virtual IEnumerable<int> RoleIds { get; set; }
-        public virtual IEnumerable<int> PermissionIds { get; set; }
-        public virtual IEnumerable<int> PermissionGroupIds { get; set; }
-        public virtual IEnumerable<int> PermissionRestrictionIds { get; set; }
+        public virtual IEnumerable<string> PermissionIds { get; set; }
+        public virtual IEnumerable<string> PermissionRestrictionIds { get; set; }
     }
 
     public class UpdateUserRequest : BaseRequest

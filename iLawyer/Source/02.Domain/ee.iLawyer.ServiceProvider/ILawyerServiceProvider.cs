@@ -26,12 +26,12 @@ namespace ee.iLawyer.ServiceProvider
 
             return Task.Run(() =>
             {
-                var response =  HttpInvoker.PostToString(uri, null, JsonConvert.SerializeObject(request), timeout);
+                var response = HttpInvoker.PostToString(uri, null, JsonConvert.SerializeObject(request), timeout);
                 return JsonConvert.DeserializeObject<BaseDataResponse>(response);
             });
 
 
-           
+
         }
         public BaseResponse CreateClient(CreateClientRequest request)
         {
@@ -188,6 +188,25 @@ namespace ee.iLawyer.ServiceProvider
             return Process(resource, request);
         }
 
+
+        public BaseQueryResponse<PermissionModule> GetPermissionModules(BaseRequest request)
+        {
+            var resource = @"/api/lawyer/sys/permissionmodules";
+            return Process(resource, request).ToBaseQueryResponse<PermissionModule>();
+        }
+
+        public BaseQueryResponse<Role> GetRoles(GetRolesRequest request)
+        {
+            var resource = @"/api/lawyer/sys/roles";
+            return Process(resource, request).ToBaseQueryResponse<Role>();
+        }
+
+        public BaseQueryResponse<User> QueryUser(QueryUserRequest request)
+        {
+            var resource = @"/api/lawyer/sys/users";
+            return Process(resource, request).ToBaseQueryResponse<User>();
+        }
+
         public BaseResponse Register(RegisterRequest request)
         {
             var resource = @"/api/lawyer/sys/register";
@@ -223,5 +242,7 @@ namespace ee.iLawyer.ServiceProvider
             var resource = @"/api/lawyer/sys/changepassword";
             return Process(resource, request);
         }
+
+
     }
 }

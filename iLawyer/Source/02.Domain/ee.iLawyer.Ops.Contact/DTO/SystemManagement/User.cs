@@ -59,13 +59,7 @@ namespace ee.iLawyer.Ops.Contact.DTO.SystemManagement
         /// 拥有或限制的私人权限(限制的权限优先级高于拥有的相同权限)
         /// </summary>
         [ValueResolver(typeof(AutoMapper.UserPermissionsValueResolver))]
-        public virtual IList<Module> Permissions { get; set; }
-
-        /// <summary>
-        /// 拥有或限制的权限组(限制的权限组优先级高于拥有的相同的权限组)
-        /// </summary>
-        [ValueResolver(typeof(AutoMapper.UserPermissionGroupsValueResolver))]
-        public virtual IList<PermissionGroup> PermissionGroups { get; set; }
+        public virtual IList<PermissionModule> PermissionModules { get; set; }
 
 
 
@@ -76,8 +70,7 @@ namespace ee.iLawyer.Ops.Contact.DTO.SystemManagement
         {
             get
             {
-                var resources = Permissions?.Where(x => x.IsDisabled == true)?.Select(x => x.Code)
-                    .Union(PermissionGroups?.Where(x => x.IsDisabled == true)?.Select(x => x.Name));
+                var resources = PermissionModules?.Where(x => x.IsDisabled == true)?.Select(x => x.Id);
                 return resources?.Distinct()?.ToList();
             }
         }

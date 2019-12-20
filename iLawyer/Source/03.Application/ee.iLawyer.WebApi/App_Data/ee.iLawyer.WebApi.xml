@@ -12,37 +12,13 @@
             <param name="pageSize">page size</param>
             <returns></returns>
         </member>
-        <member name="M:ee.iLawyer.WebApi.Controllers.InfrastructureController.GetProjectCategories">
+        <member name="M:ee.iLawyer.WebApi.Controllers.InfrastructureController.GetPickers">
             <summary>
             
             </summary>
             <returns></returns>
         </member>
-        <member name="M:ee.iLawyer.WebApi.Controllers.InfrastructureController.GetProjectCauses">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:ee.iLawyer.WebApi.Controllers.InfrastructureController.GetPropertyPicks">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:ee.iLawyer.WebApi.Controllers.LawyerController.GetProjectCategories">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:ee.iLawyer.WebApi.Controllers.LawyerController.GetProjectCauses">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:ee.iLawyer.WebApi.Controllers.LawyerController.GetPropertyPicks(ee.iLawyer.Ops.Contact.Args.GetPropertyPicksRequest)">
+        <member name="M:ee.iLawyer.WebApi.Controllers.LawyerController.GetPickers(ee.iLawyer.Ops.Contact.Args.GetPickersRequest)">
             <summary>
             
             </summary>

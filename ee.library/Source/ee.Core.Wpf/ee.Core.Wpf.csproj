@@ -19,7 +19,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NETFX_CORE;CMNATTR;PORTABLE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -52,13 +52,24 @@
     <Compile Include="Converters\EnumDicItemsSourceConverter.cs" />
     <Compile Include="Converters\EnumItemsSourceConverter.cs" />
     <Compile Include="Converters\ValueConverter.cs" />
-    <Compile Include="Designs\AbstractDataManipulationViewModel.cs" />
+    <Compile Include="Enums\ActionMode.cs" />
+    <Compile Include="Enums\ValidationType.cs" />
+    <Compile Include="ExControls\DynamicDataGrid.cs" />
+    <Compile Include="Interfaces\IDataOperation.cs" />
+    <Compile Include="Interfaces\IDataPager.cs" />
+    <Compile Include="Interfaces\IPermission.cs" />
+    <Compile Include="ValidationRules\CustomizeValidationRule.cs" />
+    <Compile Include="ValidationRules\ValidationExceptionBehavior.cs" />
+    <Compile Include="ViewModels\AbstractDataManipulationViewModel.cs" />
     <Compile Include="Designs\Command\CommandImpl.cs" />
     <Compile Include="Designs\Command\ReactiveRelayCommand.cs" />
     <Compile Include="Designs\Command\RelayCommand.cs" />
     <Compile Include="Designs\Command\RelayCommandGeneric.cs" />
     <Compile Include="Designs\IView.cs" />
-    <Compile Include="Designs\RequiredValidationRule.cs" />
+    <Compile Include="ViewModels\FuncButtonViewModel.cs" />
+    <Compile Include="Designs\ObservableObject.cs" />
+    <Compile Include="ValidationRules\RequiredValidationRule.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Designs\WatermarkBehavior.cs" />
     <Compile Include="Designs\WindowAttachedBehavior.cs" />
     <Compile Include="ExControls\ButtonEx.cs" />
@@ -114,6 +125,7 @@
   <ItemGroup>
     <Folder Include="Resources\" />
     <Folder Include="Themes\" />
+    <Folder Include="UserControls\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="System.Reactive.Linq">

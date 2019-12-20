@@ -33,6 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -44,34 +45,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Args\AreaArgs.cs" />
-    <Compile Include="Args\ClientArgs.cs" />
-    <Compile Include="Args\CourtArgs.cs" />
-    <Compile Include="Args\JudgeArgs.cs" />
-    <Compile Include="Args\SystemManagement\SystemManagementArgs.cs" />
-    <Compile Include="Args\ProjectArgs.cs" />
-    <Compile Include="Args\PropertyPickArgs.cs" />
+    <Compile Include="DTO\Args\AreaArgs.cs" />
+    <Compile Include="DTO\Args\ClientArgs.cs" />
+    <Compile Include="DTO\Args\CourtArgs.cs" />
+    <Compile Include="DTO\Args\JudgeArgs.cs" />
+    <Compile Include="DTO\Args\SystemManagementArgs.cs" />
+    <Compile Include="DTO\Args\ProjectArgs.cs" />
+    <Compile Include="DTO\Args\PickerArgs.cs" />
     <Compile Include="AutoMapper\Converters.cs" />
     <Compile Include="AutoMapper\DtoConverter.cs" />
     <Compile Include="CacheKeys.cs" />
-    <Compile Include="DTO\Area.cs" />
-    <Compile Include="DTO\MultiItemSelectorItemInfo.cs" />
-    <Compile Include="DTO\Category.cs" />
-    <Compile Include="DTO\CategoryValue.cs" />
-    <Compile Include="DTO\Project.cs" />
-    <Compile Include="DTO\Client.cs" />
-    <Compile Include="DTO\Court.cs" />
-    <Compile Include="DTO\Judge.cs" />
-    <Compile Include="DTO\KeyValue.cs" />
-    <Compile Include="DTO\ProjectAccount.cs" />
-    <Compile Include="DTO\ProjectCause.cs" />
-    <Compile Include="DTO\ProjectCategory.cs" />
-    <Compile Include="DTO\ProjectProgress.cs" />
-    <Compile Include="DTO\ProjectTodoItem.cs" />
-    <Compile Include="DTO\PropertyPicker.cs" />
-    <Compile Include="DTO\SystemManagement\Role.cs" />
-    <Compile Include="DTO\SystemManagement\PermissionModule.cs" />
-    <Compile Include="DTO\SystemManagement\User.cs" />
+    <Compile Include="DTO\ViewObjects\Area.cs" />
+    <Compile Include="DTO\ViewObjects\ClientProperty.cs" />
+    <Compile Include="DTO\ViewObjects\Picker.cs" />
+    <Compile Include="DTO\ViewObjects\Project.cs" />
+    <Compile Include="DTO\ViewObjects\Client.cs" />
+    <Compile Include="DTO\ViewObjects\Court.cs" />
+    <Compile Include="DTO\ViewObjects\Judge.cs" />
+    <Compile Include="DTO\ViewObjects\ProjectAccount.cs" />
+    <Compile Include="DTO\ViewObjects\ProjectProgress.cs" />
+    <Compile Include="DTO\ViewObjects\ProjectTodoItem.cs" />
+    <Compile Include="VO\PropertyPicker.cs" />
+    <Compile Include="DTO\ViewObjects\SystemManagement\Role.cs" />
+    <Compile Include="DTO\ViewObjects\SystemManagement\PermissionModule.cs" />
+    <Compile Include="DTO\ViewObjects\SystemManagement\User.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Interfaces\IFoundation.cs" />
     <Compile Include="Interfaces\IILawyerService.cs" />

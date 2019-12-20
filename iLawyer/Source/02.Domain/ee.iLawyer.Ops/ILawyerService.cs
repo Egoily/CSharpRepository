@@ -5,9 +5,7 @@ using ee.Core.Exceptions;
 using ee.Core.Framework;
 using ee.Core.Framework.Schema;
 using ee.iLawyer.Ops.Contact.Args;
-using ee.iLawyer.Ops.Contact.Args.SystemManagement;
 using ee.iLawyer.Ops.Contact.AutoMapper;
-using ee.iLawyer.Ops.Contact.DTO.SystemManagement;
 using ee.iLawyer.Ops.Contact.Interfaces;
 using NHibernate.Criterion;
 using System;
@@ -20,7 +18,7 @@ namespace ee.iLawyer.Ops
 {
     public class ILawyerService : IILawyerService, IFoundation, ISystemUserManagement
     {
-        public enum PickCategory
+        public enum PickerCategory
         {
             ProjectCategory,
             ProjectCause,
@@ -76,12 +74,12 @@ namespace ee.iLawyer.Ops
 
 
 
-        public BaseQueryResponse<Contact.DTO.Area> GetAreas(GetAreasRequest request)
+        public BaseQueryResponse<Contact.DTO.ViewObjects.Area> GetAreas(GetAreasRequest request)
         {
-            return ServiceProcessor.CreateProcessor<GetAreasRequest, BaseQueryResponse<Contact.DTO.Area>>(MethodBase.GetCurrentMethod(), request)
+            return ServiceProcessor.CreateProcessor<GetAreasRequest, BaseQueryResponse<Contact.DTO.ViewObjects.Area>>(MethodBase.GetCurrentMethod(), request)
                   .Process(req =>
                    {
-                       var response = new BaseQueryResponse<Contact.DTO.Area>();
+                       var response = new BaseQueryResponse<Contact.DTO.ViewObjects.Area>();
 
                        var queryCriterions = new List<ICriterion>();
 
@@ -110,7 +108,7 @@ namespace ee.iLawyer.Ops
                                var tree = RecursionUtility.GetTree<Db.Entities.Foundation.Area, string>(query.Item1);
 
 
-                               response.QueryList = tree.Select(DtoConverter.Mapper.Map<Contact.DTO.Area>).ToList();
+                               response.QueryList = tree.Select(DtoConverter.Mapper.Map<Contact.DTO.ViewObjects.Area>).ToList();
                            }
                        }
                        return response;
@@ -120,8 +118,6 @@ namespace ee.iLawyer.Ops
 
         public IEnumerable<Db.Entities.Foundation.Picklist> GetAllPicklist()
         {
-
-
             using (var repo = new NhEntityRepository<Db.Entities.Foundation.Picklist>())
             {
                 var queryCriterions = new List<ICriterion>();
@@ -134,76 +130,29 @@ namespace ee.iLawyer.Ops
 
         }
 
-        public BaseQueryResponse<Contact.DTO.ProjectCategory> GetProjectCategories(GetProjectCategoriesRequest request)
+
+        public BaseQueryResponse<Contact.DTO.ViewObjects.Picker> GetPickers(GetPickersRequest request)
         {
-
-            return ServiceProcessor.CreateProcessor<GetProjectCategoriesRequest, BaseQueryResponse<Contact.DTO.ProjectCategory>>(MethodBase.GetCurrentMethod(), request)
-                  .Process(req =>
-                   {
-                       var response = new BaseQueryResponse<Contact.DTO.ProjectCategory>();
-
-
-                       using (var repo = new NhEntityRepository<Db.Entities.Foundation.Picklist>())
-                       {
-                           var queryCriterions = new List<ICriterion>();
-                           queryCriterions.Add(Restrictions.Where<Db.Entities.Foundation.Picklist>(x => x.Enabled && x.Category == PickCategory.ProjectCategory.ToString()));
-                           var query = repo.QueryByPageInCriterion(queryCriterions, x => x.OrderNo, false, 0, 0, PageQueryOption.Content, true);
-                           response.Total = query.Item2;
-                           if (query.Item1.Any())
-                           {
-                               var tree = RecursionUtility.GetTree<Db.Entities.Foundation.Picklist, int?>(query.Item1);
-                               response.QueryList = tree.Select(DtoConverter.Mapper.Map<Contact.DTO.ProjectCategory>).ToList();
-                           }
-                       }
-                       return response;
-                   }
-                  ).Build();
-        }
-        public BaseQueryResponse<Contact.DTO.ProjectCause> GetProjectCauses(GetProjectCausesRequest request)
-        {
-            return ServiceProcessor.CreateProcessor<GetProjectCausesRequest, BaseQueryResponse<Contact.DTO.ProjectCause>>(MethodBase.GetCurrentMethod(), request)
-                  .Process(req =>
-                   {
-                       var response = new BaseQueryResponse<Contact.DTO.ProjectCause>();
-                       using (var repo = new NhEntityRepository<Db.Entities.Foundation.Picklist>())
-                       {
-                           var queryCriterions = new List<ICriterion>();
-                           queryCriterions.Add(Restrictions.Where<Db.Entities.Foundation.Picklist>(x => x.Enabled && x.Category == PickCategory.ProjectCause.ToString()));
-                           var query = repo.QueryByPageInCriterion(queryCriterions, x => x.OrderNo, false, 0, 0, PageQueryOption.Content, true);
-                           response.Total = query.Item2;
-                           if (query.Item1.Any())
-                           {
-                               var tree = RecursionUtility.GetTree<Db.Entities.Foundation.Picklist, int?>(query.Item1);
-                               response.QueryList = tree.Select(DtoConverter.Mapper.Map<Contact.DTO.ProjectCause>).ToList();
-                           }
-                       }
-
-                       //var picks = GetAllPicklist().Where(x => x.Category == PickCategory.ProjectCause.ToString());
-                       //if (picks.Any())
-                       //{
-                       //    var tree = Framework.Utility.RecursionUtility.GetTree<Db.Entities.Foundation.Picklist, int?>(picks);
-                       //    response.QueryList = tree.Select(DtoConverter.ConvertToProjectCause).ToList();
-                       //}
-
-                       return response;
-                   }
-                  ).Build();
-        }
-
-        public BaseQueryResponse<Contact.DTO.PropertyPicker> GetPropertyPicks(GetPropertyPicksRequest request)
-        {
-            return ServiceProcessor.CreateProcessor<GetPropertyPicksRequest, BaseQueryResponse<Contact.DTO.PropertyPicker>>(MethodBase.GetCurrentMethod(), request)
+            return ServiceProcessor.CreateProcessor<GetPickersRequest, BaseQueryResponse<Contact.DTO.ViewObjects.Picker>>(MethodBase.GetCurrentMethod(), request)
                   .Process(req =>
                   {
-                      var response = new BaseQueryResponse<Contact.DTO.PropertyPicker>();
+                      var response = new BaseQueryResponse<Contact.DTO.ViewObjects.Picker>();
                       using (var repo = new NhEntityRepository<Db.Entities.Foundation.Picklist>())
                       {
-                          var query = repo.QueryByPage(x => x.Enabled && x.Category == PickCategory.PropertyPick.ToString(), x => x.Id, false, 0, 0, PageQueryOption.Content, true);
-
-                          if (query.Item1.Any())
+                          (IEnumerable<Db.Entities.Foundation.Picklist>, int?) query;
+                          if (!string.IsNullOrEmpty(req.Category))
+                          {
+                              query = repo.QueryByPage(x => x.Enabled && x.Category == req.Category, x => x.Id, false, 0, 0, PageQueryOption.Content, true);
+                          }
+                          else
+                          {
+                              query = repo.QueryByPage(x => x.Enabled, x => x.Id, false, 0, 0, PageQueryOption.Content, true);
+                          }
+                          if (query.Item1?.Any() ?? false)
                           {
                               var tree = RecursionUtility.GetTree<Db.Entities.Foundation.Picklist, int?>(query.Item1);
-                              response.QueryList = (string.IsNullOrEmpty(req.Code) ? tree?.ToList() : tree?.Where(x => x.Code == request.Code))?.Select(DtoConverter.Mapper.Map<Contact.DTO.PropertyPicker>).ToList();
+                              response.QueryList = tree?.ToList()?.Select(DtoConverter.Mapper.Map<Contact.DTO.ViewObjects.Picker>).ToList();
+                              response.Total = query.Item2;
                           }
 
                       }
@@ -218,17 +167,17 @@ namespace ee.iLawyer.Ops
 
         #region * ISystemUserManagement
 
-        public BaseQueryResponse<PermissionModule> GetPermissionModules(BaseRequest request)
+        public BaseQueryResponse<Contact.DTO.ViewObjects.SystemManagement.PermissionModule> GetPermissionModules(BaseRequest request)
         {
             throw new NotImplementedException();
         }
 
-        public BaseQueryResponse<Role> GetRoles(GetRolesRequest request)
+        public BaseQueryResponse<Contact.DTO.ViewObjects.SystemManagement.Role> GetRoles(GetRolesRequest request)
         {
             throw new NotImplementedException();
         }
 
-        public BaseQueryResponse<User> QueryUser(QueryUserRequest request)
+        public BaseQueryResponse<Contact.DTO.ViewObjects.SystemManagement.User> QueryUser(QueryUserRequest request)
         {
             throw new NotImplementedException();
         }
@@ -269,12 +218,12 @@ namespace ee.iLawyer.Ops
                  ).Build();
         }
 
-        public BaseObjectResponse<Contact.DTO.SystemManagement.User> Login(LoginRequest request)
+        public BaseObjectResponse<Contact.DTO.ViewObjects.SystemManagement.User> Login(LoginRequest request)
         {
-            return ServiceProcessor.CreateProcessor<LoginRequest, BaseObjectResponse<Contact.DTO.SystemManagement.User>>(MethodBase.GetCurrentMethod(), request)
+            return ServiceProcessor.CreateProcessor<LoginRequest, BaseObjectResponse<Contact.DTO.ViewObjects.SystemManagement.User>>(MethodBase.GetCurrentMethod(), request)
                   .Process(req =>
                   {
-                      var response = new BaseObjectResponse<Contact.DTO.SystemManagement.User>();
+                      var response = new BaseObjectResponse<Contact.DTO.ViewObjects.SystemManagement.User>();
                       using (var repo = new NhGlobalRepository())
                       {
 
@@ -297,7 +246,7 @@ namespace ee.iLawyer.Ops
                           //{
                           //    user.Permissions = repo.Query<Db.Entities.RBAC.SysModule>()?.ToList();
                           //}
-                          response.Object = DtoConverter.Mapper.Map<Contact.DTO.SystemManagement.User>(user);
+                          response.Object = DtoConverter.Mapper.Map<Contact.DTO.ViewObjects.SystemManagement.User>(user);
 
 
 
@@ -328,7 +277,7 @@ namespace ee.iLawyer.Ops
                     {
                         request.PermissionIds = new List<string>();
                     }
-               
+
                     if (request.PermissionRestrictionIds == null)
                     {
                         request.PermissionRestrictionIds = new List<string>();
@@ -349,7 +298,7 @@ namespace ee.iLawyer.Ops
                          var removedRoleIds = new List<int>();
                          var addedPermissionIds = new List<string>();
                          var removedPermissionIds = new List<string>();
-  
+
                          var addedPermissionRestrictionIds = new List<string>();
                          var removedPermissionRestrictionIds = new List<string>();
 
@@ -360,20 +309,20 @@ namespace ee.iLawyer.Ops
                                  addedRoleIds = req.RoleIds.Except(user.Roles.Select(x => x.Id.Value)).ToList();
                                  removedPermissionIds = user.PermissionModules.Select(x => x.Id).Except(req.PermissionIds).ToList();
                                  addedPermissionIds = req.PermissionIds.Except(user.PermissionModules.Select(x => x.Id)).ToList();
-                   
+
                                  removedPermissionRestrictionIds = user.Restrictions.Select(x => x.Id).Except(req.PermissionRestrictionIds).ToList();
                                  addedPermissionRestrictionIds = req.PermissionRestrictionIds.Except(user.Restrictions.Select(x => x.Id)).ToList();
                                  break;
                              case Contact.OperatePattern.Increase:
                                  addedRoleIds = req.RoleIds.ToList();
                                  addedPermissionIds = req.PermissionIds.ToList();
-                        
+
                                  addedPermissionRestrictionIds = req.PermissionRestrictionIds.ToList();
                                  break;
                              case Contact.OperatePattern.Decrease:
                                  removedRoleIds = req.RoleIds.ToList();
                                  removedPermissionIds = req.PermissionIds.ToList();
-          
+
                                  removedPermissionRestrictionIds = req.PermissionRestrictionIds.ToList();
                                  break;
                              default:
@@ -419,7 +368,7 @@ namespace ee.iLawyer.Ops
                          }
                          #endregion
 
-                  
+
 
                          #region *Permission restriction
 
@@ -533,16 +482,19 @@ namespace ee.iLawyer.Ops
                            {
                                throw new EeException(ErrorCodes.Existed, "Object is existed.");
                            }
-                           court = new Db.Entities.Court()
-                           {
-                               Name = req.Name,
-                               Province = req.Province,
-                               City = req.City,
-                               County = req.County,
-                               Address = req.Address,
-                               Rank = req.Rank,
-                               ContactNo = req.ContactNo,
-                           };
+                           //court = new Db.Entities.Court()
+                           //{
+                           //    Name = req.Name,
+                           //    Province = req.Province,
+                           //    City = req.City,
+                           //    County = req.County,
+                           //    Address = req.Address,
+                           //    Rank = req.Rank,
+                           //    ContactNo = req.ContactNo,
+                           //};
+
+                           court = DtoConverter.Mapper.Map<Db.Entities.Court>(req);
+
                            repo.Create(court);
                        }
                        return response;
@@ -596,24 +548,24 @@ namespace ee.iLawyer.Ops
                    }
                   ).Build();
         }
-        public BaseObjectResponse<Contact.DTO.Court> GetCourt(BaseIdRequest request)
+        public BaseObjectResponse<Contact.DTO.ViewObjects.Court> GetCourt(BaseIdRequest request)
         {
-            return ServiceProcessor.CreateProcessor<BaseIdRequest, BaseObjectResponse<Contact.DTO.Court>>(MethodBase.GetCurrentMethod(), request)
+            return ServiceProcessor.CreateProcessor<BaseIdRequest, BaseObjectResponse<Contact.DTO.ViewObjects.Court>>(MethodBase.GetCurrentMethod(), request)
                   .Process(req =>
                    {
-                       var response = new BaseObjectResponse<Contact.DTO.Court>();
+                       var response = new BaseObjectResponse<Contact.DTO.ViewObjects.Court>();
                        using (var repo = new NhEntityRepository<Db.Entities.Court>())
                        {
                            var entity = repo.GetById(request.Id);
-                           response.Object = DtoConverter.Mapper.Map<Contact.DTO.Court>(entity);
+                           response.Object = DtoConverter.Mapper.Map<Contact.DTO.ViewObjects.Court>(entity);
                        }
                        return response;
                    }
                   ).Build();
         }
-        public BaseQueryResponse<Contact.DTO.Court> QueryCourt(QueryCourtRequest request)
+        public BaseQueryResponse<Contact.DTO.ViewObjects.Court> QueryCourt(QueryCourtRequest request)
         {
-            return ServiceProcessor.CreateProcessor<QueryCourtRequest, BaseQueryResponse<Contact.DTO.Court>>(MethodBase.GetCurrentMethod(), request)
+            return ServiceProcessor.CreateProcessor<QueryCourtRequest, BaseQueryResponse<Contact.DTO.ViewObjects.Court>>(MethodBase.GetCurrentMethod(), request)
                   .Inbound(() =>
                    {
                        if (request.Rank != null)
@@ -640,7 +592,7 @@ namespace ee.iLawyer.Ops
                    })
                   .Process(req =>
                    {
-                       var response = new BaseQueryResponse<Contact.DTO.Court>();
+                       var response = new BaseQueryResponse<Contact.DTO.ViewObjects.Court>();
 
                        var queryCriterions = new List<ICriterion>();
 
@@ -679,7 +631,7 @@ namespace ee.iLawyer.Ops
                            response.Total = query.Item2;
                            if (query.Item1.Any())
                            {
-                               response.QueryList = query.Item1.ToList().Select(DtoConverter.Mapper.Map<Contact.DTO.Court>).ToList();
+                               response.QueryList = query.Item1.ToList().Select(DtoConverter.Mapper.Map<Contact.DTO.ViewObjects.Court>).ToList();
                            }
                        }
                        return response;
@@ -703,15 +655,18 @@ namespace ee.iLawyer.Ops
                                throw new EeException(ErrorCodes.Existed, "Object is existed.");
                            }
                            var court = repo.GetById<Db.Entities.Court>(req.InCourtId);
-                           judge = new Db.Entities.Judge()
-                           {
-                               Name = req.Name,
-                               ContactNo = req.ContactNo,
-                               Gender = (int)req.Gender,
-                               Grade = req.Grade.ToString(),
-                               Duty = req.Duty,
-                               InCourt = court,
-                           };
+                           //judge = new Db.Entities.Judge()
+                           //{
+                           //    Name = req.Name,
+                           //    ContactNo = req.ContactNo,
+                           //    Gender = (int)req.Gender,
+                           //    Grade = req.Grade.ToString(),
+                           //    Duty = req.Duty,
+                           //    InCourt = court,
+                           //};
+
+                           judge = DtoConverter.Mapper.Map<Db.Entities.Judge>(req);
+
                            repo.Create(judge);
                        }
                        return response;
@@ -766,24 +721,24 @@ namespace ee.iLawyer.Ops
                    }
                   ).Build();
         }
-        public BaseObjectResponse<Contact.DTO.Judge> GetJudge(BaseIdRequest request)
+        public BaseObjectResponse<Contact.DTO.ViewObjects.Judge> GetJudge(BaseIdRequest request)
         {
-            return ServiceProcessor.CreateProcessor<BaseIdRequest, BaseObjectResponse<Contact.DTO.Judge>>(MethodBase.GetCurrentMethod(), request)
+            return ServiceProcessor.CreateProcessor<BaseIdRequest, BaseObjectResponse<Contact.DTO.ViewObjects.Judge>>(MethodBase.GetCurrentMethod(), request)
                   .Process(req =>
                    {
-                       var response = new BaseObjectResponse<Contact.DTO.Judge>();
+                       var response = new BaseObjectResponse<Contact.DTO.ViewObjects.Judge>();
                        using (var repo = new NhEntityRepository<Db.Entities.Judge>())
                        {
                            var entity = repo.GetById(request.Id);
-                           response.Object = DtoConverter.Mapper.Map<Contact.DTO.Judge>(entity);
+                           response.Object = DtoConverter.Mapper.Map<Contact.DTO.ViewObjects.Judge>(entity);
                        }
                        return response;
                    }
                   ).Build();
         }
-        public BaseQueryResponse<Contact.DTO.Judge> QueryJudge(QueryJudgeRequest request)
+        public BaseQueryResponse<Contact.DTO.ViewObjects.Judge> QueryJudge(QueryJudgeRequest request)
         {
-            return ServiceProcessor.CreateProcessor<QueryJudgeRequest, BaseQueryResponse<Contact.DTO.Judge>>(MethodBase.GetCurrentMethod(), request)
+            return ServiceProcessor.CreateProcessor<QueryJudgeRequest, BaseQueryResponse<Contact.DTO.ViewObjects.Judge>>(MethodBase.GetCurrentMethod(), request)
                   .Inbound(() =>
                    {
                        if (request.Grade != null)
@@ -811,7 +766,7 @@ namespace ee.iLawyer.Ops
                    })
                   .Process(req =>
                    {
-                       var response = new BaseQueryResponse<Contact.DTO.Judge>();
+                       var response = new BaseQueryResponse<Contact.DTO.ViewObjects.Judge>();
 
                        var queryCriterions = new List<ICriterion>();
 
@@ -841,7 +796,7 @@ namespace ee.iLawyer.Ops
                            response.Total = query.Item2;
                            if (query.Item1.Any())
                            {
-                               response.QueryList = query.Item1.ToList().Select(DtoConverter.Mapper.Map<Contact.DTO.Judge>).ToList();
+                               response.QueryList = query.Item1.ToList().Select(DtoConverter.Mapper.Map<Contact.DTO.ViewObjects.Judge>).ToList();
                            }
                        }
                        return response;
@@ -867,21 +822,26 @@ namespace ee.iLawyer.Ops
                                throw new EeException(ErrorCodes.Existed, "Object is existed.");
                            }
 
-                           client = new Db.Entities.Client()
-                           {
-                               Name = req.Name,
-                               ContactNo = req.ContactNo,
-                               Abbreviation = req.Abbreviation,
-                               Impression = req.Impression,
-                               IsNP = req.IsNP,
+                           //client = new Db.Entities.Client()
+                           //{
+                           //    Name = req.Name,
+                           //    ContactNo = req.ContactNo,
+                           //    Abbreviation = req.Abbreviation,
+                           //    Impression = req.Impression,
+                           //    IsNP = req.IsNP,
 
-                               CreateTime = now,
+                           //    CreateTime = now,
 
-                           };
-                           var properties = new List<Db.Entities.ClientProperties>();
-                           foreach (var p in req.Properties)
+                           //};
+
+                           client = DtoConverter.Mapper.Map<Db.Entities.Client>(req);
+                           client.CreateTime = now;
+
+
+                           var properties = new List<Db.Entities.ClientProperty>();
+                           foreach (var p in req.ClientProperties)
                            {
-                               var clientPropertyItem = new Db.Entities.ClientProperties()
+                               var clientPropertyItem = new Db.Entities.ClientProperty()
                                {
                                    CreateTime = now,
                                    Value = p.Value,
@@ -922,13 +882,13 @@ namespace ee.iLawyer.Ops
                            client.IsNP = req.IsNP;
 
                            //remove
-                           var toRemove = client.Properties.Where(x => !req.Properties.Select(o => o.Id).Contains(x.Id));
+                           var toRemove = client.Properties.Where(x => !req.ClientProperties.Select(o => o.Id).Contains(x.Id));
                            if (toRemove != null && toRemove.Any())
                            {
                                foreach (var item in toRemove.ToList())
                                {
                                    client.Properties.Remove(item);
-                                   var clientPropertyItem = repo.GetById<Db.Entities.ClientProperties>(item.Id);
+                                   var clientPropertyItem = repo.GetById<Db.Entities.ClientProperty>(item.Id);
                                    if (clientPropertyItem != null)
                                    {
                                        repo.Delete(clientPropertyItem);
@@ -936,11 +896,11 @@ namespace ee.iLawyer.Ops
                                }
                            }
 
-                           foreach (var p in req.Properties)
+                           foreach (var p in req.ClientProperties.Where(x => x.PickerId > 0))
                            {
                                var existedObj = client.Properties.FirstOrDefault(x => x.Id == p.Id);
                                //update
-                               if (existedObj != null)
+                               if (existedObj != null && p.Id > 0)
                                {
                                    var hasUpdated = false;
                                    if (existedObj.Value != p.Value)
@@ -962,7 +922,7 @@ namespace ee.iLawyer.Ops
                                //add
                                else
                                {
-                                   var clientPropertyItem = new Db.Entities.ClientProperties()
+                                   var clientPropertyItem = new Db.Entities.ClientProperty()
                                    {
                                        CreateTime = now,
                                        Value = p.Value,
@@ -1002,28 +962,28 @@ namespace ee.iLawyer.Ops
                    }
                   ).Build();
         }
-        public BaseObjectResponse<Contact.DTO.Client> GetClient(BaseIdRequest request)
+        public BaseObjectResponse<Contact.DTO.ViewObjects.Client> GetClient(BaseIdRequest request)
         {
-            return ServiceProcessor.CreateProcessor<BaseIdRequest, BaseObjectResponse<Contact.DTO.Client>>(MethodBase.GetCurrentMethod(), request)
+            return ServiceProcessor.CreateProcessor<BaseIdRequest, BaseObjectResponse<Contact.DTO.ViewObjects.Client>>(MethodBase.GetCurrentMethod(), request)
                   .Process(req =>
                    {
-                       var response = new BaseObjectResponse<Contact.DTO.Client>();
+                       var response = new BaseObjectResponse<Contact.DTO.ViewObjects.Client>();
                        using (var repo = new NhEntityRepository<Db.Entities.Client>())
                        {
                            var entity = repo.GetById(request.Id);
-                           response.Object = DtoConverter.Mapper.Map<Contact.DTO.Client>(entity);
+                           response.Object = DtoConverter.Mapper.Map<Contact.DTO.ViewObjects.Client>(entity);
                        }
                        return response;
                    }
                   ).Build();
 
         }
-        public BaseQueryResponse<Contact.DTO.Client> QueryClient(QueryClientRequest request)
+        public BaseQueryResponse<Contact.DTO.ViewObjects.Client> QueryClient(QueryClientRequest request)
         {
-            return ServiceProcessor.CreateProcessor<QueryClientRequest, BaseQueryResponse<Contact.DTO.Client>>(MethodBase.GetCurrentMethod(), request)
+            return ServiceProcessor.CreateProcessor<QueryClientRequest, BaseQueryResponse<Contact.DTO.ViewObjects.Client>>(MethodBase.GetCurrentMethod(), request)
                   .Process(req =>
                    {
-                       var response = new BaseQueryResponse<Contact.DTO.Client>();
+                       var response = new BaseQueryResponse<Contact.DTO.ViewObjects.Client>();
 
                        var queryCriterions = new List<ICriterion>();
 
@@ -1050,7 +1010,7 @@ namespace ee.iLawyer.Ops
                            response.Total = query.Item2;
                            if (query.Item1.Any())
                            {
-                               response.QueryList = query.Item1.ToList().Select(DtoConverter.Mapper.Map<Contact.DTO.Client>).ToList();
+                               response.QueryList = query.Item1.ToList().Select(DtoConverter.Mapper.Map<Contact.DTO.ViewObjects.Client>).ToList();
                            }
                        }
                        return response;
@@ -1076,19 +1036,13 @@ namespace ee.iLawyer.Ops
                                throw new EeException(ErrorCodes.Existed, "Object is existed.");
                            }
 
-                           project = new Db.Entities.Project()
-                           {
-                               Category = repo.GetById<Db.Entities.Foundation.Picklist>(req.CategoryCode),
-                               Name = req.Name,
-                               Code = req.Code,
-                               Level = req.Level,
-                               Details = req.Details,
-                               OtherLitigant = req.OtherLitigant,
-                               InterestedParty = req.InterestedParty,
-                               DealDate = req.DealDate,
-                               Owner = repo.GetById<Db.Entities.RBAC.SysUser>(req.OwnerId),
-                               CreateTime = now,
-                           };
+                           project = DtoConverter.Mapper.Map<Db.Entities.Project>(req);
+                           project.CreateTime = now;
+                           project.Category = repo.GetById<Db.Entities.Foundation.Picklist>(req.CategoryId);
+                           project.Cause = repo.GetById<Db.Entities.Foundation.Picklist>(req.CauseId);
+                           project.Owner = repo.GetById<Db.Entities.RBAC.SysUser>(req.OwnerId);
+
+
                            project.AddAccount(DtoConverter.Mapper.Map<Db.Entities.ProjectAccount>(req.Account));
 
                            var involvedClients = new List<Db.Entities.ProjectClient>();
@@ -1159,11 +1113,81 @@ namespace ee.iLawyer.Ops
 
                            project.UpdateAccount(DtoConverter.Mapper.Map<Db.Entities.ProjectAccount>(req.Account));
 
-                           project.Category = repo.GetById<Db.Entities.Foundation.Picklist>(req.CategoryCode);
-                           project.Owner = repo.GetById<Db.Entities.RBAC.SysUser>(req.OwnerId);
+                           if (req.CategoryId > 0 && project.Category.Id != req.CategoryId)
+                           {
+                               project.Category = repo.GetById<Db.Entities.Foundation.Picklist>(req.CategoryId);
+                           }
+                           if (req.CauseId > 0 && project.Cause.Id != req.CauseId)
+                           {
+                               project.Cause = repo.GetById<Db.Entities.Foundation.Picklist>(req.CauseId);
+                           }
+                           if (req.OwnerId > 0 && project.Owner.Id != req.OwnerId)
+                           {
+                               project.Owner = repo.GetById<Db.Entities.RBAC.SysUser>(req.OwnerId);
+                           }
+
+                           var involvedClients = new List<Db.Entities.ProjectClient>();
+                           if (req.InvolvedClientIds?.Any() ?? false)
+                           {
+
+                               var existedClientIds = project.InvolvedClients?.Select(x => x.Client)?.Select(x => x.Id) ?? new List<int>();
+                               var toRemoveClientIds = existedClientIds?.Where(x => !req.InvolvedClientIds.Contains(x));
+
+                               if (toRemoveClientIds != null && toRemoveClientIds.Any())
+                               {
+                                  
+                                   toRemoveClientIds.ToList().ForEach(x =>
+                                   {
+                                       var pc = project.InvolvedClients.FirstOrDefault(o => o.Client.Id == x);
+                                       repo.Delete(pc);
+                                   });
+                                   project.InvolvedClients = null;
+                               }
+
+
+                               var toAddClientIds = req.InvolvedClientIds?.Distinct()?.Where(x => !existedClientIds.Contains(x));
+
+                               if (toAddClientIds != null && toAddClientIds.Any())
+                               {
+                                   int projectClientOrderNo = 0;
+                                   foreach (var id in toAddClientIds)
+                                   {
+                                       if (id > 0)
+                                       {
+                                           var existedClient = repo.GetById<Db.Entities.Client>(id);
+                                           if (existedClient != null)
+                                           {
+                                               var projectClient = new Db.Entities.ProjectClient()
+                                               {
+                                                   Id = 0,
+                                                   InProject = project,
+                                                   Client = existedClient,
+                                                   CreateTime = now,
+                                                   OrderNo = projectClientOrderNo++,
+                                               };
+                                               involvedClients.Add(projectClient);
+                                           }
+                                       }
+
+                                   }
+                                   project.InvolvedClients = involvedClients;
+                               }
+                           }
+                           else
+                           {
+                               if (project.InvolvedClients?.Any() ?? false)
+                               {
+                                   for (int i = 0; i < project.InvolvedClients.ToList().Count; i++)
+                                   {
+                                       repo.Delete(project.InvolvedClients[i]);
+                                   }
+
+                                   project.InvolvedClients = null;
+                               }
+                           }
 
                            //update todolist
-                           if (req.TodoList != null)
+                           if (req.TodoList != null && req.TodoList.Any())
                            {
                                if (project.TodoList != null && project.TodoList.Any())
                                {
@@ -1220,7 +1244,7 @@ namespace ee.iLawyer.Ops
                                }
                            }
                            //update progresses
-                           if (req.Progresses != null)
+                           if (req.Progresses != null && req.Progresses.Any())
                            {
                                if (project.Progresses != null && project.Progresses.Any())
                                {
@@ -1295,12 +1319,12 @@ namespace ee.iLawyer.Ops
                   ).Build();
 
         }
-        public BaseObjectResponse<Contact.DTO.Project> GetProject(BaseIdRequest request)
+        public BaseObjectResponse<Contact.DTO.ViewObjects.Project> GetProject(BaseIdRequest request)
         {
-            return ServiceProcessor.CreateProcessor<BaseIdRequest, BaseObjectResponse<Contact.DTO.Project>>(MethodBase.GetCurrentMethod(), request)
+            return ServiceProcessor.CreateProcessor<BaseIdRequest, BaseObjectResponse<Contact.DTO.ViewObjects.Project>>(MethodBase.GetCurrentMethod(), request)
                   .Process(req =>
                    {
-                       var response = new BaseObjectResponse<Contact.DTO.Project>();
+                       var response = new BaseObjectResponse<Contact.DTO.ViewObjects.Project>();
                        using (var repo = new NhEntityRepository<Db.Entities.Project>())
                        {
                            var entity = repo.GetById(request.Id);
@@ -1310,9 +1334,9 @@ namespace ee.iLawyer.Ops
                    }
                   ).Build();
         }
-        public BaseQueryResponse<Contact.DTO.Project> QueryProject(QueryProjectRequest request)
+        public BaseQueryResponse<Contact.DTO.ViewObjects.Project> QueryProject(QueryProjectRequest request)
         {
-            return ServiceProcessor.CreateProcessor<QueryProjectRequest, BaseQueryResponse<Contact.DTO.Project>>(MethodBase.GetCurrentMethod(), request)
+            return ServiceProcessor.CreateProcessor<QueryProjectRequest, BaseQueryResponse<Contact.DTO.ViewObjects.Project>>(MethodBase.GetCurrentMethod(), request)
                   .Inbound(() =>
                    {
                        if (!string.IsNullOrEmpty(request.DealDateFrom))
@@ -1334,7 +1358,7 @@ namespace ee.iLawyer.Ops
                    })
                   .Process(req =>
                    {
-                       var response = new BaseQueryResponse<Contact.DTO.Project>();
+                       var response = new BaseQueryResponse<Contact.DTO.ViewObjects.Project>();
                        var queryCriterions = new List<ICriterion>();
 
 

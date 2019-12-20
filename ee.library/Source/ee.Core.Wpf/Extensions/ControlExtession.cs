@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -68,13 +66,17 @@ namespace ee.Core.Wpf.Extensions
         private static DependencyObject GetContainerFormObject(ItemsControl item, object obj)
         {
             if (item == null)
+            {
                 return null;
+            }
 
             DependencyObject dObject = null;
             dObject = item.ItemContainerGenerator.ContainerFromItem(obj);
 
             if (dObject != null)
+            {
                 return dObject;
+            }
 
             var query = from childItem in item.Items.Cast<object>()
                         let childControl = item.ItemContainerGenerator.ContainerFromItem(childItem) as ItemsControl
@@ -230,16 +232,72 @@ namespace ee.Core.Wpf.Extensions
                 {
                     DependencyObject child = VisualTreeHelper.GetChild(obj, i);
                     if (child != null && child is T && (child as T).Name.Equals(name))
+                    {
                         return (T)child;
+                    }
                     else
                     {
                         T childOfChild = FindName<T>(child, name);
                         if (childOfChild != null && childOfChild is T && (childOfChild as T).Name.Equals(name))
+                        {
                             return childOfChild;
+                        }
                     }
                 }
             }
             return null;
+        }
+
+
+        public static void UpdateSource(DependencyObject obj)
+        {
+            if (null != obj)
+            {
+                BindingExpression be = null;
+                if (obj is TextBox)
+                {
+                    be = (obj as TextBox).GetBindingExpression(TextBox.TextProperty);
+                }
+                else if (obj is ComboBox)
+                {
+                    be = (obj as ComboBox).GetBindingExpression(ComboBox.SelectedValueProperty);
+
+                   var selectItemBe = (obj as ComboBox).GetBindingExpression(ComboBox.SelectedItemProperty);
+
+                    if (selectItemBe != null && selectItemBe.ParentBinding.UpdateSourceTrigger == UpdateSourceTrigger.Explicit)
+                    {
+                        selectItemBe?.UpdateSource();
+                    }
+                }
+                else if (obj is DataGrid)
+                {
+                    be = (obj as DataGrid).GetBindingExpression(DataGrid.ItemsSourceProperty);
+                }
+
+                if (be != null && be.ParentBinding.UpdateSourceTrigger == UpdateSourceTrigger.Explicit)
+                {
+                    be?.UpdateSource();
+                    System.Diagnostics.Debug.WriteLine($"UpdateSource:{(be.Target as Control).Name}");
+                }
+                DependencyObject child;
+
+                for (int i = 0; i <= VisualTreeHelper.GetChildrenCount(obj) - 1; i++)
+                {
+
+                    child = VisualTreeHelper.GetChild(obj, i);
+                    if (child != null)
+                    {
+                        if (child is DependencyObject)
+                        {
+                            UpdateSource(child);
+                        }
+                    }
+                }
+
+
+            }
+
+
         }
 
     }
@@ -254,7 +312,7 @@ namespace ee.Core.Wpf.Extensions
 
         //GetForegroundWindow API
         [DllImport("user32.dll")]
-        static extern IntPtr GetForegroundWindow();
+        public static extern IntPtr GetForegroundWindow();
 
         /////调用GetForegroundWindow然后调用GetWindowFromHwnd
 
@@ -265,7 +323,9 @@ namespace ee.Core.Wpf.Extensions
         {
             var hwnd = GetForegroundWindow();
             if (hwnd == IntPtr.Zero)
+            {
                 return Application.Current.MainWindow;
+            }
 
             return GetWindowFromHwnd(hwnd);
         }

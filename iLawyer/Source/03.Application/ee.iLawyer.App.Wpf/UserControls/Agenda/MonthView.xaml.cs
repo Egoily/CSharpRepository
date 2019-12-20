@@ -7,7 +7,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using ee.Core.Wpf.Extensions;
-using ee.iLawyer.App.Wpf.Models;
 
 namespace ee.iLawyer.App.Wpf.UserControls.Agenda
 {

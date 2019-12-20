@@ -1,7 +1,4 @@
-﻿using ee.Core.Framework.Messaging;
-using ee.iLawyer.App.Wpf.ViewModels;
-using System;
-using System.Linq;
+﻿using ee.iLawyer.App.Wpf.ViewModels;
 using System.Windows;
 
 namespace ee.iLawyer.App.Wpf.Views

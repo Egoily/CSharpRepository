@@ -1,6 +1,7 @@
 ﻿using ee.Core.Framework.Schema;
 using ee.iLawyer.Ops.Contact.Args;
 using ee.iLawyer.Ops.Contact.DTO;
+using ee.iLawyer.Ops.Contact.DTO.ViewObjects;
 using System.Web.Http;
 
 namespace ee.iLawyer.WebApi.Controllers
@@ -27,33 +28,15 @@ namespace ee.iLawyer.WebApi.Controllers
             return areas;
         }
 
+     
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        [Route("ProjectCategories"), HttpGet]
-        public BaseQueryResponse<ProjectCategory> GetProjectCategories()
+        [Route("Pickers"), HttpGet]
+        public BaseQueryResponse<Picker> GetPickers()
         {
-            return Service.GetProjectCategories(new GetProjectCategoriesRequest());
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        [Route("ProjectCauses"), HttpGet]
-        public BaseQueryResponse<ProjectCause> GetProjectCauses()
-        {
-            return Service.GetProjectCauses(new GetProjectCausesRequest());
-        }
-  
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        [Route("PropertyPicks"), HttpGet]
-        public BaseQueryResponse<PropertyPicker> GetPropertyPicks()
-        {
-            return Service.GetPropertyPicks(new GetPropertyPicksRequest());
+            return Service.GetPickers(new GetPickersRequest());
         }
     }
 }

@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cacher.cs" />
+    <Compile Include="ConfigData.cs" />
+    <Compile Include="Configuration.cs" />
     <Compile Include="ILawyerServiceProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -61,6 +63,10 @@
     <ProjectReference Include="..\ee.iLawyer.Db\ee.iLawyer.Db.csproj">
       <Project>{1428652C-40B3-4F1A-92F3-F4965726B414}</Project>
       <Name>ee.iLawyer.Db</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ee.iLawyer.Ops\ee.iLawyer.Ops.csproj">
+      <Project>{7DFF2702-D6CB-47F9-BF63-ECFE99C37C1F}</Project>
+      <Name>ee.iLawyer.Ops</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

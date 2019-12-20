@@ -1,4 +1,5 @@
-﻿using ee.iLawyer.App.Wpf.Views;
+﻿using ee.iLawyer.App.Wpf.Models;
+using ee.iLawyer.App.Wpf.Views;
 using System;
 using System.Linq;
 using System.Windows;
@@ -13,7 +14,7 @@ namespace ee.iLawyer.App.Wpf
         protected override void OnStartup(StartupEventArgs e)
         {
 
-            Core.Framework.Messaging.Messenger.Default.Register<string>(this, "ShowView", ShowView);
+            Core.Framework.Messaging.Messenger.Default.Register<ShowViewArg>(this, "ShowView", ShowView);
 
 
 
@@ -25,27 +26,33 @@ namespace ee.iLawyer.App.Wpf
 
         }
 
-        private void ShowView(string windowName)
+        private void ShowView(ShowViewArg arg)
         {
 
-            var window = CreateInstance<Window>(windowName);
-
-            window?.Show();
+            var window = CreateInstance<Window>(arg);
+            if (arg.Topmost)
+            {
+                window?.ShowDialog();
+            }
+            else
+            {
+                window?.Show();
+            }
         }
 
-        private T CreateInstance<T>(string typeName)
+        private T CreateInstance<T>(ShowViewArg arg)
         {
             System.Reflection.Assembly ass = System.Reflection.Assembly.GetExecutingAssembly();
 
             Type type = null;
             ass.GetTypes().ToList().ForEach(i =>
             {
-                if (i.IsClass && i.IsPublic && i.Name == typeName)
+                if (i.IsClass && i.IsPublic && i.Name == arg.ShownerName)
                 {
                     type = i;
                 }
             });
-            return (T)Activator.CreateInstance(type);
+            return (T)Activator.CreateInstance(type, arg.Parameter == null ? null : new object[] { arg.Parameter });
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using ee.iLawyer.App.Wpf.Models;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls.Primitives;
 
 namespace ee.iLawyer.App.Wpf.UserControls.Agenda

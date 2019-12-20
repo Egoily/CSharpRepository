@@ -19,7 +19,6 @@ using System.Windows.Threading;
 #endif
 #endif
 
-////using GalaSoft.Utilities.Attributes;
 
 namespace ee.Core.Framework.Messaging
 {

@@ -33,20 +33,20 @@ namespace ee.Core.ComponentModel
 
         public virtual string FullyQualifiedName { get; private set; }
 
-        public string Icon { get; private set; }
+        public virtual string Icon { get; private set; }
 
-        public Type ClassType { get; private set; }
+        public virtual Type DataContextType { get; private set; }
 
-        public int Index { get; private set; }
+        public virtual int Index { get; private set; }
 
-        public BizModuleAttribute(int index, string scopeName, string name, string metadataToken, string icon = "", Type classType = null)
+        public BizModuleAttribute(int index, string scopeName, string name, string metadataToken, string icon = "", Type dataContextType = null)
         {
             Index = index;
             ScopeName = scopeName;
             Name = name;
             MetadataToken = metadataToken;
             Icon = icon;
-            ClassType = classType;
+            DataContextType = dataContextType;
         }
 
 

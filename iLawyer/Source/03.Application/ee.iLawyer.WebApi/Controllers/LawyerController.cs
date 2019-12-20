@@ -1,7 +1,6 @@
 ﻿using ee.Core.Framework.Schema;
 using ee.iLawyer.Ops;
 using ee.iLawyer.Ops.Contact.Args;
-using ee.iLawyer.Ops.Contact.Args.SystemManagement;
 using System.Reflection;
 using System.Web.Http;
 
@@ -21,45 +20,18 @@ namespace ee.iLawyer.WebApi.Controllers
                  .Build();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        [Route("infr/projectcategories"), HttpPost]
-        public BaseDataResponse GetProjectCategories()
-        {
-            return ServiceProcessor.CreateProcessor<GetProjectCategoriesRequest, BaseDataResponse>(MethodBase.GetCurrentMethod())
-                  .Input(new GetProjectCategoriesRequest(), true)
-                  .Process(req => { return Service.GetProjectCategories(req); })
-                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<BaseDataResponse>(Converters.ToBaseDataResponse))
-                  .Build();
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        [Route("infr/projectcauses"), HttpPost]
-        public BaseDataResponse GetProjectCauses()
-        {
-            return ServiceProcessor.CreateProcessor<GetProjectCausesRequest, BaseDataResponse>(MethodBase.GetCurrentMethod())
-                  .Input(new GetProjectCausesRequest(), true)
-                  .Process(req => { return Service.GetProjectCauses(req); })
-                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<BaseDataResponse>(Converters.ToBaseDataResponse))
-                  .Build();
-
-        }
 
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        [Route("infr/PropertyPicks"), HttpPost]
-        public BaseDataResponse GetPropertyPicks([FromBody] GetPropertyPicksRequest request)
+        [Route("infr/pickers"), HttpPost]
+        public BaseDataResponse GetPickers([FromBody] GetPickersRequest request)
         {
-            return ServiceProcessor.CreateProcessor<GetPropertyPicksRequest, BaseDataResponse>(MethodBase.GetCurrentMethod())
+            return ServiceProcessor.CreateProcessor<GetPickersRequest, BaseDataResponse>(MethodBase.GetCurrentMethod())
                   .Input(request, true)
-                  .Process(req => { return Service.GetPropertyPicks(req); })
+                  .Process(req => { return Service.GetPickers(req); })
                   .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<BaseDataResponse>(Converters.ToBaseDataResponse))
                   .Build();
         }

@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using ee.Core.Wpf.Extensions;
-using ee.iLawyer.App.Wpf.Models;
+using ee.iLawyer.App.Wpf.UserControls.Agenda;
 
 namespace ee.iLawyer.App.Wpf.Domain
 {

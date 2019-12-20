@@ -1,6 +1,6 @@
 ﻿using ee.Core.DataAccess;
 using ee.Core.Logging;
-using ee.iLawyer.Ops.Contact.Args.SystemManagement;
+using ee.iLawyer.Ops.Contact.Args;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +12,8 @@ namespace ee.iLawyer.Ops.Tests
     {
         private ILawyerService service;
 
-        private IList<Contact.DTO.SystemManagement.PermissionModule> permissionModules;
-        private IList<Contact.DTO.SystemManagement.Role> roles;
+        private IList<Contact.DTO.ViewObjects.SystemManagement.PermissionModule> permissionModules;
+        private IList<Contact.DTO.ViewObjects.SystemManagement.Role> roles;
         private static void Build()
         {
             SessionManager.Builder = new DataAccessBuilder.SqlServer.DataAccessBuilder();

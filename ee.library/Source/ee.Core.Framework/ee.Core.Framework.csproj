@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\ConfigManagement.cs" />
     <Compile Include="ErrorCodes.cs" />
     <Compile Include="Messaging\GenericMessage.cs" />
     <Compile Include="Messaging\IMessenger.cs" />
@@ -63,7 +64,9 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="JsonMarkBigObjectConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utility\Validator.cs" />
+    <Compile Include="Utility\Des.cs" />
+    <Compile Include="Validations\IValidationExceptionHandler.cs" />
+    <Compile Include="Validations\Validator.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac">

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace ee.Core.Wpf.ExControls
 {
@@ -14,7 +10,7 @@ namespace ee.Core.Wpf.ExControls
 
     public interface ISearchDataProvider
     {
-        SearchResult DoSearch(string searchTerm);
+        SearchResult DoSearch(string searchTerm, string[] excludes);
         SearchResult SearchByKey(object Key);
     }
 }

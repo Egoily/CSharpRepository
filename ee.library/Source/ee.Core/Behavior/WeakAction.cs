@@ -210,7 +210,7 @@ namespace ee.Core.Behavior
                     && type.Name.Contains("DisplayClass"))
                 {
                     System.Diagnostics.Debug.WriteLine(
-                        "You are attempting to register a lambda with a closure without using keepTargetAlive. Are you sure? Check http://galasoft.ch/s/mvvmweakaction for more info.");
+                        "You are attempting to register a lambda with a closure without using keepTargetAlive. Are you sure?");
                 }
             }
 #endif

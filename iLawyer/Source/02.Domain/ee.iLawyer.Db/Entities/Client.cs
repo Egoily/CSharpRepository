@@ -36,7 +36,7 @@ namespace ee.iLawyer.Db.Entities
         /// <summary>
         /// 属性
         /// </summary>
-        public virtual IList<ClientProperties> Properties { get; set; }
+        public virtual IList<ClientProperty> Properties { get; set; }
 
 
         /// <summary>

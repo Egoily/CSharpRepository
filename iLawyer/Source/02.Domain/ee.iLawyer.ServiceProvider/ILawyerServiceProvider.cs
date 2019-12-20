@@ -1,9 +1,8 @@
 ﻿using ee.Core.Framework.Schema;
 using ee.Core.Http;
 using ee.iLawyer.Ops.Contact.Args;
-using ee.iLawyer.Ops.Contact.Args.SystemManagement;
-using ee.iLawyer.Ops.Contact.DTO;
-using ee.iLawyer.Ops.Contact.DTO.SystemManagement;
+using ee.iLawyer.Ops.Contact.DTO.ViewObjects;
+using ee.iLawyer.Ops.Contact.DTO.ViewObjects.SystemManagement;
 using ee.iLawyer.Ops.Contact.Interfaces;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
@@ -14,7 +13,7 @@ namespace ee.iLawyer.ServiceProvider
     {
         public string EndPoint = @"http://localhost:2155";
 
-        private BaseDataResponse Process(string resource, BaseRequest request, int? timeout = 10 * 1000)
+        private BaseDataResponse Process(string resource, BaseRequest request, int? timeout = 30 * 1000)
         {
             var uri = EndPoint + resource;
             var response = HttpInvoker.PostToString(uri, null, JsonConvert.SerializeObject(request), timeout);
@@ -87,23 +86,12 @@ namespace ee.iLawyer.ServiceProvider
             return Process(resource, request).ToBaseObjectResponse<Project>();
         }
 
-        public BaseQueryResponse<ProjectCategory> GetProjectCategories(GetProjectCategoriesRequest request)
-        {
-            var resource = @"/api/lawyer/infr/ProjectCategories";
-            return Process(resource, request).ToBaseQueryResponse<ProjectCategory>();
-        }
-
-        public BaseQueryResponse<ProjectCause> GetProjectCauses(GetProjectCausesRequest request)
-        {
-            var resource = @"/api/lawyer/infr/ProjectCauses";
-            return Process(resource, request).ToBaseQueryResponse<ProjectCause>();
-        }
 
 
-        public BaseQueryResponse<PropertyPicker> GetPropertyPicks(GetPropertyPicksRequest request)
+        public BaseQueryResponse<Picker> GetPickers(GetPickersRequest request)
         {
-            var resource = @"/api/lawyer/infr/PropertyPicks";
-            return Process(resource, request).ToBaseQueryResponse<PropertyPicker>();
+            var resource = @"/api/lawyer/infr/pickers";
+            return Process(resource, request).ToBaseQueryResponse<Picker>();
         }
 
         public BaseQueryResponse<Client> QueryClient(QueryClientRequest request)
@@ -240,6 +228,14 @@ namespace ee.iLawyer.ServiceProvider
         public BaseResponse ChangePassword(ChangePasswordRequest request)
         {
             var resource = @"/api/lawyer/sys/changepassword";
+            return Process(resource, request);
+        }
+
+
+
+        public BaseResponse Create<T>(T request) where T : BaseRequest, new()
+        {
+            var resource = @"/api/lawyer/court/create";
             return Process(resource, request);
         }
 

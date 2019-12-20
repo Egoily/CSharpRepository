@@ -2,12 +2,12 @@
 using ee.Core.Framework.Messaging;
 using ee.Core.Framework.Schema;
 using ee.Core.Wpf.Designs;
+using ee.iLawyer.App.Wpf.Models;
 using ee.iLawyer.App.Wpf.ViewModels.Base;
-using ee.iLawyer.Ops.Contact.Args.SystemManagement;
-using ee.iLawyer.Ops.Contact.DTO.SystemManagement;
+using ee.iLawyer.Ops.Contact.Args;
+using ee.iLawyer.Ops.Contact.DTO.ViewObjects.SystemManagement;
 using ee.iLawyer.ServiceProvider;
 using PropertyChanged;
-using System;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -38,11 +38,11 @@ namespace ee.iLawyer.App.Wpf.ViewModels
         /// <summary>
         /// 用户名
         /// </summary>
-        public string UserName { get; set; }
+        public string UserName { get; set; } 
         /// <summary>
         /// 密码
         /// </summary>
-        public string Password { get; set; }
+        public string Password { get; set; } 
         /// <summary>
         /// 是否记住密码
         /// </summary>
@@ -67,6 +67,8 @@ namespace ee.iLawyer.App.Wpf.ViewModels
         public LoginViewModel()
         {
             serviceProvider = new ILawyerServiceProvider();
+
+            ReadConfigInfo();
         }
 
 
@@ -103,7 +105,7 @@ namespace ee.iLawyer.App.Wpf.ViewModels
                     };
                     response = serviceProvider.Login(request);
                 });
-                
+
                 var timeouttask = Task.Delay(3000);
                 var completedTask = await Task.WhenAny(LoginTask, timeouttask);
                 if (completedTask == timeouttask)
@@ -119,11 +121,12 @@ namespace ee.iLawyer.App.Wpf.ViewModels
                         //TODO: 
                         this.Report = "加载用户信息 . . .";
                         Cacher.Loginer = response.Object;
-                        Success = true;
 
+                        Success = true;
+                        SaveLoginInfo();
                         Application.Current.Dispatcher.Invoke(() =>
                         {
-                            Messenger.Default.Send("MainWindow", "ShowView");
+                            Messenger.Default.Send(new ShowViewArg("MainWindow",null), "ShowView");
                         });
 
                         ExcuteCloseViewCommand();
@@ -166,7 +169,11 @@ namespace ee.iLawyer.App.Wpf.ViewModels
         /// </summary>
         public void ReadConfigInfo()
         {
-            //TODO:
+            UserName = Configuration.Data.CurrentAccountName;
+            if (!string.IsNullOrEmpty(UserName))
+            {
+                Password = Configuration.Data.Accounts[UserName];
+            }
         }
 
         /// <summary>
@@ -174,7 +181,12 @@ namespace ee.iLawyer.App.Wpf.ViewModels
         /// </summary>
         private void SaveLoginInfo()
         {
-            //TODO:
+            if (IsRememberPassword)
+            {
+                Configuration.Data.CurrentAccountName = UserName;
+                Configuration.Data.Accounts.AddOrUpdate(UserName, Password);
+                Configuration.Save();
+            }
         }
 
         #endregion

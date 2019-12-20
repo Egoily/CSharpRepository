@@ -1,32 +1,33 @@
 ﻿using ee.Core.ComponentModel;
-using ee.Core.Framework;
 using ee.Core.Framework.Schema;
-using ee.iLawyer.App.Wpf.Modules;
-using ee.iLawyer.App.Wpf.UserControls;
+using ee.Core.Wpf.Designs;
+using ee.iLawyer.App.Wpf.Models;
+using ee.iLawyer.App.Wpf.ViewModels.Base;
 using ee.iLawyer.Ops.Contact.Args;
-using ee.iLawyer.Ops.Contact.DTO;
+using ee.iLawyer.Ops.Contact.AutoMapper;
+using ee.iLawyer.Ops.Contact.DTO.ViewObjects;
 using ee.iLawyer.ServiceProvider;
-using MaterialDesignThemes.Wpf;
 using PropertyChanged;
-using System;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
+using System.Windows.Forms;
 
 namespace ee.iLawyer.App.Wpf.ViewModels
 {
     [AddINotifyPropertyChangedInterface]
-    [BizModule(4, "Root", "案件管理", "module.project", "", typeof(ManageProject))]
     [Ioc(null, false, true)]
-    public class ProjectViewModel : AbstractDataManipulationViewModel
+    public class ProjectViewModel : DataManipulationViewModel<Project>
     {
         private ILawyerServiceProvider serviceProvider;
-        public ObservableCollection<Project> Projects { get; protected set; }
-        public Project SelectedItem { get; set; }
+
+        public override string PermissionCodePrefix => "root.project.";
 
 
+        public RelayCommand<object> AddTodoItemCommand => new RelayCommand<object>(ExecuteAddTodoItemCommand);
+        public RelayCommand<object> EditTodoItemCommand => new RelayCommand<object>(ExecuteEditTodoItemCommand);
+        public RelayCommand<object> RemoveTodoItemCommand => new RelayCommand<object>(ExecuteRemoveTodoItemCommand);
+        public RelayCommand<object> AddProgressCommand => new RelayCommand<object>(ExecuteAddProgressCommand);
+        public RelayCommand<object> EditProgressCommand => new RelayCommand<object>(ExecuteEditProgressCommand);
+        public RelayCommand<object> RemoveProgressCommand => new RelayCommand<object>(ExecuteRemoveProgressCommand);
 
         public ProjectViewModel()
         {
@@ -34,219 +35,151 @@ namespace ee.iLawyer.App.Wpf.ViewModels
         }
 
 
-        public override void Query()
+        public virtual void ExecuteAddTodoItemCommand(object o)
         {
-            System.Threading.ThreadPool.QueueUserWorkItem(delegate
+            System.Windows.Application.Current.Dispatcher.Invoke(() =>
             {
-                System.Threading.SynchronizationContext.SetSynchronizationContext(new
-                  System.Windows.Threading.DispatcherSynchronizationContext(System.Windows.Application.Current.Dispatcher));
-                System.Threading.SynchronizationContext.Current.Post(pl =>
-                {
-                    try
-                    {
-
-                        var response = serviceProvider.QueryProject(new QueryProjectRequest());
-                        if (response.Code == ErrorCodes.Ok && response.QueryList != null)
-                        {
-                            Projects = new ObservableCollection<Project>();
-                            response.QueryList.ToList().ForEach(x => Projects.Add(x));
-                        }
-
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.Message);
-                    }
-
-                }, null);
+                MessengerInstance.Send(new ShowViewArg("NewEditTodoItem", null, true), "ShowView");
             });
+        }
+        public virtual void ExecuteEditTodoItemCommand(object o)
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(() =>
+            {
+                MessengerInstance.Send(new ShowViewArg("NewEditTodoItem", o, true), "ShowView");
+            });
+        }
+        public virtual void ExecuteRemoveTodoItemCommand(object o)
+        {
+            var dr = System.Windows.Forms.MessageBox.Show("确定要删除?", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if (dr != DialogResult.OK)
+            {
+                return;
+            }
 
+        }
+        public virtual void ExecuteAddProgressCommand(object o)
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(() =>
+            {
+                MessengerInstance.Send(new ShowViewArg("NewEditProgress", null, true), "ShowView");
+            });
+        }
+        public virtual void ExecuteEditProgressCommand(object o)
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(() =>
+            {
+                MessengerInstance.Send(new ShowViewArg("NewEditProgress", o, true), "ShowView");
+            });
+        }
+        public virtual void ExecuteRemoveProgressCommand(object o)
+        {
+
+        }
+
+        public override BaseQueryResponse<Project> Query()
+        {
+            return serviceProvider.QueryProject(new QueryProjectRequest() { Name = SearchText });
         }
 
         public override BaseResponse Create()
         {
-            if (SelectedItem == null)
-            {
-                return new BaseResponse() { Code = ErrorCodes.NullParameter, Message = "新增的对象为空." };
-            }
-
-            try
-            {
-                var response = serviceProvider.CreateProject(new CreateProjectRequest()
-                {
-                    CategoryCode = SelectedItem.Category.Code,
-                    Name = SelectedItem.Name,
-                    Code = SelectedItem.Code,
-                    Level = SelectedItem.Level.ToString(),
-                    Details = SelectedItem.Details,
-                    InvolvedClientIds = SelectedItem.InvolvedClients.Select(x => x.Id).ToList(),
-                    OtherLitigant = SelectedItem.OtherLitigant,
-                    InterestedParty = SelectedItem.InterestedParty,
-                    DealDate = SelectedItem.DealDate,
-
-                    Account = SelectedItem.Account,
-                    TodoList = SelectedItem.TodoList,
-                    Progresses = SelectedItem.Progresses,
-                });
-                return response;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return new BaseResponse() { Code = ErrorCodes.UnknownError, Message = "Unknown Error" };
-            }
-
+            var request = DtoConverter.ConvertToCreateProjectRequest(TreadObject);
+            return serviceProvider.CreateProject(request);
         }
         public override BaseResponse Update()
         {
-            if (SelectedItem == null)
-            {
-                return new BaseResponse() { Code = ErrorCodes.NullParameter, Message = "更新的对象为空." };
-            }
-
-            try
-            {
-                var response = serviceProvider.UpdateProject(new UpdateProjectRequest()
-                {
-                    Id = SelectedItem.Id,
-                    //TODO:
-                    CategoryCode = SelectedItem.Category.Code,
-                    Name = SelectedItem.Name,
-                    Code = SelectedItem.Code,
-                    Level = SelectedItem.Level.ToString(),
-                    Details = SelectedItem.Details,
-                    InvolvedClientIds = SelectedItem.InvolvedClients.Select(x => x.Id).ToList(),
-                    OtherLitigant = SelectedItem.OtherLitigant,
-                    InterestedParty = SelectedItem.InterestedParty,
-                    DealDate = SelectedItem.DealDate,
-
-                    Account = SelectedItem.Account,
-                    TodoList = SelectedItem.TodoList,
-                    Progresses = SelectedItem.Progresses,
-
-                });
-                return response;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return new BaseResponse() { Code = ErrorCodes.UnknownError, Message = "Unknown Error" };
-            }
-
+            var request = DtoConverter.ConvertToUpdateProjectRequest(TreadObject);
+            return serviceProvider.UpdateProject(request);
         }
 
-        public override BaseResponse Delete()
+        public override BaseResponse Remove()
         {
-            if (SelectedItem == null)
+            return serviceProvider.RemoveProject(new RemoveProjectRequest()
             {
-                return new BaseResponse() { Code = ErrorCodes.NullParameter, Message = "删除的对象为空." };
-            }
+                Ids = new int[] { TreadObject.Id },
 
-            try
-            {
-                var response = serviceProvider.RemoveProject(new RemoveProjectRequest()
-                {
-                    Ids = new int[] { SelectedItem.Id },
-
-                });
-                return response;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return new BaseResponse() { Code = ErrorCodes.UnknownError, Message = "Unknown Error" };
-            }
-
+            });
         }
 
-        public override async void ExecuteNewCommandAsync(object o)
-        {
-            //let's set up a little MVVM, cos that's what the cool kids are doing:
-            var view = new NewEditProject()
-            {
-                DataContext = this,
-            };
 
-            //show the dialog
-            var result = await DialogHost.Show(view, "RootDialog", ExtendedOpenedEventHandler, ExtendedClosingEventHandler);
-        }
-        public override async void ExecuteEditCommandAsync(object o)
-        {
-            var Project = ((Button)o).DataContext as Project;
-            this.SelectedItem = Project;
-            var view = new NewEditProject(Project)
-            {
-                DataContext = this,
-            };
+  
 
-            //show the dialog
-            var result = await DialogHost.Show(view, "RootDialog", ExtendedOpenedEventHandler, ExtendedClosingEventHandler);
-        }
-        public override void ExecuteDeleteCommand(object o)
+
+
+
+        private void UpdateTodoItem(ProjectTodoItem item)
         {
-            var Project = ((Button)o).DataContext as Project;
-            this.SelectedItem = Project;
-            Delete();
-            SelectedItem = null;
-            Query();
-        }
-        public override void DeleteItem(object sender, EventArgs args)
-        {
-            var eventArgs = args as DialogClosingEventArgs;
-            if (!Equals(eventArgs.Parameter, true))
+            if (TreadObject.TodoList == null)
             {
                 return;
             }
 
-            if (eventArgs.Session.Content != null && ((FrameworkElement)eventArgs.Session.Content).DataContext != null)
+            var editObj = TreadObject.TodoList.FirstOrDefault(x => x.Id == item.Id);
+            if (editObj != null)
             {
-                var Project = ((FrameworkElement)eventArgs.Session.Content).DataContext as Project;
+                editObj.Content = item.Content;
+                editObj.CreateTime = item.CreateTime;
+                editObj.ExpiredTime = item.ExpiredTime;
+                editObj.CompletedTime = item.CompletedTime;
+                editObj.IsSetRemind = item.IsSetRemind;
+                editObj.Name = item.Name;
+                editObj.Priority = item.Priority;
+                editObj.RemindTime = item.RemindTime;
+                editObj.Status = item.Status;
 
-                SelectedItem = Project;
-                Delete();
-                Query();
             }
-
         }
 
-
-        private void ExtendedOpenedEventHandler(object sender, DialogOpenedEventArgs eventargs)
+        private void RemoveTodoItem(ProjectTodoItem item)
         {
-            Console.WriteLine("You could intercept the open and affect the dialog using eventArgs.Session.");
+            if (item != null)
+            {
+                TreadObject.TodoList.Remove(item);
+
+            }
         }
-
-        private void ExtendedClosingEventHandler(object sender, DialogClosingEventArgs eventArgs)
+        private void UpdateProgress(ProjectProgress item)
         {
-            if ((bool)eventArgs.Parameter == false)
+            if (TreadObject.Progresses == null)
             {
                 return;
             }
 
-            //note, you can also grab the session when the dialog opens via the DialogOpenedEventHandler
-            if (eventArgs.Session.Content is NewEditProject)
+            var editObj = TreadObject.Progresses.FirstOrDefault(x => x.Id == item.Id);
+            if (editObj != null)
             {
-                var content = eventArgs.Session.Content as NewEditProject;
-                if (content.IsNew)
-                {
-                    SelectedItem = content.TreatedObject;
-                    Task.Run(() => Create())
-                        .ContinueWith((t) => Query(), TaskContinuationOptions.OnlyOnRanToCompletion)
-                        .ContinueWith((t, _) => eventArgs.Session.Close(false), null, TaskScheduler.FromCurrentSynchronizationContext());
-                }
-                else
-                {
-                    SelectedItem = content.TreatedObject;
-                    Task.Run(() => Update())
-                        .ContinueWith((t) => Query(), TaskContinuationOptions.OnlyOnRanToCompletion)
-                        .ContinueWith((t, _) => eventArgs.Session.Close(false), null, TaskScheduler.FromCurrentSynchronizationContext());
-                }
+                editObj.HandleTime = item.HandleTime;
+                editObj.Content = item.Content;
+                editObj.CreateTime = item.CreateTime;
 
             }
-
-            //OK, lets cancel the close...
-            eventArgs.Cancel();
-            //...now, lets update the "session" with some new content!
-            eventArgs.Session.UpdateContent(new ProgressDialog());
         }
+        private void RemoveProgress(ProjectProgress item)
+        {
+            if (item != null)
+            {
+                TreadObject.Progresses.Remove(item);
+
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

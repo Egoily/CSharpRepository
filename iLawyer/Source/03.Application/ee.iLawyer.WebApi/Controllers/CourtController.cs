@@ -1,6 +1,7 @@
 ﻿using ee.Core.Framework.Schema;
 using ee.iLawyer.Ops.Contact.Args;
 using ee.iLawyer.Ops.Contact.DTO;
+using ee.iLawyer.Ops.Contact.DTO.ViewObjects;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Web.Http;

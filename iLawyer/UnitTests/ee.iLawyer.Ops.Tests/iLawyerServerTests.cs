@@ -1,6 +1,5 @@
 ﻿using ee.Core.Logging;
 using ee.iLawyer.Ops.Contact.Args;
-using ee.iLawyer.Ops.Contact.Args.SystemManagement;
 using ee.iLawyer.Ops.Contact.DTO;
 using ee.Core.DataAccess;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -44,26 +43,16 @@ namespace ee.iLawyer.Ops.Tests
         [TestMethod()]
         public void GetPropertyItemCategoriesTest_Main()
         {
-            var request = new GetPropertyPicksRequest()
+            var request = new GetPickersRequest()
             {
 
             };
-            var response = service.GetPropertyPicks(request);
+            var response = service.GetPickers(request);
 
             Assert.AreEqual(0, response.Code);
         }
 
-        [TestMethod()]
-        public void GetPropertyItemCategoriesTest_Item()
-        {
-            var request = new GetPropertyPicksRequest()
-            {
-                Code = "Phone"
-            };
-            var response = service.GetPropertyPicks(request);
-
-            Assert.AreEqual(0, response.Code);
-        }
+    
 
         [TestMethod()]
         public void Login()
@@ -82,13 +71,7 @@ namespace ee.iLawyer.Ops.Tests
         [TestMethod()]
         public void CreateClientTest()
         {
-            var properties = new List<CategoryValue>
-            {
-               new CategoryValue(11,"个人手机", "13610142196" ),
-                new CategoryValue( 21,"邮箱", "egoily@hotmail.com" ),
-                new CategoryValue(30,"地址","番禺市桥" )
-            };
-
+       
 
             var request = new CreateClientRequest()
             {
@@ -96,7 +79,7 @@ namespace ee.iLawyer.Ops.Tests
                 Impression = "good",
                 IsNP = true,
                 Name = "Ego Huang",
-                Properties = properties,
+                ClientProperties = null,
             };
             var response = service.CreateClient(request);
 

@@ -1,5 +1,4 @@
 ﻿using ee.iLawyer.App.Wpf.Domain;
-using ee.iLawyer.App.Wpf.Models;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;

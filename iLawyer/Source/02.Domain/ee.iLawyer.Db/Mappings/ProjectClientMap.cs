@@ -1,5 +1,5 @@
-﻿using FluentNHibernate.Mapping;
-using ee.iLawyer.Db.Entities;
+﻿using ee.iLawyer.Db.Entities;
+using FluentNHibernate.Mapping;
 namespace ee.iLawyer.Db.Mappings
 {
     public class ProjectClientMap : ClassMap<ProjectClient>
@@ -14,7 +14,7 @@ namespace ee.iLawyer.Db.Mappings
             Map(x => x.OrderNo);
             Map(x => x.CreateTime);
             References(x => x.InProject).Column("ProjectId").NotFound.Ignore();
-            References(x => x.Client).Column("ClientId").NotFound.Ignore();
+            References(x => x.Client).Column("ClientId").Cascade.SaveUpdate().NotFound.Ignore();
 
         }
     }

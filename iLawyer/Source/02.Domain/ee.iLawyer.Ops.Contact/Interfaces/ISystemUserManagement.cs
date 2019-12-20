@@ -1,6 +1,6 @@
 ﻿using ee.Core.Framework.Schema;
-using ee.iLawyer.Ops.Contact.Args.SystemManagement;
-using ee.iLawyer.Ops.Contact.DTO.SystemManagement;
+using ee.iLawyer.Ops.Contact.Args;
+using ee.iLawyer.Ops.Contact.DTO.ViewObjects.SystemManagement;
 
 namespace ee.iLawyer.Ops.Contact.Interfaces
 {

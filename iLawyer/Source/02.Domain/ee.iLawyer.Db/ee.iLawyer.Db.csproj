@@ -43,7 +43,7 @@
   <ItemGroup>
     <Compile Include="Entities\Foundation\Area.cs" />
     <Compile Include="Entities\Client.cs" />
-    <Compile Include="Entities\ClientProperties.cs" />
+    <Compile Include="Entities\ClientProperty.cs" />
     <Compile Include="Entities\Foundation\Picklist.cs" />
     <Compile Include="Entities\Law\LawAnnouncement.cs" />
     <Compile Include="Entities\Law\LawCatalog.cs" />
@@ -63,7 +63,7 @@
     <Compile Include="Entities\ProjectClient.cs" />
     <Compile Include="Mappings\Foundation\AreaMap.cs" />
     <Compile Include="Mappings\ClientMap.cs" />
-    <Compile Include="Mappings\ClientPropertiesMap.cs" />
+    <Compile Include="Mappings\ClientPropertyMap.cs" />
     <Compile Include="Mappings\CourtMap.cs" />
     <Compile Include="Mappings\DocumentMap.cs" />
     <Compile Include="Factory\RealAssembly.cs" />

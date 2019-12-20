@@ -57,7 +57,13 @@ namespace ee.Core.ComponentModel
                 var attr = (BizModuleAttribute)t.GetCustomAttribute(typeof(BizModuleAttribute), false);
                 if (attr != null)
                 {
-                    list.Add(new BizModule(attr.Index, attr.ScopeName, attr.Name, attr.MetadataToken, attr.Icon, Activator.CreateInstance(attr.ClassType)));
+                    var content = Activator.CreateInstance(t);
+                    if (attr.DataContextType != null)
+                    {
+                        content.GetType().GetProperty("DataContext")?.SetValue(content, Activator.CreateInstance(attr.DataContextType));
+                    }
+
+                    list.Add(new BizModule(attr.Index, attr.ScopeName, attr.Name, attr.MetadataToken, attr.Icon, content));
                 }
             }
             return list?.OrderBy(x => x.Index)?.ToList();

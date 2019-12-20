@@ -23,18 +23,18 @@ namespace ee.iLawyer.App.Wpf
 
         #region * ViewModel instances
 
-
-        public ClientViewModel Client => ServiceLocator.Current.GetInstance<ClientViewModel>();
-        public CourtViewModel Court => ServiceLocator.Current.GetInstance<CourtViewModel>();
-        public HomeViewModel Home => ServiceLocator.Current.GetInstance<HomeViewModel>();
-        public JudgeViewModel Judge => ServiceLocator.Current.GetInstance<JudgeViewModel>();
-        public LoginViewModel Login => ServiceLocator.Current.GetInstance<LoginViewModel>();
-        public MainWindowViewModel MainWindow => ServiceLocator.Current.GetInstance<MainWindowViewModel>();
-        public ProjectViewModel Project => ServiceLocator.Current.GetInstance<ProjectViewModel>();
+        public static AgendaViewModel Agenda => ServiceLocator.Current.GetInstance<AgendaViewModel>();
+        public static ClientViewModel Client => ServiceLocator.Current.GetInstance<ClientViewModel>();
+        public static CourtViewModel Court => ServiceLocator.Current.GetInstance<CourtViewModel>();
+        public static HomeViewModel Home => ServiceLocator.Current.GetInstance<HomeViewModel>();
+        public static JudgeViewModel Judge => ServiceLocator.Current.GetInstance<JudgeViewModel>();
+        public static LoginViewModel Login => ServiceLocator.Current.GetInstance<LoginViewModel>();
+        public static MainWindowViewModel MainWindow => ServiceLocator.Current.GetInstance<MainWindowViewModel>();
+        public static ProjectViewModel Project => ServiceLocator.Current.GetInstance<ProjectViewModel>();
 
         //For Test
-        public MessengerRegisterViewModel MessengerRegister => ServiceLocator.Current.GetInstance<MessengerRegisterViewModel>();
-        public MessengerSenderViewModel MessengerSender => ServiceLocator.Current.GetInstance<MessengerSenderViewModel>();
+        public static MessengerRegisterViewModel MessengerRegister => ServiceLocator.Current.GetInstance<MessengerRegisterViewModel>();
+        public static MessengerSenderViewModel MessengerSender => ServiceLocator.Current.GetInstance<MessengerSenderViewModel>();
 
 
         #endregion

@@ -1,30 +1,22 @@
 ﻿using ee.Core.ComponentModel;
-using ee.Core.Framework;
 using ee.Core.Framework.Schema;
-using ee.Core.Wpf.Designs;
-using ee.iLawyer.App.Wpf.Modules;
+using ee.iLawyer.App.Wpf.ViewModels.Base;
 using ee.iLawyer.Ops.Contact.Args;
-using ee.iLawyer.Ops.Contact.DTO;
+using ee.iLawyer.Ops.Contact.AutoMapper;
+using ee.iLawyer.Ops.Contact.DTO.ViewObjects;
 using ee.iLawyer.ServiceProvider;
-using MaterialDesignThemes.Wpf;
 using PropertyChanged;
-using System;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
 namespace ee.iLawyer.App.Wpf.ViewModels
 {
     [AddINotifyPropertyChangedInterface]
-    [BizModule(2,"Root", "法官管理", "module.judge", "", typeof(ManageJudge))]
     [Ioc(null, false, true)]
-    public class JudgeViewModel : AbstractDataManipulationViewModel
+    public class JudgeViewModel : DataManipulationViewModel<Judge>
     {
         private ILawyerServiceProvider serviceProvider;
-        public ObservableCollection<Judge> Judges { get; protected set; }
 
-        public Judge SelectedItem { get; set; }
+        public override string PermissionCodePrefix => "root.judge.";
+
 
         public ObservableCollection<Court> Courts { get; protected set; }
 
@@ -35,227 +27,32 @@ namespace ee.iLawyer.App.Wpf.ViewModels
             serviceProvider = new ILawyerServiceProvider();
         }
 
-
-        public override void Query()
+        public override BaseQueryResponse<Judge> Query()
         {
-            System.Threading.ThreadPool.QueueUserWorkItem(delegate
-            {
-                System.Threading.SynchronizationContext.SetSynchronizationContext(new
-                  System.Windows.Threading.DispatcherSynchronizationContext(System.Windows.Application.Current.Dispatcher));
-                System.Threading.SynchronizationContext.Current.Post(pl =>
-                {
-                    try
-                    {
-
-                        var response = serviceProvider.QueryJudge(new QueryJudgeRequest());
-                        Judges = new ObservableCollection<Judge>();
-                        if (response.Code == ErrorCodes.Ok && response.QueryList != null)
-                        {
-
-                            response.QueryList.ToList().ForEach(x => Judges.Add(x));
-                        }
-
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.Message);
-                    }
-
-                }, null);
-            });
+            return serviceProvider.QueryJudge(new QueryJudgeRequest() { Name = SearchText });
         }
 
         public override BaseResponse Create()
         {
-            if (SelectedItem == null)
-            {
-                return new BaseResponse() { Code = ErrorCodes.NullParameter, Message = "新增的对象为空." };
-            }
-
-            try
-            {
-
-                var response = serviceProvider.CreateJudge(new CreateJudgeRequest()
-                {
-                    Name = SelectedItem.Name,
-                    Gender = SelectedItem.Gender,
-                    InCourtId = SelectedItem.InCourtId,
-                    Grade = SelectedItem.Grade,
-                    Duty = SelectedItem.Duty,
-                    ContactNo = SelectedItem.ContactNo,
-
-                });
-                return response;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return new BaseResponse() { Code = ErrorCodes.UnknownError, Message = "Unknown Error" };
-            }
-
+            var request = DtoConverter.Mapper.Map<CreateJudgeRequest>(TreadObject);
+            return serviceProvider.CreateJudge(request);
         }
         public override BaseResponse Update()
         {
-            if (SelectedItem == null)
-            {
-                return new BaseResponse() { Code = ErrorCodes.NullParameter, Message = "更新的对象为空." };
-            }
-
-            try
-            {
-                var response = serviceProvider.UpdateJudge(new UpdateJudgeRequest()
-                {
-                    Id = SelectedItem.Id,
-                    Name = SelectedItem.Name,
-                    Gender = SelectedItem.Gender,
-                    InCourtId = SelectedItem.InCourtId,
-                    Grade = SelectedItem.Grade,
-                    Duty = SelectedItem.Duty,
-                    ContactNo = SelectedItem.ContactNo,
-                });
-                return response;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return new BaseResponse() { Code = ErrorCodes.UnknownError, Message = "Unknown Error" };
-            }
-
+            var request = DtoConverter.Mapper.Map<UpdateJudgeRequest>(TreadObject);
+            return serviceProvider.UpdateJudge(request);
         }
 
-        public override BaseResponse Delete()
+        public override BaseResponse Remove()
         {
-            if (SelectedItem == null)
+            return serviceProvider.RemoveJudge(new RemoveJudgeRequest()
             {
-                return new BaseResponse() { Code = ErrorCodes.NullParameter, Message = "删除的对象为空." };
-            }
+                Ids = new int[] { TreadObject.Id },
 
-            try
-            {
-                var response = serviceProvider.RemoveJudge(new RemoveJudgeRequest()
-                {
-                    Ids = new int[] { SelectedItem.Id },
-
-                });
-                return response;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return new BaseResponse() { Code = ErrorCodes.UnknownError, Message = "Unknown Error" };
-            }
-
+            });
         }
 
 
-        public override void ExecuteQueryCommand(object o)
-        {
-            Courts = Cacher.Courts;
-            Query();
-        }
-        public override async void ExecuteNewCommandAsync(object o)
-        {
-            Courts = Cacher.Courts;
-            //let's set up a little MVVM, cos that's what the cool kids are doing:
-            var view = new NewEditJudge()
-            {
-                DataContext = this,
-            };
-
-            //show the dialog
-            var result = await DialogHost.Show(view, "RootDialog", ExtendedOpenedEventHandler, ExtendedClosingEventHandler);
-        }
-        public override async void ExecuteEditCommandAsync(object o)
-        {
-            Courts = Cacher.Courts;
-            var judge = ((Button)o).DataContext as Judge;
-            this.SelectedItem = judge;
-            var view = new NewEditJudge(judge)
-            {
-                DataContext = this,
-            };
-
-            //show the dialog
-            var result = await DialogHost.Show(view, "RootDialog", ExtendedOpenedEventHandler, ExtendedClosingEventHandler);
-        }
-        public override void ExecuteDeleteCommand(object o)
-        {
-            var judge = ((Button)o).DataContext as Judge;
-            this.SelectedItem = judge;
-            Delete();
-            SelectedItem = null;
-            Query();
-        }
-
-        public override void DeleteItem(object sender, EventArgs args)
-        {
-            var eventArgs = args as DialogClosingEventArgs;
-            if (!Equals(eventArgs.Parameter, true))
-            {
-                return;
-            }
-
-            if (eventArgs.Session.Content != null && ((FrameworkElement)eventArgs.Session.Content).DataContext != null)
-            {
-                var judge = ((FrameworkElement)eventArgs.Session.Content).DataContext as Judge;
-
-                SelectedItem = judge;
-                Delete();
-                Query();
-            }
-
-        }
-        private void ExtendedOpenedEventHandler(object sender, DialogOpenedEventArgs eventargs)
-        {
-            Console.WriteLine("You could intercept the open and affect the dialog using eventArgs.Session.");
-        }
-
-        private void ExtendedClosingEventHandler(object sender, DialogClosingEventArgs eventArgs)
-        {
-            if ((bool)eventArgs.Parameter == false)
-            {
-                return;
-            }
-
-            //note, you can also grab the session when the dialog opens via the DialogOpenedEventHandler
-            if (eventArgs.Session.Content is NewEditJudge)
-            {
-                var content = eventArgs.Session.Content as NewEditJudge;
-                SelectedItem = content.TreatedObject;
-                if (content.IsNew)
-                {
-                    var task = new Task<BaseResponse>(Create);
-                    task.Start();
-
-                    var taskResult = task.Result;
-
-                    if (taskResult != null && taskResult.Code == ErrorCodes.Ok)
-                    {
-                        task.ContinueWith((t) => { Query(); Cacher.UpdateCourts(); }, TaskContinuationOptions.OnlyOnRanToCompletion)
-                        .ContinueWith((t, _) => eventArgs.Session.Close(false), null, TaskScheduler.FromCurrentSynchronizationContext());
-                    }
-                }
-                else
-                {
-                    var task = new Task<BaseResponse>(Update);
-                    task.Start();
-
-                    var taskResult = task.Result;
-
-                    if (taskResult != null && taskResult.Code == ErrorCodes.Ok)
-                    {
-                        task.ContinueWith((t) => { Query(); Cacher.UpdateCourts(); }, TaskContinuationOptions.OnlyOnRanToCompletion)
-                        .ContinueWith((t, _) => eventArgs.Session.Close(false), null, TaskScheduler.FromCurrentSynchronizationContext());
-                    }
-                }
-            }
-
-            eventArgs.Cancel();
-
-            //TODO:Show message here
-
-
-        }
 
     }
 }

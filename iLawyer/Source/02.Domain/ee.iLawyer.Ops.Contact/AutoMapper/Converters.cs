@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
-using ee.iLawyer.Db.Entities;
 using ee.iLawyer.Db.Entities.RBAC;
-using ee.iLawyer.Ops.Contact.DTO.SystemManagement;
+using ee.iLawyer.Ops.Contact.Args;
+using ee.iLawyer.Ops.Contact.DTO.ViewObjects.SystemManagement;
 using System.Collections.Generic;
 using System.Linq;
+
 
 namespace ee.iLawyer.Ops.Contact.AutoMapper
 {
@@ -27,32 +28,7 @@ namespace ee.iLawyer.Ops.Contact.AutoMapper
         }
     }
 
-    public class ClientPropertyItemTypeConverter : ITypeConverter<IList<ClientProperties>, List<DTO.CategoryValue>>
-    {
-        public List<DTO.CategoryValue> Convert(IList<ClientProperties> source, List<DTO.CategoryValue> destination, ResolutionContext context)
-        {
-            if (destination == null)
-            {
-                destination = new List<DTO.CategoryValue>();
-            }
-
-            if (source != null)
-            {
-                foreach (var item in source)
-                {
-                    if (item.Picker != null)
-                    {
-                        destination.Add(new DTO.CategoryValue(item.Picker.Id ?? 0, item.Picker.Name, item.Value, item.Id));
-                    }
-                }
-            }
-            return destination;
-        }
-    }
-
-
-
-    public class UserPermissionsValueResolver : IValueResolver<Db.Entities.RBAC.SysUser, DTO.SystemManagement.User, IList<PermissionModule>>
+    public class UserPermissionsValueResolver : IValueResolver<Db.Entities.RBAC.SysUser, DTO.ViewObjects.SystemManagement.User, IList<PermissionModule>>
     {
         public IList<PermissionModule> Resolve(SysUser source, User destination, IList<PermissionModule> destMember, ResolutionContext context)
         {
@@ -69,11 +45,20 @@ namespace ee.iLawyer.Ops.Contact.AutoMapper
         }
     }
 
-
-
-
-
-
+    public class PickerIdValueResolver : IValueResolver<Db.Entities.ClientProperty, DTO.ViewObjects.ClientProperty, int>
+    {
+        public int Resolve(Db.Entities.ClientProperty source, DTO.ViewObjects.ClientProperty destination, int destMember, ResolutionContext context)
+        {
+            return source?.Picker?.Id ?? 0;
+        }
+    }
+    public class PickerNameValueResolver : IValueResolver<Db.Entities.ClientProperty, DTO.ViewObjects.ClientProperty, string>
+    {
+        public string Resolve(Db.Entities.ClientProperty source, DTO.ViewObjects.ClientProperty destination, string destMember, ResolutionContext context)
+        {
+            return source?.Picker?.Name ?? "";
+        }
+    }
 
 
 

@@ -67,16 +67,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Domain\BLDateHelper.cs" />
     <Compile Include="Domain\BrushProps.cs" />
     <Compile Include="Domain\ChineseLunisolarCalendarWithFestival.cs" />
     <Compile Include="Domain\DragDropHelper.cs" />
-    <Compile Include="Models\Appointment.cs" />
-    <Compile Include="Modules\NewEditProgress.xaml.cs">
+    <Compile Include="Models\ShowViewArg.cs" />
+    <Compile Include="UserControls\Pickers\MultiItemSelectorItem.cs" />
+    <Compile Include="Views\NewEditProgress.xaml.cs">
       <DependentUpon>NewEditProgress.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\NewEditTodoItem.xaml.cs">
+    <Compile Include="Views\NewEditTodoItem.xaml.cs">
       <DependentUpon>NewEditTodoItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Agenda\Appointment.cs" />
+    <Compile Include="Modules\Agenda.xaml.cs">
+      <DependentUpon>Agenda.xaml</DependentUpon>
     </Compile>
     <Compile Include="Test\MessengerRegisterView.xaml.cs">
       <DependentUpon>MessengerRegisterView.xaml</DependentUpon>
@@ -102,27 +110,25 @@
     <Compile Include="UserControls\Agenda\WeekOfDaysControls.xaml.cs">
       <DependentUpon>WeekOfDaysControls.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ClientCard.xaml.cs">
-      <DependentUpon>ClientCard.xaml</DependentUpon>
+    <Compile Include="UserControls\FuncToolBar.xaml.cs">
+      <DependentUpon>FuncToolBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\MultiItemSelector.xaml.cs">
+    <Compile Include="UserControls\Pickers\MultiItemSelector.xaml.cs">
       <DependentUpon>MultiItemSelector.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Pickers\PropertySourceItem.cs" />
+    <Compile Include="UserControls\Pickers\PropertyPickValue.cs" />
     <Compile Include="UserControls\WaterDropsButtonGroup.xaml.cs">
       <DependentUpon>WaterDropsButtonGroup.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\PropertyPickerItem.cs" />
     <Compile Include="Modules\ManageProject.xaml.cs">
       <DependentUpon>ManageProject.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Modules\NewEditProject.xaml.cs">
-      <DependentUpon>NewEditProject.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\AreaSelector.xaml.cs">
+    <Compile Include="UserControls\Pickers\AreaSelector.xaml.cs">
       <DependentUpon>AreaSelector.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\CategoryTextBox.xaml.cs">
-      <DependentUpon>CategoryTextBox.xaml</DependentUpon>
+    <Compile Include="UserControls\Pickers\PropertyPicker.xaml.cs">
+      <DependentUpon>PropertyPicker.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ClientTypeControl.xaml.cs">
       <DependentUpon>ClientTypeControl.xaml</DependentUpon>
@@ -130,21 +136,17 @@
     <Compile Include="UserControls\ProgressDialog.xaml.cs">
       <DependentUpon>ProgressDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\CategoryPropertyPicker.xaml.cs">
-      <DependentUpon>CategoryPropertyPicker.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\PropertyPicker.xaml.cs">
-      <DependentUpon>PropertyPicker.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\PropertyListPicker.xaml.cs">
-      <DependentUpon>PropertyListPicker.xaml</DependentUpon>
+    <Compile Include="UserControls\Pickers\PropertyPickerGroup.xaml.cs">
+      <DependentUpon>PropertyPickerGroup.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\AutoCompleteTextBox.xaml.cs">
       <DependentUpon>AutoCompleteTextBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModelLocator.cs" />
     <Compile Include="ViewModels\Base\CloseViewViewModel.cs" />
+    <Compile Include="ViewModels\Base\DataManipulationViewModel.cs" />
     <Compile Include="ViewModels\ClientSearchProvider.cs" />
+    <Compile Include="ViewModels\AgendaViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\ProjectViewModel.cs" />
     <Compile Include="ViewModels\ClientViewModel.cs" />
@@ -160,11 +162,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Modules\NewEditProgress.xaml">
+    <Page Include="Modules\Agenda.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NewEditProgress.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Modules\NewEditTodoItem.xaml">
+    <Page Include="Views\NewEditTodoItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -204,11 +210,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControls\ClientCard.xaml">
+    <Page Include="UserControls\FuncToolBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\MultiItemSelector.xaml">
+    <Page Include="UserControls\Pickers\MultiItemSelector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -224,10 +230,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
@@ -255,22 +257,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Modules\NewEditProject.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Modules\NewEditClient.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Modules\NewEditCourt.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Modules\NewEditJudge.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Dictionaries\ColorsAndAppearance.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -287,11 +273,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControls\AreaSelector.xaml">
+    <Page Include="UserControls\Pickers\AreaSelector.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControls\CategoryTextBox.xaml">
+    <Page Include="UserControls\Pickers\PropertyPicker.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -303,15 +289,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControls\CategoryPropertyPicker.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UserControls\PropertyPicker.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\PropertyListPicker.xaml">
+    <Page Include="UserControls\Pickers\PropertyPickerGroup.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -332,15 +310,6 @@
     </Compile>
     <Compile Include="Modules\ManageJudge.xaml.cs">
       <DependentUpon>ManageJudge.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\NewEditClient.xaml.cs">
-      <DependentUpon>NewEditClient.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\NewEditCourt.xaml.cs">
-      <DependentUpon>NewEditCourt.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\NewEditJudge.xaml.cs">
-      <DependentUpon>NewEditJudge.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

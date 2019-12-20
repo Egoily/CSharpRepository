@@ -3,18 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:agenda="clr-namespace:ee.iLawyer.App.Wpf.UserControls.Agenda"
              mc:Ignorable="d" 
-             DataContext="{Binding Source={StaticResource Locator},Path=Home}"
              >
     <Grid x:Name="grid">
 
-        <agenda:MonthView 
-            x:Name="AptCalendar" 
-            VerticalAlignment="Stretch" 
-            VerticalContentAlignment="Stretch"
-            DisplayMonthChanged="DisplayMonthChanged"
-            />
+     
 
     </Grid>
 </UserControl>

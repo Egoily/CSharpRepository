@@ -1,4 +1,5 @@
-﻿using ee.iLawyer.App.Wpf.ViewModels;
+﻿using ee.Core.ComponentModel;
+using ee.iLawyer.App.Wpf.ViewModels;
 using MaterialDesignThemes.Wpf;
 using System;
 using System.Windows.Controls;
@@ -8,6 +9,7 @@ namespace ee.iLawyer.App.Wpf.Modules
     /// <summary>
     /// Interaction logic for Home.xaml
     /// </summary>
+    [BizModule(0, "Root", "首页", "module.home", "", typeof(HomeViewModel))]
     public partial class Home : UserControl
     {
         public Home()
@@ -24,7 +26,7 @@ namespace ee.iLawyer.App.Wpf.Modules
                 return;
             }
 
-            Console.Write("Do Delete.");
+            System.Diagnostics.Debug.Write("Do Delete.");
 
         }
 
@@ -35,9 +37,6 @@ namespace ee.iLawyer.App.Wpf.Modules
         
         }
 
-        private void DisplayMonthChanged(UserControls.Agenda.MonthChangedEventArgs e)
-        {
-
-        }
+      
     }
 }

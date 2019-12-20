@@ -6,7 +6,7 @@ using PropertyChanged;
 namespace ee.iLawyer.App.Wpf.ViewModels
 {
     [AddINotifyPropertyChangedInterface]
-    [BizModule(0,"Root","首页","module.home","",typeof(Home))]
+
     [Ioc(null, false, true)]
     public class HomeViewModel: IViewModel
     {

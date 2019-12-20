@@ -6,7 +6,7 @@
     xmlns:converters="clr-namespace:ee.Core.Wpf.Converters;assembly=ee.Core.Wpf"
     xmlns:excontrols="clr-namespace:ee.Core.Wpf.ExControls;assembly=ee.Core.Wpf"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             
+    xmlns:local="clr-namespace:ee.iLawyer.App.Wpf.UserControls"         
     d:DesignHeight="26" d:DesignWidth="300"
     Focusable="True" 
     IsTabStop="False"
@@ -21,7 +21,7 @@
     <Grid x:Name="grid" >
         <Border x:Name="brdButton" Grid.Column="1" BorderThickness="1" BorderBrush="Gray">
             <DockPanel HorizontalAlignment="Stretch">
-                <Viewbox Height="20" Margin="2" DockPanel.Dock="Right" Visibility="{Binding Path=IsBussy, Converter={StaticResource VisibleIfTrue}}">
+                <Viewbox Height="20" Margin="2" DockPanel.Dock="Right" Visibility="{Binding Path=IsBussy,RelativeSource={RelativeSource AncestorType=local:AutoCompleteTextBox}, Converter={StaticResource VisibleIfTrue}}">
                     <excontrols:CircularProgressBar/>
                 </Viewbox>
                 <excontrols:PathButton x:Name="searchButton" 
@@ -32,7 +32,7 @@
                                MouseOverBrush="DarkBlue"
                                IsPressedBrush="Blue"
                                IsEnabledBrush="Black"
-                               Visibility="{Binding Path=IsBussy, Converter={StaticResource VisibleIfNotTrue}}"
+                               Visibility="{Binding Path=IsBussy,RelativeSource={RelativeSource AncestorType=local:AutoCompleteTextBox}, Converter={StaticResource VisibleIfNotTrue}}"
                  />
       
                 <TextBox x:Name="txtSearch"  
@@ -48,11 +48,11 @@
             Width="{Binding ElementName=brdButton, Path=ActualWidth}">
             <ListBox x:Name="listBox"
                 BorderThickness="1" 
-                     Background="White"
+                Background="White"
                 MaxHeight="200"
                 ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                 ScrollViewer.VerticalScrollBarVisibility="Auto"
-                ItemsSource="{Binding Path=SearchResults}" 
+                ItemsSource="{Binding Path=SearchResults,RelativeSource={RelativeSource AncestorType=local:AutoCompleteTextBox}}" 
                 SelectedValuePath="Key" 
                 DisplayMemberPath="Value" 
                 SelectedItem="{Binding Path=SelectedListBoxItem}"

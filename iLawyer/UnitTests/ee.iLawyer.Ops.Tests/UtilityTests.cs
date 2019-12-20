@@ -1,5 +1,5 @@
 ﻿using ee.Core.Framework.Schema;
-using ee.iLawyer.Ops.Contact.DTO;
+using ee.iLawyer.Ops.Contact.DTO.ViewObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ee.iLawyer.Ops.Tests

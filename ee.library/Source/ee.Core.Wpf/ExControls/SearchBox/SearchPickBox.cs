@@ -63,7 +63,7 @@ namespace ee.Core.Wpf.ExControls
                 }
                 else
                 {
-                    sr = SearchDataProvider.DoSearch(searchTerm);
+                    sr = SearchDataProvider.DoSearch(searchTerm,null);
                 }
 
                 return sr;

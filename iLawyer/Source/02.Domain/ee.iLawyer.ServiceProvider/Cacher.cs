@@ -3,12 +3,13 @@ using ee.Core.Framework;
 using ee.iLawyer.Ops.Contact;
 using ee.iLawyer.Ops.Contact.Args;
 using ee.iLawyer.Ops.Contact.AutoMapper;
-using ee.iLawyer.Ops.Contact.DTO;
-using ee.iLawyer.Ops.Contact.DTO.SystemManagement;
+using ee.iLawyer.Ops.Contact.DTO.ViewObjects;
+using ee.iLawyer.Ops.Contact.DTO.ViewObjects.SystemManagement;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using static ee.iLawyer.Ops.ILawyerService;
 
 namespace ee.iLawyer.ServiceProvider
 {
@@ -42,85 +43,7 @@ namespace ee.iLawyer.ServiceProvider
             var projectCategories = ProjectCategories;
         }
 
-        /// <summary>
-        /// 省市
-        /// </summary>
-        public static ObservableCollection<Area> Areas
-        {
-            get
-            {
-                try
-                {
-                    var areas = MemoryCacher.CacheItem(CacheKeys.AreaInfo,
-                        delegate ()
-                        {
-                            var server = new ILawyerServiceProvider();
-                            var response = server.GetAreas(new GetAreasRequest());
-                            if (response.Code == ErrorCodes.Ok && (response.QueryList?.Any() ?? false))
-                            {
-                                return new ObservableCollection<Area>(response.QueryList.ToList());
-                            }
-                            return new ObservableCollection<Area>();
-                        }, ExpiredTimeSpan);
-                    return areas;
-                }
-                catch (Exception)
-                {
-                    return new ObservableCollection<Area>();
-                }
-            }
-        }
-        public static IList<ProjectCategory> ProjectCategories
-        {
-            get
-            {
-                try
-                {
-                    var areas = MemoryCacher.CacheItem<IList<ProjectCategory>>(CacheKeys.ProjectCategories,
-                        delegate ()
-                        {
-                            var server = new ILawyerServiceProvider();
-                            var response = server.GetProjectCategories(new GetProjectCategoriesRequest());
-                            if (response.Code == ErrorCodes.Ok && (response.QueryList?.Any() ?? false))
-                            {
-                                return response.QueryList.ToList();
-                            }
-                            return new List<ProjectCategory>();
-                        }, ExpiredTimeSpan);
-                    return areas;
-                }
-                catch (Exception)
-                {
-                    return new List<ProjectCategory>();
-                }
-            }
-        }
 
-        public static IList<ProjectCause> ProjectCauses
-        {
-            get
-            {
-                try
-                {
-                    var areas = MemoryCacher.CacheItem<IList<ProjectCause>>(CacheKeys.ProjectCauses,
-                        delegate ()
-                        {
-                            var server = new ILawyerServiceProvider();
-                            var response = server.GetProjectCauses(new GetProjectCausesRequest());
-                            if (response.Code == ErrorCodes.Ok && (response.QueryList?.Any() ?? false))
-                            {
-                                return response.QueryList.ToList();
-                            }
-                            return new List<ProjectCause>();
-                        }, ExpiredTimeSpan);
-                    return areas;
-                }
-                catch (Exception)
-                {
-                    return new List<ProjectCause>();
-                }
-            }
-        }
 
 
         #region Courts
@@ -200,7 +123,7 @@ namespace ee.iLawyer.ServiceProvider
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                System.Diagnostics.Debug.WriteLine(ex.Message);
             }
         }
 
@@ -209,46 +132,160 @@ namespace ee.iLawyer.ServiceProvider
 
 
 
-        #region PropertyPicker
+        #region * Pickers
 
-        private static ObservableCollection<Category> personPropertyCategories;
-        public static ObservableCollection<Category> PersonPropertyCategories
+        /// <summary>
+        /// 省市
+        /// </summary>
+        public static ObservableCollection<Area> Areas
         {
             get
             {
-                if (personPropertyCategories == null)
+                try
                 {
-                    personPropertyCategories = new ObservableCollection<Category>();
-                    try
-                    {
-                        var categories = MemoryCacher.CacheItem<IList<PropertyPicker>>(CacheKeys.PropertyItemCategories,
-                            delegate ()
-                            {
-                                var server = new ILawyerServiceProvider();
-                                var response = server.GetPropertyPicks(new GetPropertyPicksRequest());
-                                if (response.Code == ErrorCodes.Ok && (response.QueryList?.Any() ?? false))
-                                {
-                                    return response.QueryList.ToList();
-                                }
-                                return new List<PropertyPicker>();
-                            }, ExpiredTimeSpan);
-                        if (categories != null && categories.Any())
+                    var areas = MemoryCacher.CacheItem(CacheKeys.AreaInfo,
+                        delegate ()
                         {
-                            //categories.ToList().ForEach(x => personPropertyCategories.Add(DtoConverter.Convert(x)));
-
-                            var items = DtoConverter.Convert(categories).ToArray();
-                            personPropertyCategories.AddRange(items);
-                        }
-                    }
-                    catch (Exception)
+                            var server = new ILawyerServiceProvider();
+                            var response = server.GetAreas(new GetAreasRequest());
+                            if (response.IsOk() && (response.QueryList?.Any() ?? false))
+                            {
+                                return response.QueryList.ToList();
+                            }
+                            else
+                            {
+                                return new List<Area>();
+                            }
+                        }, ExpiredTimeSpan);
+                    if (areas != null && areas.Any())
                     {
-
+                        return new ObservableCollection<Area>(areas);
+                    }
+                    else
+                    {
+                        return new ObservableCollection<Area>();
+                    }
+                }
+                catch (Exception)
+                {
+                    return new ObservableCollection<Area>();
+                }
+            }
+        }
+        public static ObservableCollection<Picker> ProjectCategories
+        {
+            get
+            {
+                try
+                {
+                    var pickers = MemoryCacher.CacheItem(CacheKeys.ProjectCategories,
+                        delegate ()
+                        {
+                            var server = new ILawyerServiceProvider();
+                            var response = server.GetPickers(new GetPickersRequest() { Category = PickerCategory.ProjectCategory.ToString() });
+                            if (response.IsOk() && (response.QueryList?.Any() ?? false))
+                            {
+                                return response.QueryList.ToList();
+                            }
+                            else
+                            {
+                                return new List<Picker>();
+                            }
+                        }, ExpiredTimeSpan);
+                    
+                    if (pickers != null && pickers.Any())
+                    {
+                        return new ObservableCollection<Picker>(pickers);
+                    }
+                    else
+                    {
+                        return new ObservableCollection<Picker>();
                     }
 
                 }
-                return personPropertyCategories;
+                catch (Exception)
+                {
+                    return new ObservableCollection<Picker>();
+                }
             }
         }
+
+        public static ObservableCollection<Picker> ProjectCauses
+        {
+            get
+            {
+                try
+                {
+                    var pickers = MemoryCacher.CacheItem(CacheKeys.ProjectCauses,
+                        delegate ()
+                        {
+                            var server = new ILawyerServiceProvider();
+                            var response = server.GetPickers(new GetPickersRequest() { Category = PickerCategory.ProjectCause.ToString() });
+                            if (response.IsOk() && (response.QueryList?.Any() ?? false))
+                            {
+                                return response.QueryList.ToList();
+                            }
+                            return new List<Picker>();
+                        }, ExpiredTimeSpan);
+
+                    if (pickers != null && pickers.Any())
+                    {
+                        return new ObservableCollection<Picker>(pickers);
+                    }
+                    else
+                    {
+                        return new ObservableCollection<Picker>();
+                    }
+
+                }
+                catch (Exception)
+                {
+                    return new ObservableCollection<Picker>();
+                }
+            }
+        }
+
+        public static ObservableCollection<Picker> PropertyPickerItemsSource
+        {
+            get
+            {
+                try
+                {
+                    var pickers = MemoryCacher.CacheItem<IList<Picker>>(CacheKeys.PropertyItemCategories,
+                        delegate ()
+                        {
+                            var server = new ILawyerServiceProvider();
+                            var response = server.GetPickers(new GetPickersRequest() { Category = PickerCategory.PropertyPick.ToString() });
+                            if (response.IsOk() && (response.QueryList?.Any() ?? false))
+                            {
+                                return response.QueryList.ToList();
+                            }
+                            else
+                            {
+                                return new List<Picker>();
+                            }
+                        }, ExpiredTimeSpan);
+                    if (pickers != null && pickers.Any())
+                    {
+                        return new ObservableCollection<Picker>(pickers);
+                    }
+                    else
+                    {
+                        return new ObservableCollection<Picker>();
+                    }
+                }
+                catch (Exception)
+                {
+                    return new ObservableCollection<Picker>();
+                }
+
+
+
+            }
+        }
+
+
+
         #endregion
 
 

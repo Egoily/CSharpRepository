@@ -17,11 +17,11 @@ namespace ee.iLawyer.App.Wpf.ViewModels
             {
                 throw new ArgumentNullException(nameof(snackbarMessageQueue));
             }
-            if (Cacher.Loginer != null && Cacher.Loginer.IsAdmin)
-            {
-                BizModules = BizModuleManager.Default.GetCallingAssemblyBizModules();
-            }
-            else
+            //if (Cacher.Loginer != null && Cacher.Loginer.IsAdmin)
+            //{
+            //    BizModules = BizModuleManager.Default.GetCallingAssemblyBizModules();
+            //}
+            //else
             {
                 BizModules = BizModuleManager.Default.GetCallingAssemblyBizModules(Cacher.Loginer?.Resources?.ToArray());
             }

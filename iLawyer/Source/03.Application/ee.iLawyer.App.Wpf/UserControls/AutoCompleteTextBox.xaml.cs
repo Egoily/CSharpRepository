@@ -1,16 +1,16 @@
-﻿using System;
+﻿using ee.Core.Wpf.Designs;
+using ee.Core.Wpf.ExControls;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Reactive.Concurrency;
+using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
-using System.ComponentModel;
 using System.Windows.Controls.Primitives;
-using System.Reactive.Linq;
-using System.Reactive.Concurrency;
-using System.Collections.ObjectModel;
-using ee.Core.Wpf.ExControls;
-using ee.Core.Wpf.Designs;
+using System.Windows.Input;
 
 namespace ee.iLawyer.App.Wpf.UserControls
 {
@@ -49,7 +49,11 @@ namespace ee.iLawyer.App.Wpf.UserControls
         private static bool TargetControl_Validate(object value)
         {
             TextBox newv = value as TextBox;
-            if (newv == null && value != null) return false;
+            if (newv == null && value != null)
+            {
+                return false;
+            }
+
             return true;
         }
 
@@ -88,42 +92,55 @@ namespace ee.iLawyer.App.Wpf.UserControls
         private void TargetControl_LostFocus(object sender, RoutedEventArgs e)
         {
             if (!this.popup.IsKeyboardFocusWithin)
+            {
                 this.popup.IsOpen = false;
+            }
+
             this.IsBussy = false;
         }
 
         private void TargetControl_GotFocus(object sender, RoutedEventArgs e)
         {
-            
-            if (SelTextOnFocus) this.txtSearch.SelectAll();
+
+            if (SelTextOnFocus)
+            {
+                this.txtSearch.SelectAll();
+            }
+
             if (itemsSelected)
+            {
                 itemsSelected = false;
-           // else if  this.popup.IsOpen = true;
+            }
+            // else if  this.popup.IsOpen = true;
         }
 
         private void TargetControl_KeyUp(object sender, KeyEventArgs e)
-        {            
+        {
             if (e.Key == Key.Up)
+            {
+                if (this.listBox.SelectedIndex > 0)
                 {
-                    if (this.listBox.SelectedIndex > 0)
-                    {
-                        this.listBox.SelectedIndex--;
-                    }
+                    this.listBox.SelectedIndex--;
                 }
-                if (e.Key == Key.Down)
+            }
+            if (e.Key == Key.Down)
+            {
+                if (this.listBox.SelectedIndex < this.listBox.Items.Count - 1)
                 {
-                    if (this.listBox.SelectedIndex < this.listBox.Items.Count - 1)
-                    {
-                        this.listBox.SelectedIndex++;
-                    }
+                    this.listBox.SelectedIndex++;
                 }
-                if (e.Key == Key.Enter)
+            }
+            if (e.Key == Key.Enter)
+            {
+                if (this.popup.IsOpen && this.listBox.Items.Count > 0)
                 {
-                    if (this.popup.IsOpen && this.listBox.Items.Count > 0)
-                        SetTextAndHide();
-                    else if (this.SearchText.Length < _parialSearchTextLength)
-                        this.TextBoxEnterCommand.Execute(null);
+                    SetTextAndHide();
                 }
+                else if (this.SearchText.Length < _parialSearchTextLength)
+                {
+                    this.TextBoxEnterCommand.Execute(null);
+                }
+            }
         }
 
         private void TargetControl_PreviewKeyUp(object sender, KeyEventArgs e)
@@ -136,7 +153,7 @@ namespace ee.iLawyer.App.Wpf.UserControls
             }
             if (IsTextChangingKey(e.Key))
             {
-                Suggest();                
+                Suggest();
             }
         }
 
@@ -150,7 +167,10 @@ namespace ee.iLawyer.App.Wpf.UserControls
                                      this.listBox.SelectedItem.GetType().GetProperty(
                                      DisplayMemberPath).GetValue(this.listBox.SelectedItem, null).ToString();
                 if (MovesFocus)
+                {
                     TargetControl.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+                }
+
                 e.Handled = true;
             }
         }
@@ -169,7 +189,7 @@ namespace ee.iLawyer.App.Wpf.UserControls
             else
             {
                 KeyConverter conv = new KeyConverter();
-                string keyString = (string)conv.ConvertTo(key, typeof(string));                
+                string keyString = (string)conv.ConvertTo(key, typeof(string));
 
                 return keyString.Length == 1;
             }
@@ -177,9 +197,12 @@ namespace ee.iLawyer.App.Wpf.UserControls
 
         private void Suggest()
         {
-                this.SearchText = TargetControl.Text;
-                if (odp != null) this.IsBussy = true;
-        }       
+            this.SearchText = TargetControl.Text;
+            if (odp != null)
+            {
+                this.IsBussy = true;
+            }
+        }
 
         #endregion
 
@@ -239,7 +262,7 @@ namespace ee.iLawyer.App.Wpf.UserControls
             set { SetValue(WatermarkTextProperty, value); }
         }
 
-        public static readonly DependencyProperty WatermarkTextProperty  =
+        public static readonly DependencyProperty WatermarkTextProperty =
             DependencyProperty.Register("WatermarkText", typeof(String), typeof(AutoCompleteTextBox), new UIPropertyMetadata(""));
 
         #endregion
@@ -251,14 +274,13 @@ namespace ee.iLawyer.App.Wpf.UserControls
         public AutoCompleteTextBox()
         {
             InitializeComponent();
-            this.grid.DataContext = this;
 
             this.TargetControl = this.txtSearch;
 
             // ListBox inside the Popup
             this.listBox.SelectionChanged += new SelectionChangedEventHandler(listBox_SelectionChanged);
             this.listBox.SelectionMode = SelectionMode.Single;
-            this.itemsSelected = false;            
+            this.itemsSelected = false;
 
             // Setup the command for the enter key on the textbox
             textBoxEnterCommand = new ReactiveRelayCommand(obj => { });
@@ -294,10 +316,14 @@ namespace ee.iLawyer.App.Wpf.UserControls
             results.ObserveOn(DispatcherScheduler.Current)
                 .Subscribe(
                     result =>
-                    {                        
+                    {
                         SearchResults.Clear();
                         //LogOutput.Insert(0, string.Format("Search for '{0}' returned '{1}' items", result.SearchTerm, result.Results.Count()));
-                        if (result.Results == null) return;
+                        if (result.Results == null)
+                        {
+                            return;
+                        }
+
                         result.Results.ToList().ForEach(item => SearchResults.Add((KeyValuePair<object, string>)item));
                         if (SearchResults.Count == 1)
                         {
@@ -312,9 +338,10 @@ namespace ee.iLawyer.App.Wpf.UserControls
                             this.IsBussy = false;
                         }
                     },
-                    ex => {
+                    ex =>
+                    {
                         string msg = string.Format("Exception {0} in OnError handler\nException.Message : {1}", ex.GetType().ToString(), ex.Message);
-                        MessageBox.Show(msg, "Error", MessageBoxButton.OK, MessageBoxImage.Error); 
+                        MessageBox.Show(msg, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 );
         }
@@ -368,8 +395,8 @@ namespace ee.iLawyer.App.Wpf.UserControls
             set { SetValue(SelectedListBoxItemProperty, value); }
         }
 
-        public static readonly DependencyProperty SelectedListBoxItemProperty = 
-            DependencyProperty.Register("SelectedListBoxItem", typeof(object), typeof(AutoCompleteTextBox), new UIPropertyMetadata(null));                
+        public static readonly DependencyProperty SelectedListBoxItemProperty =
+            DependencyProperty.Register("SelectedListBoxItem", typeof(object), typeof(AutoCompleteTextBox), new UIPropertyMetadata(null));
         #endregion
 
 
@@ -380,28 +407,28 @@ namespace ee.iLawyer.App.Wpf.UserControls
             set { SetValue(SelectedListBoxValueProperty, value); }
         }
 
-        public static readonly DependencyProperty SelectedListBoxValueProperty = 
+        public static readonly DependencyProperty SelectedListBoxValueProperty =
             DependencyProperty.Register("SelectedListBoxValue", typeof(object), typeof(AutoCompleteTextBox), new UIPropertyMetadata(null, new PropertyChangedCallback(SelectedListBoxValue_Changed)));
 
         private static void SelectedListBoxValue_Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            AutoCompleteTextBox me = d as AutoCompleteTextBox;            
+            AutoCompleteTextBox me = d as AutoCompleteTextBox;
             if (e.NewValue != null)
             {
                 if (!me.popup.IsOpen)
-                {                 
+                {
                     var result = me.odp.SearchByKey(e.NewValue);
                     result.Results.ToList().ForEach(item => me.SearchResults.Add((KeyValuePair<object, string>)item));
                     me.SetTextAndHide();
                 }
                 else
-                {                 
+                {
                     me.TargetControl.Text = String.IsNullOrEmpty(me.DisplayMemberPath) ?
                                      me.listBox.SelectedItem.ToString() :
                                      me.listBox.SelectedItem.GetType().GetProperty(
                                         me.DisplayMemberPath).GetValue(me.listBox.SelectedItem, null).ToString();
                 }
-                
+
             }
         }
 
@@ -442,8 +469,8 @@ namespace ee.iLawyer.App.Wpf.UserControls
             {
                 //if (this._searchText != value)
                 //{
-                    this._searchText = value;
-                    this.NotifyPropertyChanged("SearchText");
+                this._searchText = value;
+                this.NotifyPropertyChanged("SearchText");
                 //}
             }
         }
@@ -466,7 +493,7 @@ namespace ee.iLawyer.App.Wpf.UserControls
 
         private bool itemsSelected;
 
-        void listBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void listBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             NotifyPropertyChanged("SelectedItem");
             NotifyPropertyChanged("SelectedValue");
@@ -509,7 +536,9 @@ namespace ee.iLawyer.App.Wpf.UserControls
                                         DisplayMemberPath).GetValue(this.listBox.SelectedItem, null).ToString();
                 itemsSelected = true;
                 if (MovesFocus)
+                {
                     TargetControl.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+                }
             }
         }
 
@@ -520,29 +549,29 @@ namespace ee.iLawyer.App.Wpf.UserControls
 
         protected SearchResult DoSearch(string searchTerm)
         {
-           if (odp != null )
+            if (odp != null)
             {
                 int nID = 0;
                 SearchResult sr = new SearchResult();
                 if (int.TryParse(searchTerm, out nID))
                 {
-                    sr = odp.SearchByKey(nID);                                        
+                    sr = odp.SearchByKey(nID);
                 }
                 else
-                {                    
-                    sr = odp.DoSearch(searchTerm);
+                {
+                    sr = odp.DoSearch(searchTerm, null);
                 }
-                
+
                 return sr;
             }
-            else 
+            else
             {
                 return new SearchResult
                 {
                     SearchTerm = string.Empty,
                     Results = null
                 };
-               
+
             }
 
         }
@@ -563,8 +592,8 @@ namespace ee.iLawyer.App.Wpf.UserControls
 
         private static void SearchDataProvider_Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            AutoCompleteTextBox me = d as AutoCompleteTextBox;            
-            me.odp = e.NewValue as ISearchDataProvider;            
+            AutoCompleteTextBox me = d as AutoCompleteTextBox;
+            me.odp = e.NewValue as ISearchDataProvider;
         }
         #endregion
 
@@ -575,7 +604,9 @@ namespace ee.iLawyer.App.Wpf.UserControls
         private void NotifyPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
+            {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
 
         #endregion

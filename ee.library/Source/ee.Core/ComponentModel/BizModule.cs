@@ -34,7 +34,7 @@
 
         public virtual string Icon { get; private set; }
 
-        public int Index { get; private set; }
+        public virtual int Index { get; private set; }
         public virtual object Content { get; private set; }
 
         public BizModule(int index, string scopeName, string name, string metadataToken, string icon = "", object content = null)

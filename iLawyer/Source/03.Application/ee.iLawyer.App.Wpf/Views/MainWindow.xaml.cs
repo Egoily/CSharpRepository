@@ -1,5 +1,4 @@
 ﻿using CodeDisplayer;
-using ee.Core.Framework.Messaging;
 using ee.iLawyer.App.Wpf.ViewModels;
 using ee.iLawyer.ServiceProvider;
 using MaterialDesignThemes.Wpf;

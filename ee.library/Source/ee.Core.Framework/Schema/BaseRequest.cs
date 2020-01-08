@@ -15,7 +15,7 @@ namespace ee.Core.Framework.Schema
                     var customAttributes = pInfo.GetCustomAttributes(typeof(ValidateAttibute), true) as ValidateAttibute[];
                     foreach (var attribute in customAttributes)
                     {
-    
+
                         attribute.InputValue = pInfo.GetValue(this, null);
                         attribute.PropertyName = pInfo.Name;
                         if (!attribute.Validate())
@@ -36,6 +36,9 @@ namespace ee.Core.Framework.Schema
     public class BaseIdRequest : BaseRequest
     {
         public virtual int Id { get; set; }
-
+    }
+    public class BaseIdRequest<T> : BaseRequest
+    {
+        public virtual T Id { get; set; }
     }
 }

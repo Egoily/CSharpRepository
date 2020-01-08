@@ -44,5 +44,10 @@ namespace ee.iLawyer.Ops.Contact.DTO.ViewObjects
         /// 
         /// </summary>
         public virtual IList<Picker> Children { get; set; }
+
+        public Picker()
+        {
+
+        }
     }
 }

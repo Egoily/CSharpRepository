@@ -70,6 +70,9 @@ namespace ee.iLawyer.Ops.Contact.DTO.ViewObjects
         [DataGridColumn("联系电话", 7)]
         public string ContactNo { get; set; }
 
+        public Court()
+        {
 
+        }
     }
 }

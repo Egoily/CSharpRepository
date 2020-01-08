@@ -37,15 +37,15 @@ namespace ee.iLawyer.Ops.Contact.AutoMapper
             }
             destination.InvolvedClients = new ObservableCollection<DTO.ViewObjects.Client>(involvedClients);
             //---------------------
-            var todoList = new List<DTO.ViewObjects.ProjectTodoItem>();
+            var todoList = new List<DTO.ViewObjects.Schedule>();
             if (source.TodoList != null && source.TodoList.Any())
             {
                 foreach (var item in source.TodoList)
                 {
-                    todoList.Add(Mapper.Map<DTO.ViewObjects.ProjectTodoItem>(item));
+                    todoList.Add(Mapper.Map<DTO.ViewObjects.Schedule>(item));
                 }
             }
-            destination.TodoList = new ObservableCollection<DTO.ViewObjects.ProjectTodoItem>(todoList);
+            destination.TodoList = new ObservableCollection<DTO.ViewObjects.Schedule>(todoList);
             //--------------------
             var progresses = new List<DTO.ViewObjects.ProjectProgress>();
             if (source.Progresses != null && source.Progresses.Any())
@@ -94,13 +94,13 @@ namespace ee.iLawyer.Ops.Contact.AutoMapper
             target.InProject = project;
             return target;
         }
-        public static Db.Entities.ProjectTodoItem Convert(DTO.ViewObjects.ProjectTodoItem source, Db.Entities.Project project)
+        public static Db.Entities.Schedule Convert(DTO.ViewObjects.Schedule source, Db.Entities.Project project)
         {
             if (source == null)
             {
                 return null;
             }
-            var target = Mapper.Map<Db.Entities.ProjectTodoItem>(source);
+            var target = Mapper.Map<Db.Entities.Schedule>(source);
             target.InProject = project;
             return target;
         }

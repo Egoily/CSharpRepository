@@ -1,7 +1,6 @@
 ﻿using ee.Core.ComponentModel;
 using ee.Core.Framework.Schema;
 using ee.Core.Wpf.Designs;
-using ee.iLawyer.App.Wpf.Models;
 using ee.iLawyer.App.Wpf.ViewModels.Base;
 using ee.iLawyer.Ops.Contact.Args;
 using ee.iLawyer.Ops.Contact.AutoMapper;
@@ -22,6 +21,8 @@ namespace ee.iLawyer.App.Wpf.ViewModels
         public override string PermissionCodePrefix => "root.project.";
 
 
+        public Schedule CurrentProjectTodoItem { get; set; }
+        public ProjectProgress CurrentProjectProgress { get; set; }
         public RelayCommand<object> AddTodoItemCommand => new RelayCommand<object>(ExecuteAddTodoItemCommand);
         public RelayCommand<object> EditTodoItemCommand => new RelayCommand<object>(ExecuteEditTodoItemCommand);
         public RelayCommand<object> RemoveTodoItemCommand => new RelayCommand<object>(ExecuteRemoveTodoItemCommand);
@@ -37,17 +38,11 @@ namespace ee.iLawyer.App.Wpf.ViewModels
 
         public virtual void ExecuteAddTodoItemCommand(object o)
         {
-            System.Windows.Application.Current.Dispatcher.Invoke(() =>
-            {
-                MessengerInstance.Send(new ShowViewArg("NewEditTodoItem", null, true), "ShowView");
-            });
+            CurrentProjectTodoItem = new Schedule();
         }
         public virtual void ExecuteEditTodoItemCommand(object o)
         {
-            System.Windows.Application.Current.Dispatcher.Invoke(() =>
-            {
-                MessengerInstance.Send(new ShowViewArg("NewEditTodoItem", o, true), "ShowView");
-            });
+            CurrentProjectTodoItem = o as Schedule;
         }
         public virtual void ExecuteRemoveTodoItemCommand(object o)
         {
@@ -56,25 +51,24 @@ namespace ee.iLawyer.App.Wpf.ViewModels
             {
                 return;
             }
-
+            RemoveTodoItem(o as Schedule);
         }
         public virtual void ExecuteAddProgressCommand(object o)
         {
-            System.Windows.Application.Current.Dispatcher.Invoke(() =>
-            {
-                MessengerInstance.Send(new ShowViewArg("NewEditProgress", null, true), "ShowView");
-            });
+            CurrentProjectProgress = new ProjectProgress();
         }
         public virtual void ExecuteEditProgressCommand(object o)
         {
-            System.Windows.Application.Current.Dispatcher.Invoke(() =>
-            {
-                MessengerInstance.Send(new ShowViewArg("NewEditProgress", o, true), "ShowView");
-            });
+            CurrentProjectProgress = o as ProjectProgress;
         }
         public virtual void ExecuteRemoveProgressCommand(object o)
         {
-
+            var dr = System.Windows.Forms.MessageBox.Show("确定要删除?", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if (dr != DialogResult.OK)
+            {
+                return;
+            }
+            RemoveProgress(o as ProjectProgress);
         }
 
         public override BaseQueryResponse<Project> Query()
@@ -103,19 +97,19 @@ namespace ee.iLawyer.App.Wpf.ViewModels
         }
 
 
-  
 
 
 
 
-        private void UpdateTodoItem(ProjectTodoItem item)
+
+        private void UpdateTodoItem(Schedule item)
         {
-            if (TreadObject.TodoList == null)
+            if (CurrentObject.TodoList == null)
             {
                 return;
             }
 
-            var editObj = TreadObject.TodoList.FirstOrDefault(x => x.Id == item.Id);
+            var editObj = CurrentObject.TodoList.FirstOrDefault(x => x.Id == item.Id);
             if (editObj != null)
             {
                 editObj.Content = item.Content;
@@ -131,22 +125,22 @@ namespace ee.iLawyer.App.Wpf.ViewModels
             }
         }
 
-        private void RemoveTodoItem(ProjectTodoItem item)
+        private void RemoveTodoItem(Schedule item)
         {
             if (item != null)
             {
-                TreadObject.TodoList.Remove(item);
+                CurrentObject.TodoList.Remove(item);
 
             }
         }
         private void UpdateProgress(ProjectProgress item)
         {
-            if (TreadObject.Progresses == null)
+            if (CurrentObject.Progresses == null)
             {
                 return;
             }
 
-            var editObj = TreadObject.Progresses.FirstOrDefault(x => x.Id == item.Id);
+            var editObj = CurrentObject.Progresses.FirstOrDefault(x => x.Id == item.Id);
             if (editObj != null)
             {
                 editObj.HandleTime = item.HandleTime;
@@ -159,7 +153,7 @@ namespace ee.iLawyer.App.Wpf.ViewModels
         {
             if (item != null)
             {
-                TreadObject.Progresses.Remove(item);
+                CurrentObject.Progresses.Remove(item);
 
             }
         }

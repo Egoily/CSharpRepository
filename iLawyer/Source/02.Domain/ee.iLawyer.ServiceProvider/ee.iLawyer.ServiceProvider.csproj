@@ -45,6 +45,7 @@
     <Compile Include="ConfigData.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="ILawyerServiceProvider.cs" />
+    <Compile Include="Processor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

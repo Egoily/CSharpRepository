@@ -73,15 +73,16 @@
     <Compile Include="Domain\BLDateHelper.cs" />
     <Compile Include="Domain\BrushProps.cs" />
     <Compile Include="Domain\ChineseLunisolarCalendarWithFestival.cs" />
+    <Compile Include="DataProviders\ClientSearchProvider.cs" />
     <Compile Include="Domain\DragDropHelper.cs" />
     <Compile Include="Models\ShowViewArg.cs" />
-    <Compile Include="UserControls\Pickers\MultiItemSelectorItem.cs" />
-    <Compile Include="Views\NewEditProgress.xaml.cs">
-      <DependentUpon>NewEditProgress.xaml</DependentUpon>
+    <Compile Include="UserControls\ProgressControl.xaml.cs">
+      <DependentUpon>ProgressControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\NewEditTodoItem.xaml.cs">
-      <DependentUpon>NewEditTodoItem.xaml</DependentUpon>
+    <Compile Include="UserControls\TodoItemControl.xaml.cs">
+      <DependentUpon>TodoItemControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Pickers\SelectorItem.cs" />
     <Compile Include="UserControls\Agenda\Appointment.cs" />
     <Compile Include="Modules\Agenda.xaml.cs">
       <DependentUpon>Agenda.xaml</DependentUpon>
@@ -142,10 +143,9 @@
     <Compile Include="UserControls\AutoCompleteTextBox.xaml.cs">
       <DependentUpon>AutoCompleteTextBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModelLocator.cs" />
+    <Compile Include="DataProviders\ViewModelLocator.cs" />
     <Compile Include="ViewModels\Base\CloseViewViewModel.cs" />
     <Compile Include="ViewModels\Base\DataManipulationViewModel.cs" />
-    <Compile Include="ViewModels\ClientSearchProvider.cs" />
     <Compile Include="ViewModels\AgendaViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\ProjectViewModel.cs" />
@@ -166,11 +166,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\NewEditProgress.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="UserControls\ProgressControl.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\NewEditTodoItem.xaml">
+    <Page Include="UserControls\TodoItemControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

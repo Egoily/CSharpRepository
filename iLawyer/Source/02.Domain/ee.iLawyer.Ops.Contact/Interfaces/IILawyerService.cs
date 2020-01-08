@@ -33,5 +33,15 @@ namespace ee.iLawyer.Ops.Contact.Interfaces
 
         BaseResponse SaveOrUpdateProjectTodoList(SaveOrUpdateProjectTodoListRequest request);
         BaseResponse SaveOrUpdateProjectProgress(SaveOrUpdateProjectProgressRequest request);
+
+
+        BaseResponse CreateSchedule(CreateScheduleRequest request);
+        BaseResponse UpdateSchedule(UpdateScheduleRequest request);
+        BaseResponse RemoveSchedule(RemoveScheduleRequest request);
+        BaseObjectResponse<Schedule> GetSchedule(BaseIdRequest<string> request);
+        BaseQueryResponse<Schedule> QuerySchedule(QueryScheduleRequest request);
+
+
+
     }
 }

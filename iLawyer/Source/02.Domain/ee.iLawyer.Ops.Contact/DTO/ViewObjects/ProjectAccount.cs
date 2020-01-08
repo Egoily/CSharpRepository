@@ -47,5 +47,10 @@ namespace ee.iLawyer.Ops.Contact.DTO.ViewObjects
         /// </summary>
         public virtual string Remark { get; set; }
 
+        public ProjectAccount()
+        {
+
+        }
+
     }
 }

@@ -1,16 +1,15 @@
-﻿using System;
+﻿using AutoMapper;
+using AutoMapper.Configuration.Annotations;
+using ee.Core.Data;
+using PropertyChanged;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using System.Xml.Serialization;
-using AutoMapper;
-using AutoMapper.Configuration.Annotations;
-using PropertyChanged;
 namespace ee.iLawyer.Ops.Contact.DTO.ViewObjects
 {
     [AddINotifyPropertyChangedInterface]
     [DataContract(IsReference = true)]
     [AutoMap(typeof(Db.Entities.Foundation.Area), PreserveReferences = true)]//This is equivalent to a CreateMap<Db.Entities.Foundation.Area, DTO.Area>() configuration
-    public class Area : ICloneable
+    public class Area : CloneableObject
     {
         [DataMember]
         [SourceMember(nameof(Db.Entities.Foundation.Area.Id))]
@@ -34,9 +33,9 @@ namespace ee.iLawyer.Ops.Contact.DTO.ViewObjects
         /// </summary>
         public virtual IList<Area> Children { get; set; }
 
-        public object Clone()
+        public Area()
         {
-            return this.MemberwiseClone();
+
         }
     }
 }

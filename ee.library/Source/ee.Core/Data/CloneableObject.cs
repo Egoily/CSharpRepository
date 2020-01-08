@@ -1,4 +1,5 @@
-﻿using ee.Core.Utility;
+﻿using ee.Core.DeepCopy;
+using ee.Core.Utility;
 using System;
 
 namespace ee.Core.Data
@@ -9,10 +10,14 @@ namespace ee.Core.Data
         {
             return this.MemberwiseClone();
         }
+        public virtual object DeepClone()
+        {
+            return this.DeepCopy();
+        }
 
         public virtual bool AreEqual(object obj, params string[] ignore)
         {
-            return Extessions.PropertiesAreEqual(this,obj, ignore);
+            return AssertExtessions.PropertiesAreEqual(this, obj, ignore);
         }
     }
 }

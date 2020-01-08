@@ -23,7 +23,7 @@ namespace ee.iLawyer.App.Wpf.ViewModels
         }
         public override BaseQueryResponse<Client> Query()
         {
-            ClientSearchProvider.UpdateClients();
+            Cacher.UpdateClients();
 
             return serviceProvider.QueryClient(new QueryClientRequest() { Name = SearchText });
 

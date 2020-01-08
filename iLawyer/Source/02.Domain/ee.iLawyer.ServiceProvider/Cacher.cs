@@ -2,7 +2,6 @@
 using ee.Core.Framework;
 using ee.iLawyer.Ops.Contact;
 using ee.iLawyer.Ops.Contact.Args;
-using ee.iLawyer.Ops.Contact.AutoMapper;
 using ee.iLawyer.Ops.Contact.DTO.ViewObjects;
 using ee.iLawyer.Ops.Contact.DTO.ViewObjects.SystemManagement;
 using System;
@@ -37,10 +36,12 @@ namespace ee.iLawyer.ServiceProvider
         public static TimeSpan ExpiredTimeSpan = new TimeSpan(12, 0, 0);
         public static void Load()
         {
-            var areas = Areas;
-            var courts = Courts;
             var projectCauses = ProjectCauses;
             var projectCategories = ProjectCategories;
+            var areas = Areas;
+            var courts = Courts;
+            var clients = Cliects;
+
         }
 
 
@@ -129,7 +130,65 @@ namespace ee.iLawyer.ServiceProvider
 
         #endregion
 
+        #region * Clients
+        private static ObservableCollection<Client> cliects;
+        public static ObservableCollection<Client> Cliects
+        {
+            get
+            {
+                if (cliects == null || !cliects.Any())
+                {
+                    try
+                    {
+                        cliects = MemoryCacher.CacheItem(CacheKeys.Clients,
+                        delegate ()
+                        {
+                            var server = new ILawyerServiceProvider();
+                            var response = server.QueryClient(new Ops.Contact.Args.QueryClientRequest());
+                            if (response.Code == ErrorCodes.Ok && (response.QueryList?.Any() ?? false))
+                            {
+                                return new ObservableCollection<Client>(response.QueryList.ToList());
+                            }
+                            return new ObservableCollection<Client>();
+                        },
+                        new TimeSpan(12, 0, 0));//过期时间
+                    }
+                    catch (Exception)
+                    {
+                    }
+                }
+                return cliects;
 
+            }
+        }
+
+        public static void UpdateClients()
+        {
+            try
+            {
+                cliects = MemoryCacher.CacheItem(CacheKeys.Clients,
+                delegate ()
+                {
+                    var server = new ILawyerServiceProvider();
+                    var response = server.QueryClient(new Ops.Contact.Args.QueryClientRequest());
+                    if (response.Code == ErrorCodes.Ok && response.QueryList.Any())
+                    {
+                        return new ObservableCollection<Client>(response.QueryList.ToList());
+                    }
+                    return new ObservableCollection<Client>();
+                },
+                new TimeSpan(12, 0, 0),//过期时间
+                null,
+                true//立即更新
+                );
+
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+            }
+        }
+        #endregion
 
 
         #region * Pickers
@@ -192,7 +251,7 @@ namespace ee.iLawyer.ServiceProvider
                                 return new List<Picker>();
                             }
                         }, ExpiredTimeSpan);
-                    
+
                     if (pickers != null && pickers.Any())
                     {
                         return new ObservableCollection<Picker>(pickers);

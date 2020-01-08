@@ -53,7 +53,7 @@
     <Compile Include="Entities\Law\LegalProvisionDetail.cs" />
     <Compile Include="Entities\ProjectAccount.cs" />
     <Compile Include="Entities\ProjectProgress.cs" />
-    <Compile Include="Entities\ProjectTodoItem.cs" />
+    <Compile Include="Entities\Schedule.cs" />
     <Compile Include="Entities\Counsel.cs" />
     <Compile Include="Entities\CounselDetail.cs" />
     <Compile Include="Entities\Court.cs" />
@@ -79,7 +79,7 @@
     <Compile Include="Mappings\ProjectClientMap.cs" />
     <Compile Include="Mappings\ProjectMap.cs" />
     <Compile Include="Mappings\ProjectProgressMap.cs" />
-    <Compile Include="Mappings\ProjectTodoListMap.cs" />
+    <Compile Include="Mappings\ScheduleMap.cs" />
     <Compile Include="Mappings\RBAC\SysPermissionModuleMap.cs" />
     <Compile Include="Mappings\RBAC\SysRoleMap.cs" />
     <Compile Include="Mappings\RBAC\SysUserMap.cs" />

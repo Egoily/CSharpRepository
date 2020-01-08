@@ -48,6 +48,7 @@
     <Compile Include="DTO\Args\AreaArgs.cs" />
     <Compile Include="DTO\Args\ClientArgs.cs" />
     <Compile Include="DTO\Args\CourtArgs.cs" />
+    <Compile Include="DTO\Args\ScheduleArgs.cs" />
     <Compile Include="DTO\Args\JudgeArgs.cs" />
     <Compile Include="DTO\Args\SystemManagementArgs.cs" />
     <Compile Include="DTO\Args\ProjectArgs.cs" />
@@ -64,7 +65,7 @@
     <Compile Include="DTO\ViewObjects\Judge.cs" />
     <Compile Include="DTO\ViewObjects\ProjectAccount.cs" />
     <Compile Include="DTO\ViewObjects\ProjectProgress.cs" />
-    <Compile Include="DTO\ViewObjects\ProjectTodoItem.cs" />
+    <Compile Include="DTO\ViewObjects\Schedule.cs" />
     <Compile Include="VO\PropertyPicker.cs" />
     <Compile Include="DTO\ViewObjects\SystemManagement\Role.cs" />
     <Compile Include="DTO\ViewObjects\SystemManagement\PermissionModule.cs" />

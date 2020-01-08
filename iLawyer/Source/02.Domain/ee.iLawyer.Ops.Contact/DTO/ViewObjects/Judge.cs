@@ -50,6 +50,9 @@ namespace ee.iLawyer.Ops.Contact.DTO.ViewObjects
         /// </summary>
         public virtual string InCourtName { get; set; }
 
+        public Judge()
+        {
 
+        }
     }
 }

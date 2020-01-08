@@ -1,37 +1,23 @@
 ﻿using ee.Core.Framework.Schema;
-using ee.Core.Http;
 using ee.iLawyer.Ops.Contact.Args;
 using ee.iLawyer.Ops.Contact.DTO.ViewObjects;
 using ee.iLawyer.Ops.Contact.DTO.ViewObjects.SystemManagement;
 using ee.iLawyer.Ops.Contact.Interfaces;
-using Newtonsoft.Json;
-using System.Threading.Tasks;
 
 namespace ee.iLawyer.ServiceProvider
 {
     public class ILawyerServiceProvider : IILawyerService, IFoundation, ISystemUserManagement
     {
-        public string EndPoint = @"http://localhost:2155";
 
-        private BaseDataResponse Process(string resource, BaseRequest request, int? timeout = 30 * 1000)
+        private BaseDataResponse Process(string resource, BaseRequest request, int? timeout = 60 * 1000)
         {
-            var uri = EndPoint + resource;
-            var response = HttpInvoker.PostToString(uri, null, JsonConvert.SerializeObject(request), timeout);
-            return JsonConvert.DeserializeObject<BaseDataResponse>(response);
+
+            var task =  Processor.ProcessAsync(resource, request,timeout);
+
+            return task.Result;
+            //return Processor.Process(resource, request);
         }
-        private Task<BaseDataResponse> ProcessAsync(string resource, BaseRequest request, int? timeout = 10 * 1000)
-        {
-            var uri = EndPoint + resource;
 
-            return Task.Run(() =>
-            {
-                var response = HttpInvoker.PostToString(uri, null, JsonConvert.SerializeObject(request), timeout);
-                return JsonConvert.DeserializeObject<BaseDataResponse>(response);
-            });
-
-
-
-        }
         public BaseResponse CreateClient(CreateClientRequest request)
         {
             var resource = @"/api/lawyer/client/create";
@@ -239,6 +225,29 @@ namespace ee.iLawyer.ServiceProvider
             return Process(resource, request);
         }
 
+        public BaseResponse CreateSchedule(CreateScheduleRequest request)
+        {
+            throw new System.NotImplementedException();
+        }
 
+        public BaseResponse UpdateSchedule(UpdateScheduleRequest request)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public BaseResponse RemoveSchedule(RemoveScheduleRequest request)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public BaseObjectResponse<Schedule> GetSchedule(BaseIdRequest<string> request)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public BaseQueryResponse<Schedule> QuerySchedule(QueryScheduleRequest request)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

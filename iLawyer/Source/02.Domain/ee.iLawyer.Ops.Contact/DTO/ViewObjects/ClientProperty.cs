@@ -37,5 +37,10 @@ namespace ee.iLawyer.Ops.Contact.DTO.ViewObjects
         /// </summary>
         public virtual int OrderNo { get; set; }
 
+        public ClientProperty()
+        {
+
+        }
+
     }
 }

@@ -31,5 +31,11 @@ namespace ee.iLawyer.Ops.Contact.DTO.ViewObjects
         /// </summary>
         public virtual DateTime CreateTime { get; set; }
 
+        public ProjectProgress()
+        {
+            CreateTime = DateTime.Now;
+            HandleTime = DateTime.Now;
+        }
+
     }
 }

@@ -3,6 +3,7 @@ using AutoMapper.Configuration.Annotations;
 using ee.Core.Data;
 using PropertyChanged;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace ee.iLawyer.Ops.Contact.DTO.ViewObjects
@@ -11,7 +12,6 @@ namespace ee.iLawyer.Ops.Contact.DTO.ViewObjects
     [AutoMap(typeof(Db.Entities.Project))]
     public class Project : CloneableObject
     {
-
         /// <summary>
         /// 主键
         /// </summary>
@@ -75,7 +75,7 @@ namespace ee.iLawyer.Ops.Contact.DTO.ViewObjects
         /// 待办事项
         /// </summary>
         [Ignore]
-        public virtual ObservableCollection<ProjectTodoItem> TodoList { get; set; }
+        public virtual ObservableCollection<Schedule> TodoList { get; set; }
         /// <summary>
         /// 项目进展
         /// </summary>
@@ -88,6 +88,9 @@ namespace ee.iLawyer.Ops.Contact.DTO.ViewObjects
             InvolvedClients = new ObservableCollection<Client>();
             DealDate = DateTime.Now;
             CreateTime = DateTime.Now;
+            TodoList = new ObservableCollection<Schedule>();
+            Progresses = new ObservableCollection<ProjectProgress>();
+
         }
 
     }

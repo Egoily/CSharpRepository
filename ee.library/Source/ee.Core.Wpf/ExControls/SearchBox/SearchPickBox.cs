@@ -1,4 +1,5 @@
 ﻿
+using ee.Core.Framework.DataProvider;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

@@ -85,7 +85,7 @@ namespace ee.iLawyer.Db.Entities
         /// <summary>
         /// 待办事项
         /// </summary>
-        public virtual IList<ProjectTodoItem> TodoList { get; set; }
+        public virtual IList<Schedule> TodoList { get; set; }
         /// <summary>
         /// 项目进展
         /// </summary>
@@ -115,7 +115,7 @@ namespace ee.iLawyer.Db.Entities
             }
         }
 
-        public virtual void AddTodoList(IList<ProjectTodoItem> todoList)
+        public virtual void AddTodoList(IList<Schedule> todoList)
         {
             this.TodoList = todoList;
             if (todoList != null && todoList.Any())

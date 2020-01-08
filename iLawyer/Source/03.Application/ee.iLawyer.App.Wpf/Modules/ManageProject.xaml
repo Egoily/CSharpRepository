@@ -7,6 +7,7 @@
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:ee.iLawyer.App.Wpf.Modules"
              xmlns:serviceProvider="clr-namespace:ee.iLawyer.ServiceProvider;assembly=ee.iLawyer.ServiceProvider"
+             xmlns:dataProvider="clr-namespace:ee.iLawyer.App.Wpf.DataProviders" 
              xmlns:usercontrols="clr-namespace:ee.iLawyer.App.Wpf.UserControls"
              xmlns:picker="clr-namespace:ee.iLawyer.App.Wpf.UserControls.Pickers"
              xmlns:contact="clr-namespace:ee.iLawyer.Ops.Contact;assembly=ee.iLawyer.Ops.Contact"
@@ -55,7 +56,9 @@
                                   VerticalAlignment="Stretch"
                                   ScrollViewer.VerticalScrollBarVisibility="Auto"
                                   ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                                  MaxHeight="640">
+                                  MaxHeight="640"
+                                  MouseDown="DataGrid_MouseDown"
+                                  SelectedCellsChanged="DataGrid_SelectedCellsChanged">
                             <DataGrid.InputBindings>
                                 <MouseBinding MouseAction="LeftDoubleClick"
                                               CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=DataGrid}, Path=SelectedItem}"
@@ -135,7 +138,7 @@
                 <TabItem Visibility="Collapsed">
                     <DockPanel Margin="0,10,0,0">
                         <GroupBox x:Name="groupBox"
-                                  Width="600"
+                                  Width="640"
                                   Height="640"
                                   Header="案件"
                                   Style="{DynamicResource MaterialDesignCardGroupBox}">
@@ -275,7 +278,7 @@
                                                             Orientation="Horizontal">
                                                     <Label>客户:</Label>
                                                     <picker:MultiItemSelector x:Name="clientSelector"
-                                                                              SearchDataProvider="{Binding Path=ClientSearchProvider,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                                                              SearchDataProvider="{Binding Source={x:Static dataProvider:ClientSearchProvider.Instance}}"
                                                                               SelectedItems="{Binding Path=DataContext.CurrentObject.InvolvedClients,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource MultiItemSelectorItemConverter}}">
 
                                                     </picker:MultiItemSelector>
@@ -533,6 +536,7 @@
                                                         HorizontalAlignment="Left"
                                                         VerticalAlignment="Top"
                                                         Width="75"
+                                                        Click="BtnAddTodoItem_Click"
                                                         Command="{Binding AddTodoItemCommand}" />
 
                                                 <DataGrid Grid.Row="1"
@@ -577,7 +581,7 @@
                                                                                 ToolTip="编辑"
                                                                                 Width="24"
                                                                                 Height="24"
-                                                                                Command="{Binding EditTodoItemCommand}"
+                                                                                Command="{Binding Path=DataContext.EditTodoItemCommand,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                                                                 CommandParameter="{Binding}">
                                                                             <materialDesign:PackIcon Width="20"
                                                                                                      Height="20"
@@ -590,7 +594,7 @@
                                                                                 Width="24"
                                                                                 Height="24"
                                                                                 Margin="5,0,0,0"
-                                                                                Command="{Binding RemoveTodoItemCommand}"
+                                                                                Command="{Binding Path=DataContext.RemoveTodoItemCommand,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                                                                 CommandParameter="{Binding}">
                                                                             <materialDesign:PackIcon Width="20"
                                                                                                      Height="20"
@@ -629,6 +633,7 @@
                                                         HorizontalAlignment="Left"
                                                         VerticalAlignment="Top"
                                                         Width="75"
+                                                        Click="BtnAddProgress_Click"
                                                         Command="{Binding AddProgressCommand}" />
 
                                                 <DataGrid Grid.Row="1"
@@ -665,7 +670,7 @@
                                                                                 ToolTip="编辑"
                                                                                 Width="24"
                                                                                 Height="24"
-                                                                                Command="{Binding EditProgressCommand}"
+                                                                                Command="{Binding Path=DataContext.EditProgressCommand,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                                                                 CommandParameter="{Binding}">
                                                                             <materialDesign:PackIcon Width="20"
                                                                                                      Height="20"
@@ -678,7 +683,7 @@
                                                                                 Width="24"
                                                                                 Height="24"
                                                                                 Margin="5,0,0,0"
-                                                                                Command="{Binding RemoveProgressCommand}"
+                                                                                Command="{Binding DataContext.RemoveProgressCommand,RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
                                                                                 CommandParameter="{Binding}">
                                                                             <materialDesign:PackIcon Width="20"
                                                                                                      Height="20"
@@ -701,6 +706,30 @@
             </TabControl>
 
         </StackPanel>
+        <Popup x:Name="popupTodoItemControl"
+               IsOpen="False"
+               StaysOpen="False"
+               PlacementTarget="{Binding ElementName=btnAddTodoItem}"
+               AllowsTransparency="True"
+               PopupAnimation="Slide"
+               Placement="Relative">
+            <usercontrols:TodoItemControl x:Name="todoItemControl"
+                                          DataSource="{Binding CurrentObject.TodoList,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                          CurrentObject="{Binding CurrentProjectTodoItem,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                          Closed="TodoItemControl_Closed"></usercontrols:TodoItemControl>
+        </Popup>
+        <Popup x:Name="popupProgressControl"
+               IsOpen="False"
+               StaysOpen="False"
+               PlacementTarget="{Binding ElementName=btnAddProgress}"
+               AllowsTransparency="True"
+               PopupAnimation="Slide"
+               Placement="Relative">
+            <usercontrols:ProgressControl x:Name="progressontrol"
+                                          DataSource="{Binding CurrentObject.Progresses,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                          CurrentObject="{Binding CurrentProjectProgress,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                          Closed="ProgressControl_Closed"></usercontrols:ProgressControl>
+        </Popup>
     </Grid>
 
 

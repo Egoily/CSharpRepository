@@ -138,7 +138,7 @@ namespace ee.Core.Wpf.ViewModels
         public virtual void ExecuteEditCommand(object o)
         {
             TreadObject = o as T;
-            CurrentObject = TreadObject.Clone() as T;
+            CurrentObject = TreadObject.DeepClone() as T;
             Mode = ActionMode.Edit;
             TabPageIndex = 1;
 

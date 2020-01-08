@@ -1,6 +1,4 @@
 ﻿using ee.Core.ComponentModel;
-using ee.Core.Framework.Messaging;
-using ee.Core.Wpf.Extensions;
 using ee.iLawyer.App.Wpf.UserControls.Pickers;
 using ee.iLawyer.App.Wpf.ViewModels;
 using ee.iLawyer.Ops.Contact.DTO.ViewObjects;
@@ -19,19 +17,47 @@ namespace ee.iLawyer.App.Wpf.Modules
     public partial class ManageProject : UserControl
     {
 
-        public ClientSearchProvider ClientSearchProvider { get { return ClientSearchProvider.Instance; } }
-
         public ManageProject()
         {
             InitializeComponent();
-     
+
         }
 
- 
+        private void BtnAddTodoItem_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            popupTodoItemControl.StaysOpen = true;
+            popupTodoItemControl.IsOpen = true;
+        }
+
+        private void TodoItemControl_Closed(object sender, System.Windows.RoutedEventArgs e)
+        {
+            popupTodoItemControl.StaysOpen = false;
+            popupTodoItemControl.IsOpen = false;
+        }
+        private void BtnAddProgress_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            popupProgressControl.StaysOpen = true;
+            popupProgressControl.IsOpen = true;
+        }
+        private void ProgressControl_Closed(object sender, System.Windows.RoutedEventArgs e)
+        {
+            popupProgressControl.StaysOpen = false;
+            popupProgressControl.IsOpen = false;
+        }
+
+        private void DataGrid_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            tabControl.SelectedIndex = 0;
+        }
+
+        private void DataGrid_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            tabControl.SelectedIndex = 0;
+        }
     }
 
 
-    [ValueConversion(typeof(ObservableCollection<Client>), typeof(ObservableCollection<MultiItemSelectorItem>))]
+    [ValueConversion(typeof(ObservableCollection<Client>), typeof(ObservableCollection<SelectorItem>))]
     public class MultiItemSelectorItemConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -42,10 +68,10 @@ namespace ee.iLawyer.App.Wpf.Modules
             }
             else
             {
-                var result = new ObservableCollection<MultiItemSelectorItem>();
+                var result = new ObservableCollection<SelectorItem>();
                 foreach (var item in value as ObservableCollection<Client>)
                 {
-                    result.Add(new MultiItemSelectorItem()
+                    result.Add(new SelectorItem()
                     {
                         Id = item.Id,
                         DisplayText = item.Name,
@@ -67,7 +93,7 @@ namespace ee.iLawyer.App.Wpf.Modules
             else
             {
                 var result = new ObservableCollection<Client>();
-                foreach (var item in value as ObservableCollection<MultiItemSelectorItem>)
+                foreach (var item in value as ObservableCollection<SelectorItem>)
                 {
                     result.Add(new Client()
                     {

@@ -6,6 +6,7 @@ using ee.Core.Framework;
 using ee.Core.Framework.Schema;
 using ee.iLawyer.Ops.Contact.Args;
 using ee.iLawyer.Ops.Contact.AutoMapper;
+using ee.iLawyer.Ops.Contact.DTO.ViewObjects;
 using ee.iLawyer.Ops.Contact.Interfaces;
 using NHibernate.Criterion;
 using System;
@@ -1046,7 +1047,7 @@ namespace ee.iLawyer.Ops
                            project.AddAccount(DtoConverter.Mapper.Map<Db.Entities.ProjectAccount>(req.Account));
 
                            var involvedClients = new List<Db.Entities.ProjectClient>();
-                           var todoList = new List<Db.Entities.ProjectTodoItem>();
+                           var todoList = new List<Db.Entities.Schedule>();
                            var progresses = new List<Db.Entities.ProjectProgress>();
 
                            if (req.InvolvedClientIds?.Any() ?? false)
@@ -1135,7 +1136,7 @@ namespace ee.iLawyer.Ops
 
                                if (toRemoveClientIds != null && toRemoveClientIds.Any())
                                {
-                                  
+
                                    toRemoveClientIds.ToList().ForEach(x =>
                                    {
                                        var pc = project.InvolvedClients.FirstOrDefault(o => o.Client.Id == x);
@@ -1219,7 +1220,7 @@ namespace ee.iLawyer.Ops
                                        //add
                                        else
                                        {
-                                           var todoItem = new Db.Entities.ProjectTodoItem()
+                                           var todoItem = new Db.Entities.Schedule()
                                            {
                                                Id = item.Id,
                                                InProject = project,
@@ -1239,8 +1240,16 @@ namespace ee.iLawyer.Ops
                                }
                                else
                                {
-                                   project.TodoList = new List<Db.Entities.ProjectTodoItem>();
+                                   project.TodoList = new List<Db.Entities.Schedule>();
                                    req.TodoList.ToList().ForEach(x => project.TodoList.Add(DtoConverter.Convert(x, project)));
+                               }
+                           }
+                           else
+                           {
+                               if (project.TodoList != null && project.TodoList.Any())
+                               {
+                                   project.TodoList.ToList().ForEach(x => repo.Delete(x));
+                                   project.TodoList = null;
                                }
                            }
                            //update progresses
@@ -1290,7 +1299,14 @@ namespace ee.iLawyer.Ops
                                    repo.Update(project);
                                }
                            }
-
+                           else
+                           {
+                               if (project.Progresses != null && project.Progresses.Any())
+                               {
+                                   project.Progresses.ToList().ForEach(x => repo.Delete(x));
+                                   project.Progresses = null;
+                               }
+                           }
                            repo.Update(project);
                        }
                        return response;
@@ -1465,7 +1481,7 @@ namespace ee.iLawyer.Ops
                                        //add
                                        else
                                        {
-                                           var todoItem = new Db.Entities.ProjectTodoItem()
+                                           var todoItem = new Db.Entities.Schedule()
                                            {
                                                Id = item.Id,
                                                InProject = project,
@@ -1486,7 +1502,7 @@ namespace ee.iLawyer.Ops
                                }
                                else
                                {
-                                   project.TodoList = new List<Db.Entities.ProjectTodoItem>();
+                                   project.TodoList = new List<Db.Entities.Schedule>();
                                    req.TodoList.ToList().ForEach(x => project.TodoList.Add(DtoConverter.Convert(x, project)));
                                    repo.Update(project);
                                }
@@ -1564,6 +1580,29 @@ namespace ee.iLawyer.Ops
 
         }
 
+        public BaseResponse CreateSchedule(CreateScheduleRequest request)
+        {
+            throw new NotImplementedException();
+        }
 
+        public BaseResponse UpdateSchedule(UpdateScheduleRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public BaseResponse RemoveSchedule(RemoveScheduleRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public BaseObjectResponse<Schedule> GetSchedule(BaseIdRequest<string> request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public BaseQueryResponse<Schedule> QuerySchedule(QueryScheduleRequest request)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -93,7 +93,6 @@
     <Compile Include="ExControls\SearchBox\SearchBox.cs" />
     <Compile Include="ExControls\SearchBox\SearchPickBox.cs" />
     <Compile Include="ExControls\SearchBox\SearchPopupBox.cs" />
-    <Compile Include="ExControls\SearchBox\SearchResult.cs" />
     <Compile Include="ExControls\TabItemClose.cs" />
     <Compile Include="Extensions\ControlExtession.cs" />
     <Compile Include="Extensions\NotifyPropertyChangedExtension.cs" />

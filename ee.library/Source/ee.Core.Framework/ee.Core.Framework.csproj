@@ -43,6 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\ConfigManagement.cs" />
+    <Compile Include="DataProvider\ISearchDataProvider.cs" />
+    <Compile Include="DataProvider\SearchResult.cs" />
     <Compile Include="ErrorCodes.cs" />
     <Compile Include="Messaging\GenericMessage.cs" />
     <Compile Include="Messaging\IMessenger.cs" />

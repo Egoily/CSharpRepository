@@ -1,4 +1,5 @@
-﻿using ee.Core.Wpf.ExControls;
+﻿using ee.Core.Framework.DataProvider;
+using ee.Core.Wpf.ExControls;
 using PropertyChanged;
 using System;
 using System.Collections.ObjectModel;
@@ -31,16 +32,16 @@ namespace ee.iLawyer.App.Wpf.UserControls.Pickers
             DependencyProperty.Register("SearchDataProvider", typeof(ISearchDataProvider), typeof(MultiItemSelector), new UIPropertyMetadata(OnSearchDataProviderPropertyChanged));
 
 
-        public ObservableCollection<MultiItemSelectorItem> SelectedItems
+        public ObservableCollection<SelectorItem> SelectedItems
         {
-            get { return (ObservableCollection<MultiItemSelectorItem>)GetValue(SelectedItemsProperty); }
+            get { return (ObservableCollection<SelectorItem>)GetValue(SelectedItemsProperty); }
             set { SetValue(SelectedItemsProperty, value); }
         }
 
         public static readonly DependencyProperty SelectedItemsProperty =
-            DependencyProperty.Register("SelectedItems", typeof(ObservableCollection<MultiItemSelectorItem>),
+            DependencyProperty.Register("SelectedItems", typeof(ObservableCollection<SelectorItem>),
                 typeof(MultiItemSelector),
-                new FrameworkPropertyMetadata(new ObservableCollection<MultiItemSelectorItem>(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnPropertyChanged));
+                new FrameworkPropertyMetadata(new ObservableCollection<SelectorItem>(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnPropertyChanged));
 
         private static void OnSearchDataProviderPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -50,7 +51,7 @@ namespace ee.iLawyer.App.Wpf.UserControls.Pickers
         {
             if ((d as MultiItemSelector).SelectedItems == null)
             {
-                (d as MultiItemSelector).SelectedItems = new ObservableCollection<MultiItemSelectorItem>();
+                (d as MultiItemSelector).SelectedItems = new ObservableCollection<SelectorItem>();
             }
         }
 
@@ -69,7 +70,7 @@ namespace ee.iLawyer.App.Wpf.UserControls.Pickers
         #endregion
 
 
-        public ObservableCollection<MultiItemSelectorItem> DataSource { get; } = new ObservableCollection<MultiItemSelectorItem>();
+        public ObservableCollection<SelectorItem> DataSource { get; } = new ObservableCollection<SelectorItem>();
 
 
         public bool IsFetchingData { get; set; }
@@ -130,7 +131,7 @@ namespace ee.iLawyer.App.Wpf.UserControls.Pickers
             }
 
             DataSource.Clear();
-            result.Results.ToList().ForEach(item => DataSource.AddIfNotContains((MultiItemSelectorItem)item));
+            result.Results.ToList().ForEach(item => DataSource.AddIfNotContains((SelectorItem)item));
 
             dataSourceListBox.ItemsSource = DataSource;
             if (DataSource.Count > 0)
@@ -164,10 +165,10 @@ namespace ee.iLawyer.App.Wpf.UserControls.Pickers
             }
             bool handled = false;
 
-            MultiItemSelectorItem selectedItem;
+            SelectorItem selectedItem;
             if (popup.IsOpen)
             {
-                selectedItem = dataSourceListBox.SelectedItem as MultiItemSelectorItem;
+                selectedItem = dataSourceListBox.SelectedItem as SelectorItem;
             }
             else
             {
@@ -178,7 +179,7 @@ namespace ee.iLawyer.App.Wpf.UserControls.Pickers
             if (selectedItem != null)
             {
                 SelectedItems.Add(selectedItem);
-                SelectedItems = new ObservableCollection<MultiItemSelectorItem>(SelectedItems);
+                SelectedItems = new ObservableCollection<SelectorItem>(SelectedItems);
                 searchTextBox.Text = string.Empty;
                 searchTextBox.Focus();
 
@@ -419,9 +420,9 @@ namespace ee.iLawyer.App.Wpf.UserControls.Pickers
 
         private void Chip_DeleteClick(object sender, RoutedEventArgs e)
         {
-            var item = (sender as MaterialDesignThemes.Wpf.Chip).DataContext as MultiItemSelectorItem;
+            var item = (sender as MaterialDesignThemes.Wpf.Chip).DataContext as SelectorItem;
             SelectedItems.Remove(item);
-            SelectedItems = new ObservableCollection<MultiItemSelectorItem>(SelectedItems);
+            SelectedItems = new ObservableCollection<SelectorItem>(SelectedItems);
         }
 
 

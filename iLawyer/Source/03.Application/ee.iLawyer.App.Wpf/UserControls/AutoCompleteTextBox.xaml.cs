@@ -1,4 +1,5 @@
-﻿using ee.Core.Wpf.Designs;
+﻿using ee.Core.Framework.DataProvider;
+using ee.Core.Wpf.Designs;
 using ee.Core.Wpf.ExControls;
 using System;
 using System.Collections.Generic;

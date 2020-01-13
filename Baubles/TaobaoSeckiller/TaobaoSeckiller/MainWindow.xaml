@@ -1,0 +1,72 @@
+﻿<Window x:Class="TaobaoSeckiller.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="淘宝秒杀工具"
+        Width="800"
+        Height="600"
+        
+        WindowStartupLocation="CenterScreen"
+        Style="{StaticResource newStyle}"
+        Closed="Window_Closed"
+        Loaded="Window_Loaded">
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1"
+                             MappingMode="RelativeToBoundingBox"
+                             StartPoint="0.5,0"
+                             Opacity=".8">
+            <GradientStop Color="White" />
+            <GradientStop Color="#FFF9FDFB"
+                          Offset="1" />
+        </LinearGradientBrush>
+    </Window.Background>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="26.4" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <!--背景元素-->
+        <Grid  Grid.RowSpan="2"
+               Panel.ZIndex="-1"
+               Grid.Row="0">
+            <MediaElement x:Name="mediaelement"
+                          Stretch="UniformToFill"
+                          Volume="1"
+                          MediaEnded="mediaelement_MediaEnded"
+                          LoadedBehavior="Manual"
+                          UnloadedBehavior="Manual" />
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0"
+                    BorderBrush="Silver"
+                    BorderThickness="0,0,1,0">
+                <Border.Background>
+                    <SolidColorBrush Color="Transparent" />
+                </Border.Background>
+
+                <ScrollViewer Grid.Row="0"
+                              ScrollViewer.VerticalScrollBarVisibility="Auto">
+                    <WrapPanel>
+                        <ToggleButton Content="淘宝秒杀"
+                                      Name="btn_TaobaoSeckill"
+                                      Click="btn_TaobaoSeckill_Click"
+                                      Style="{StaticResource ListButtonStyle}"
+                                      Checked="ToggleButton_Checked" />
+                    </WrapPanel>
+                </ScrollViewer>
+            </Border>
+
+            <Frame NavigationUIVisibility="Hidden"
+                   Name="frame"
+                   Grid.Column="1" />
+        </Grid>
+    </Grid>
+
+
+</Window>

@@ -3,19 +3,69 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:datetimepicker="clr-namespace:ee.Core.Wpf.ExControls.DateTimePicker;assembly=ee.Core.Wpf"
       mc:Ignorable="d"
       d:DesignHeight="300"
       d:DesignWidth="300"
       Title="AdvanceSelect">
 
     <Grid>
-        <StackPanel Orientation="Vertical">
-            <Button x:Name="BtnLogin"
-                    Command="{Binding LoginCommand}">Login</Button>
-            <Button x:Name="BtnClearCart"
-                    Command="{Binding SettlementCommand}">Clear Cart</Button>
-            <Button x:Name="BtnClose"
-                    Command="{Binding LogoutCommand}">Close</Button>
-        </StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30*" />
+            <RowDefinition Height="30*" />
+            <RowDefinition Height="30*" />
+            <RowDefinition Height="100" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <GroupBox Header="第一步">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100*"></ColumnDefinition>
+                    <ColumnDefinition Width="80"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <RichTextBox IsReadOnly="True"></RichTextBox>
+                <Button x:Name="BtnLogin"
+                        Content="登录帐号"
+                        Grid.Column="1"
+                        Command="{Binding LoginCommand}"></Button>
+
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="第二步"
+                  Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100*"></ColumnDefinition>
+                    <ColumnDefinition Width="80"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <RichTextBox IsReadOnly="True"></RichTextBox>
+                <Button x:Name="BtnClearCart"
+                        Content="抢!"
+                        Grid.Column="1"
+                        Command="{Binding SettlementCommand}"></Button>
+
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="第三步"
+                  Grid.Row="2">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100*"></ColumnDefinition>
+                    <ColumnDefinition Width="80"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <RichTextBox IsReadOnly="True"></RichTextBox>
+                <Button x:Name="BtnClose"
+                        Content="关闭"
+                        Grid.Column="1"
+                        Command="{Binding LogoutCommand}"></Button>
+
+            </Grid>
+        </GroupBox>
+        <Grid Grid.Row="3">
+            <StackPanel>
+
+            </StackPanel>
+
+        </Grid>
     </Grid>
 </Page>

@@ -54,6 +54,19 @@
     <Compile Include="Converters\ValueConverter.cs" />
     <Compile Include="Enums\ActionMode.cs" />
     <Compile Include="Enums\ValidationType.cs" />
+    <Compile Include="ExControls\DateTimePicker\DateTimePicker.cs" />
+    <Compile Include="ExControls\DateTimePicker\TMinSecView.xaml.cs">
+      <DependentUpon>TMinSecView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExControls\IconButton.xaml.cs">
+      <DependentUpon>IconButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExControls\DateTimePicker\TDateTimeView.xaml.cs">
+      <DependentUpon>TDateTimeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ExControls\DateTimePicker\THourView.xaml.cs">
+      <DependentUpon>THourView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ExControls\DynamicDataGrid.cs" />
     <Compile Include="Interfaces\IDataOperation.cs" />
     <Compile Include="Interfaces\IDataPager.cs" />
@@ -139,6 +152,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="ExControls\DateTimePicker\TMinSecView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExControls\IconButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExControls\DateTimePicker\TDateTimeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExControls\DateTimePicker\THourView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ExControls\FloatButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -161,6 +190,13 @@
       <Project>{2f4ab1c8-7d82-424d-b076-027562f9d949}</Project>
       <Name>ee.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ExControls\DateTimePicker\DateTimePicker.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ExControls\DateTimePicker\Resources\Calendar.png" />
+    <Resource Include="ExControls\DateTimePicker\Resources\Close.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

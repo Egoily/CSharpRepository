@@ -20,7 +20,12 @@ namespace TaobaoSeckiller.ViewModels
             get => _triggerTime;
             set { _triggerTime = value; RaisePropertyChanged(); }
         }
-
+        private string _reportText;
+        public string ReportText
+        {
+            get => _reportText;
+            set { _reportText = value; RaisePropertyChanged(); }
+        }
         public TaobaoSeckillViewModel()
         {
 
@@ -69,12 +74,33 @@ namespace TaobaoSeckiller.ViewModels
                     try
                     {
                         SelectAll(driver);
-                        Settlement(driver, timeout);
+                        var suc = Settlement(driver, timeout);
+                        if (suc)
+                        {
+                            _reportText = "抢购成功!";
+                        }
+                        else
+                        {
+                            _reportText = "抢购失败!";
+                        }
                     }
-                    catch (NullCartException)
+                    catch (NullCartException ex)
                     {
+                        _reportText = "购物车为空!";
                         return;
                     }
+                    catch (TimeoutException ex)
+                    {
+                        _reportText = "超时了!";
+                        return;
+                    }
+                    catch (Exception ex)
+                    {
+                        _reportText = $"程序错误:{ex.Message}";
+                        return;
+                    }
+
+                    return;
 
                 }
                 else
@@ -117,33 +143,37 @@ namespace TaobaoSeckiller.ViewModels
                 }
                 catch (Exception)
                 {
-                    if (DateTime.Now > opTime.AddMinutes(timeout))
+                    var suc = SubmitOrder(driver);
+                    if (suc)
                     {
-                        throw new TimeoutException();
-                    }
-                    try
-                    {
-                        // 界面跳转后，点击<提交订单>按钮
-                        var submit = driver.FindElement(By.LinkText("提交订单"));
-                        if (submit != null)
-                        {
-                            submit.Click();
-                            return true;
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        if (DateTime.Now > opTime.AddMinutes(timeout))
-                        {
-                            throw new TimeoutException();
-                        }
+                        return true;
                     }
                 }
-
+                if (DateTime.Now > opTime.AddMinutes(timeout))
+                {
+                    throw new TimeoutException();
+                }
             }
 
         }
+        private bool SubmitOrder(IWebDriver driver)
+        {
+            try
+            {
+                // 界面跳转后，点击<提交订单>按钮
+                var submit = driver.FindElement(By.LinkText("提交订单"));
+                if (submit != null)
+                {
+                    submit.Click();
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
 
+            }
+            return false;
+        }
         public void Dispose()
         {
             _driver?.Close();

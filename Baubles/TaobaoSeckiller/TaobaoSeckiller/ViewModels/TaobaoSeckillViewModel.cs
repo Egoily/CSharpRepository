@@ -7,65 +7,49 @@ namespace TaobaoSeckiller.ViewModels
 {
     public class TaobaoSeckillViewModel : ViewModelBase, IDisposable
     {
-
         private IWebDriver _driver;
 
-        public RelayCommand<object> LoginCommand => new RelayCommand<object>(ExecuteLoginCommand);
-        public RelayCommand<object> LogoutCommand => new RelayCommand<object>(ExecuteLogoutCommand);
-        public RelayCommand<object> SettlementCommand => new RelayCommand<object>(ExecuteSettlementCommand);
-
-        private DateTime? _triggerTime;
-        public DateTime? TriggerTime
-        {
-            get => _triggerTime;
-            set { _triggerTime = value; RaisePropertyChanged(); }
-        }
         private string _reportText;
+        private int _timeoutSeconds = 10 * 60;
+        private DateTime? _triggerTime;
+        private string _url = @"https://cart.taobao.com/cart.htm";
+
+        public RelayCommand<object> LoginCommand => new RelayCommand<object>(ExecuteLoginCommand);
+
+        public RelayCommand<object> LogoutCommand => new RelayCommand<object>(ExecuteLogoutCommand);
+
         public string ReportText
         {
             get => _reportText;
             set { _reportText = value; RaisePropertyChanged(); }
         }
+
+        public RelayCommand<object> SettlementCommand => new RelayCommand<object>(ExecuteSettlementCommand);
+
+        public int TimeoutSeconds
+        {
+            get => _timeoutSeconds;
+            set { _timeoutSeconds = value; RaisePropertyChanged(); }
+        }
+
+        public DateTime? TriggerTime
+        {
+            get => _triggerTime;
+            set { _triggerTime = value; RaisePropertyChanged(); }
+        }
+
+        public string Url
+        {
+            get => _url;
+            set { _url = value; RaisePropertyChanged(); }
+        }
+
         public TaobaoSeckillViewModel()
         {
-
         }
-
-        public virtual void ExecuteLoginCommand(object o)
+        private void ClearCart(IWebDriver driver, DateTime? time, int timeout)
         {
-            if (_driver == null)
-            {
-                _driver = new OpenQA.Selenium.Firefox.FirefoxDriver();
-            }
-            LoginCart(_driver);
-        }
-
-        public virtual void ExecuteLogoutCommand(object o)
-        {
-            Dispose();
-        }
-        public virtual void ExecuteSettlementCommand(object o)
-        {
-            if (_driver == null)
-            {
-                _driver = new OpenQA.Selenium.Firefox.FirefoxDriver();
-            }
-            ClearCart(_driver, _triggerTime);
-        }
-
-
-        private void LoginCart(IWebDriver driver, string url = null)
-        {
-            if (string.IsNullOrEmpty(url))
-            {
-                url = @"https://cart.taobao.com/cart.htm";
-            }
-            driver.Navigate().GoToUrl(url);
-            System.Threading.Thread.Sleep(3000);
-        }
-        private void ClearCart(IWebDriver driver, DateTime? time, int timeout = 10 * 60)
-        {
-
+            ReportText = "";
             while (true)
             {
                 var now = DateTime.Now;
@@ -73,43 +57,59 @@ namespace TaobaoSeckiller.ViewModels
                 {
                     try
                     {
+                        if (driver.Url != Url)
+                        {
+                            ReportText = "还未打开淘宝购物车页面,请先登录帐号!";
+                            return;
+                        }
                         SelectAll(driver);
                         var suc = Settlement(driver, timeout);
                         if (suc)
                         {
-                            _reportText = "抢购成功!";
+                            ReportText = "抢购成功!";
                         }
                         else
                         {
-                            _reportText = "抢购失败!";
+                            ReportText = "抢购失败!";
                         }
                     }
                     catch (NullCartException ex)
                     {
-                        _reportText = "购物车为空!";
+                        ReportText = "购物车为空!";
                         return;
                     }
                     catch (TimeoutException ex)
                     {
-                        _reportText = "超时了!";
+                        ReportText = "超时了!";
                         return;
                     }
                     catch (Exception ex)
                     {
-                        _reportText = $"程序错误:{ex.Message}";
+                        ReportText = $"程序错误:{ex.Message}";
                         return;
                     }
 
                     return;
-
                 }
                 else
                 {
                     System.Threading.Thread.Sleep(1);
                 }
             }
+        }
 
+        private void InitDriver()
+        {
+            if (_driver == null)
+            {
+                _driver = new OpenQA.Selenium.Firefox.FirefoxDriver();
+            }
+        }
 
+        private void LoginCart(IWebDriver driver, string url)
+        {
+            driver.Navigate().GoToUrl(url);
+            System.Threading.Thread.Sleep(3000);
         }
 
         private void SelectAll(IWebDriver driver)
@@ -126,9 +126,9 @@ namespace TaobaoSeckiller.ViewModels
             {
                 throw new NullCartException();
             }
-
         }
-        private bool Settlement(IWebDriver driver, int timeout = 10 * 60)
+
+        private bool Settlement(IWebDriver driver, int timeout)
         {
             var opTime = DateTime.Now;
             while (true)
@@ -136,11 +136,14 @@ namespace TaobaoSeckiller.ViewModels
                 try
                 {
                     #region 疯狂点击<结算>按钮
+
                     var go = driver.FindElement(By.Id("J_Go"));
                     go?.Click();
 
                     #endregion
+
                 }
+
                 catch (Exception)
                 {
                     var suc = SubmitOrder(driver);
@@ -149,13 +152,13 @@ namespace TaobaoSeckiller.ViewModels
                         return true;
                     }
                 }
-                if (DateTime.Now > opTime.AddMinutes(timeout))
+                if (DateTime.Now > opTime.AddSeconds(timeout))
                 {
                     throw new TimeoutException();
                 }
             }
-
         }
+
         private bool SubmitOrder(IWebDriver driver)
         {
             try
@@ -170,14 +173,37 @@ namespace TaobaoSeckiller.ViewModels
             }
             catch (Exception)
             {
-
             }
             return false;
         }
+
         public void Dispose()
         {
-            _driver?.Close();
-            _driver?.Dispose();
+            try
+            {
+                _driver?.Close();
+                _driver?.Dispose();
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        public virtual void ExecuteLoginCommand(object o)
+        {
+            InitDriver();
+            LoginCart(_driver, Url);
+        }
+
+        public virtual void ExecuteLogoutCommand(object o)
+        {
+            Dispose();
+        }
+
+        public virtual void ExecuteSettlementCommand(object o)
+        {
+            InitDriver();
+            ClearCart(_driver, TriggerTime, TimeoutSeconds);
         }
     }
 }

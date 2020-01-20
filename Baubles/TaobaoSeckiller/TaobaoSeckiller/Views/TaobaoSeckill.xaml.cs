@@ -8,13 +8,10 @@ namespace TaobaoSeckiller.Views
     /// </summary>
     public partial class TaobaoSeckill : Page
     {
-
         public TaobaoSeckill()
         {
             InitializeComponent();
             this.DataContext = new TaobaoSeckillViewModel();
         }
-
-
     }
 }

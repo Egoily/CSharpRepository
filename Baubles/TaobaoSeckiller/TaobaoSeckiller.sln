@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.271
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaobaoSeckiller", "TaobaoSeckiller\TaobaoSeckiller.csproj", "{61507D06-8587-4EEB-8838-DE247C0E6C22}"
 EndProject
@@ -12,6 +12,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ee.Core.Framework", "..\..\ee.library\Source\ee.Core.Framework\ee.Core.Framework.csproj", "{7D3D1F1D-973E-464A-9E60-B33CD0B34163}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ee.Core.Wpf", "..\..\ee.library\Source\ee.Core.Wpf\ee.Core.Wpf.csproj", "{1C6E9DB7-56D4-4A6F-BC0C-BAA98507E5CA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8886B7F0-5486-4BB1-9A20-F5A67686ED78}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

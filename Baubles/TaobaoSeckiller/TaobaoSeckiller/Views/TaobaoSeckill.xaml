@@ -11,9 +11,9 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30*" />
-            <RowDefinition Height="30*" />
-            <RowDefinition Height="30*" />
+            <RowDefinition Height="25*" />
+            <RowDefinition Height="50*" />
+            <RowDefinition Height="25*" />
             <RowDefinition Height="100" />
             <RowDefinition />
         </Grid.RowDefinitions>
@@ -22,13 +22,17 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="100*"></ColumnDefinition>
                     <ColumnDefinition Width="80"></ColumnDefinition>
+                    <ColumnDefinition Width="20"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <RichTextBox IsReadOnly="True"></RichTextBox>
+                <RichTextBox IsReadOnly="True" ></RichTextBox>
                 <Button x:Name="BtnLogin"
                         Content="登录帐号"
                         Grid.Column="1"
                         Command="{Binding LoginCommand}"></Button>
-
+                <Label Content="?"
+                        Grid.Column="2"
+                        ToolTip="点击登录帐号,可扫码登录,然后将要抢购的物品提前加入购物车,并清空购物车中其他不需要下单的物品(若不清空将会一起下单哦)"
+                       ></Label>
             </Grid>
         </GroupBox>
         <GroupBox Header="第二步"
@@ -37,13 +41,27 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="100*"></ColumnDefinition>
                     <ColumnDefinition Width="80"></ColumnDefinition>
+                    <ColumnDefinition Width="20"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <RichTextBox IsReadOnly="True"></RichTextBox>
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label>开抢时间:</Label>
+                        <datetimepicker:DateTimePicker ShowCheckBox="False" Format="Custom" CustomFormat="HH:mm:ss" Value="{Binding TriggerTime}"></datetimepicker:DateTimePicker>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label>超时时间:</Label>
+                        <TextBox Width="60" Text="{Binding TimeoutSeconds}" />
+                        <Label>(秒)</Label>
+                    </StackPanel>
+                </StackPanel>
                 <Button x:Name="BtnClearCart"
                         Content="抢!"
                         Grid.Column="1"
                         Command="{Binding SettlementCommand}"></Button>
-
+                <Label Content="?"
+                        Grid.Column="2"
+                        ToolTip="开始抢单"
+                       ></Label>
             </Grid>
         </GroupBox>
         <GroupBox Header="第三步"
@@ -52,20 +70,23 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="100*"></ColumnDefinition>
                     <ColumnDefinition Width="80"></ColumnDefinition>
+                    <ColumnDefinition Width="20"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <RichTextBox IsReadOnly="True"></RichTextBox>
                 <Button x:Name="BtnClose"
                         Content="关闭"
                         Grid.Column="1"
                         Command="{Binding LogoutCommand}"></Button>
-
+                <Label Content="?"
+                        Grid.Column="2"
+                        ToolTip="关闭"
+                       ></Label>
             </Grid>
         </GroupBox>
         <Grid Grid.Row="3">
             <StackPanel>
-
+                <TextBlock  Text="{Binding ReportText}"></TextBlock>
             </StackPanel>
-
         </Grid>
     </Grid>
 </Page>

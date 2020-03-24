@@ -13,7 +13,6 @@ namespace ee.iLawyer.WebApi.Controllers
         [Route(""), HttpGet]
         public string Test()
         {
-            Service.Test(new BaseRequest());
             return $"Thread Id:{ System.Threading.Thread.CurrentThread.ManagedThreadId.ToString()}";
         }
     }

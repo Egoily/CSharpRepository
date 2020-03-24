@@ -1,4 +1,5 @@
 ﻿using ee.Core.Framework.Schema;
+using ee.Core.Net;
 using ee.iLawyer.Ops.Contact.DTO;
 using ee.iLawyer.Ops.Contact.DTO.ViewObjects;
 using Newtonsoft.Json;
@@ -11,19 +12,19 @@ namespace ee.iLawyer.WebApi.Controllers
     public class ClientController : BaseController
     {
         // GET api/Client/5
-        public BaseObjectResponse<Client> Get(int id)
+        public ObjectResponse<Client> Get(int id)
         {
-            return Service.GetClient(new BaseIdRequest() { Id = id });
+            return Service.GetClient(new IdRequest() { Id = id });
         }
         // POST api/Client
-        public BaseResponse Post([FromBody]dynamic para)
+        public ResponseBase Post([FromBody]dynamic para)
         {
             var request = JsonConvert.DeserializeObject<Ops.Contact.Args.CreateClientRequest>(para.ToString());
             return Service.CreateClient(request);
         }
 
         // PUT api/Client/{id}
-        public BaseResponse Put(int id, [FromBody]dynamic para)
+        public ResponseBase Put(int id, [FromBody]dynamic para)
         {
             var request = JsonConvert.DeserializeObject<Ops.Contact.Args.UpdateClientRequest>(para.ToString());
             request.Id = id;
@@ -31,12 +32,12 @@ namespace ee.iLawyer.WebApi.Controllers
         }
 
         // DELETE api/Client/{id}
-        public BaseResponse Delete(int id)
+        public ResponseBase Delete(int id)
         {
             return Service.RemoveClient(new Ops.Contact.Args.RemoveClientRequest() { Ids = new List<int>() { id } });
         }
         [Route("query"), HttpGet]
-        public BaseQueryResponse<Client> Query(string name, bool? isnp, int pageIndex, int pageSize)
+        public QueryResponse<Client> Query(string name, bool? isnp, int pageIndex, int pageSize)
         {
 
             return Service.QueryClient(

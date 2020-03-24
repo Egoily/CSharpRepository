@@ -1,6 +1,7 @@
 ﻿using ee.Core.Data;
 using ee.Core.Framework.Schema;
 using ee.Core.Framework.Validations;
+using ee.Core.Net;
 using ee.Core.Wpf.Designs;
 using ee.Core.Wpf.Enums;
 using ee.Core.Wpf.Interfaces;
@@ -124,10 +125,10 @@ namespace ee.Core.Wpf.ViewModels
         public RelayCommand<object> ResetCommand => new RelayCommand<object>(ExecuteResetCommand);
 
         #endregion
-        public abstract BaseResponse Create();
-        public abstract BaseResponse Update();
-        public abstract BaseResponse Remove();
-        public abstract BaseQueryResponse<T> Query();
+        public abstract ResponseBase Create();
+        public abstract ResponseBase Update();
+        public abstract ResponseBase Remove();
+        public abstract QueryResponse<T> Query();
         public virtual void ExecuteAddCommand(object o)
         {
             CurrentObject = new T();
@@ -162,7 +163,7 @@ namespace ee.Core.Wpf.ViewModels
 
         }
 
-        public virtual void DataManipulationCompleted(ref BaseResponse response)
+        public virtual void DataManipulationCompleted(ref ResponseBase response)
         {
             if (response != null && response.IsOk())
             {
@@ -171,14 +172,14 @@ namespace ee.Core.Wpf.ViewModels
                 Fetch(PageIndex);
             }
         }
-        private BaseResponse DataManipulation()
+        private ResponseBase DataManipulation()
         {
-            BaseResponse response = null;
+            ResponseBase response = null;
             try
             {
                 if (CurrentObject == null)
                 {
-                    return new BaseResponse() { Code = Framework.ErrorCodes.NullParameter, Message = "对象为空." };
+                    return new ResponseBase() { Code = Framework.ErrorCodes.NullParameter, Message = "对象为空." };
                 }
                 switch (Mode)
                 {
@@ -196,7 +197,7 @@ namespace ee.Core.Wpf.ViewModels
                         }
                         else
                         {
-                            return new BaseResponse() { Code = 0 };
+                            return new ResponseBase() { Code = 0 };
                         }
 
                         break;
@@ -213,7 +214,7 @@ namespace ee.Core.Wpf.ViewModels
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine(ex.Message);
-                response = new BaseResponse() { Code = Framework.ErrorCodes.UnknownError, Message = "未知错误" };
+                response = new ResponseBase() { Code = Framework.ErrorCodes.UnknownError, Message = "未知错误" };
             }
             DataManipulationCompleted(ref response);
             return response;

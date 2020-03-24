@@ -95,7 +95,7 @@ namespace ee.iLawyer.App.Wpf.ViewModels
                 SignInEnabled = false;
                 this.Report = "正在验证登录 . . .";
 
-                var response = new BaseObjectResponse<User>();
+                var response = new ObjectResponse<User>();
                 var LoginTask = Task.Run(() =>
                 {
                     var request = new LoginRequest()

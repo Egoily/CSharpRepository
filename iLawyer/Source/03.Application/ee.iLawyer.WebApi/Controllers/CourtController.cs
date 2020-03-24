@@ -1,4 +1,5 @@
 ﻿using ee.Core.Framework.Schema;
+using ee.Core.Net;
 using ee.iLawyer.Ops.Contact.Args;
 using ee.iLawyer.Ops.Contact.DTO;
 using ee.iLawyer.Ops.Contact.DTO.ViewObjects;
@@ -13,20 +14,20 @@ namespace ee.iLawyer.WebApi.Controllers
     {
 
         // GET api/Court/5
-        public BaseObjectResponse<Court> Get(int id)
+        public ObjectResponse<Court> Get(int id)
         {
-            return Service.GetCourt(new BaseIdRequest() { Id = id });
+            return Service.GetCourt(new IdRequest() { Id = id });
         }
 
         // POST api/Court
-        public BaseResponse Post([FromBody]dynamic para)
+        public ResponseBase Post([FromBody]dynamic para)
         {
             var request = JsonConvert.DeserializeObject<Ops.Contact.Args.CreateCourtRequest>(para.ToString());
             return Service.CreateCourt(request);
         }
 
         // PUT api/Court/{id}
-        public BaseResponse Put(int id, [FromBody]dynamic para)
+        public ResponseBase Put(int id, [FromBody]dynamic para)
         {
             var request = JsonConvert.DeserializeObject<Ops.Contact.Args.UpdateCourtRequest>(para.ToString());
             request.Id = id;
@@ -34,12 +35,12 @@ namespace ee.iLawyer.WebApi.Controllers
         }
 
         // DELETE api/Court/{id}
-        public BaseResponse Delete(int id)
+        public ResponseBase Delete(int id)
         {
             return Service.RemoveCourt(new Ops.Contact.Args.RemoveCourtRequest() { Ids = new List<int>() { id } });
         }
         [Route("query"), HttpGet]
-        public BaseQueryResponse<Court> Query(string province, string city, string county, string rank, string name, int pageIndex, int pageSize)
+        public QueryResponse<Court> Query(string province, string city, string county, string rank, string name, int pageIndex, int pageSize)
         {
 
             return Service.QueryCourt(

@@ -1,4 +1,5 @@
 ﻿using ee.Core.Framework.Schema;
+using ee.Core.Net;
 using ee.iLawyer.Ops.Contact.Args;
 using ee.iLawyer.Ops.Contact.DTO.ViewObjects;
 
@@ -7,39 +8,39 @@ namespace ee.iLawyer.Ops.Contact.Interfaces
     public interface IILawyerService
     {
 
-        BaseResponse CreateCourt(CreateCourtRequest request);
-        BaseResponse UpdateCourt(UpdateCourtRequest request);
-        BaseResponse RemoveCourt(RemoveCourtRequest request);
-        BaseObjectResponse<Court> GetCourt(BaseIdRequest request);
-        BaseQueryResponse<Court> QueryCourt(QueryCourtRequest request);
+        ResponseBase CreateCourt(CreateCourtRequest request);
+        ResponseBase UpdateCourt(UpdateCourtRequest request);
+        ResponseBase RemoveCourt(RemoveCourtRequest request);
+        ObjectResponse<Court> GetCourt(IdRequest request);
+        QueryResponse<Court> QueryCourt(QueryCourtRequest request);
 
-        BaseResponse CreateJudge(CreateJudgeRequest request);
-        BaseResponse UpdateJudge(UpdateJudgeRequest request);
-        BaseResponse RemoveJudge(RemoveJudgeRequest request);
-        BaseObjectResponse<Judge> GetJudge(BaseIdRequest request);
-        BaseQueryResponse<Judge> QueryJudge(QueryJudgeRequest request);
+        ResponseBase CreateJudge(CreateJudgeRequest request);
+        ResponseBase UpdateJudge(UpdateJudgeRequest request);
+        ResponseBase RemoveJudge(RemoveJudgeRequest request);
+        ObjectResponse<Judge> GetJudge(IdRequest request);
+        QueryResponse<Judge> QueryJudge(QueryJudgeRequest request);
 
-        BaseResponse CreateClient(CreateClientRequest request);
-        BaseResponse UpdateClient(UpdateClientRequest request);
-        BaseResponse RemoveClient(RemoveClientRequest request);
-        BaseObjectResponse<Client> GetClient(BaseIdRequest request);
-        BaseQueryResponse<Client> QueryClient(QueryClientRequest request);
+        ResponseBase CreateClient(CreateClientRequest request);
+        ResponseBase UpdateClient(UpdateClientRequest request);
+        ResponseBase RemoveClient(RemoveClientRequest request);
+        ObjectResponse<Client> GetClient(IdRequest request);
+        QueryResponse<Client> QueryClient(QueryClientRequest request);
 
-        BaseResponse CreateProject(CreateProjectRequest request);
-        BaseResponse UpdateProject(UpdateProjectRequest request);
-        BaseResponse RemoveProject(RemoveProjectRequest request);
-        BaseObjectResponse<Project> GetProject(BaseIdRequest request);
-        BaseQueryResponse<Project> QueryProject(QueryProjectRequest request);
+        ResponseBase CreateProject(CreateProjectRequest request);
+        ResponseBase UpdateProject(UpdateProjectRequest request);
+        ResponseBase RemoveProject(RemoveProjectRequest request);
+        ObjectResponse<Project> GetProject(IdRequest request);
+        QueryResponse<Project> QueryProject(QueryProjectRequest request);
 
-        BaseResponse SaveOrUpdateProjectTodoList(SaveOrUpdateProjectTodoListRequest request);
-        BaseResponse SaveOrUpdateProjectProgress(SaveOrUpdateProjectProgressRequest request);
+        ResponseBase SaveOrUpdateProjectTodoList(SaveOrUpdateProjectTodoListRequest request);
+        ResponseBase SaveOrUpdateProjectProgress(SaveOrUpdateProjectProgressRequest request);
 
 
-        BaseResponse CreateSchedule(CreateScheduleRequest request);
-        BaseResponse UpdateSchedule(UpdateScheduleRequest request);
-        BaseResponse RemoveSchedule(RemoveScheduleRequest request);
-        BaseObjectResponse<Schedule> GetSchedule(BaseIdRequest<string> request);
-        BaseQueryResponse<Schedule> QuerySchedule(QueryScheduleRequest request);
+        ResponseBase CreateSchedule(CreateScheduleRequest request);
+        ResponseBase UpdateSchedule(UpdateScheduleRequest request);
+        ResponseBase RemoveSchedule(RemoveScheduleRequest request);
+        ObjectResponse<Schedule> GetSchedule(IdRequest<string> request);
+        QueryResponse<Schedule> QuerySchedule(QueryScheduleRequest request);
 
 
 

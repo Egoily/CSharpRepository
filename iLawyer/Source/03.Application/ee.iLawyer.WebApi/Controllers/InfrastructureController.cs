@@ -16,7 +16,7 @@ namespace ee.iLawyer.WebApi.Controllers
         /// <param name="pageSize">page size</param>
         /// <returns></returns>
         [Route("Areas"), HttpGet]
-        public BaseQueryResponse<Area> GetAreas(int pageIndex, int pageSize)
+        public QueryResponse<Area> GetAreas(int pageIndex, int pageSize)
         {
 
             var areas = Service.GetAreas(new GetAreasRequest()
@@ -34,7 +34,7 @@ namespace ee.iLawyer.WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [Route("Pickers"), HttpGet]
-        public BaseQueryResponse<Picker> GetPickers()
+        public QueryResponse<Picker> GetPickers()
         {
             return Service.GetPickers(new GetPickersRequest());
         }

@@ -1,16 +1,17 @@
 ﻿using ee.Core.Framework.Processor;
 using ee.Core.Logging;
-using ee.Core.DataAccess;
+using ee.Core.NhDataAccess;
 using System.Reflection;
 using ee.Core.Framework.Schema;
+using ee.Core.Net;
 
 namespace ee.iLawyer.Ops
 {
     public class ServiceProcessor
     {
         public static ApiProcessor<T, TR> CreateProcessor<T, TR>(MethodBase methodBase, dynamic request, bool parameterRequired = true)
-             where T : BaseRequest
-             where TR : BaseResponse, new()
+             where T : RequestBase
+             where TR : ResponseBase, new()
         {
             var processor = new ApiProcessor<T, TR>(methodBase);
 
@@ -21,8 +22,8 @@ namespace ee.iLawyer.Ops
         }
 
         public static ApiProcessor<T, TR> CreateProcessor<T, TR>(MethodBase methodBase)
-            where T : BaseRequest
-            where TR : BaseResponse, new()
+            where T : RequestBase
+            where TR : ResponseBase, new()
         {
             var processor = new ApiProcessor<T, TR>(methodBase);
             return processor;
@@ -31,8 +32,8 @@ namespace ee.iLawyer.Ops
     }
 
     public class ApiProcessor<TRequest, TResponse> : ProcessorInternal<TRequest, TResponse>
-             where TRequest : BaseRequest
-             where TResponse : BaseResponse, new()
+             where TRequest : RequestBase
+             where TResponse : ResponseBase, new()
     {
 
         public ApiProcessor(MethodBase method)

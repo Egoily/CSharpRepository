@@ -1,5 +1,5 @@
-﻿using ee.Core.Caching;
-using ee.Core.Framework;
+﻿using ee.Core.Framework;
+using ee.Core.Framework.Caching;
 using ee.iLawyer.Ops.Contact;
 using ee.iLawyer.Ops.Contact.Args;
 using ee.iLawyer.Ops.Contact.DTO.ViewObjects;
@@ -58,7 +58,7 @@ namespace ee.iLawyer.ServiceProvider
                 {
                     try
                     {
-                        courts = MemoryCacher.CacheItem(CacheKeys.Courts,
+                        courts = MemoryCache.CacheItem(CacheKeys.Courts,
                         delegate ()
                         {
                             var server = new ILawyerServiceProvider();
@@ -93,7 +93,7 @@ namespace ee.iLawyer.ServiceProvider
         {
             try
             {
-                courts = MemoryCacher.CacheItem(CacheKeys.Courts,
+                courts = MemoryCache.CacheItem(CacheKeys.Courts,
                 delegate ()
                 {
                     var server = new ILawyerServiceProvider();
@@ -140,7 +140,7 @@ namespace ee.iLawyer.ServiceProvider
                 {
                     try
                     {
-                        cliects = MemoryCacher.CacheItem(CacheKeys.Clients,
+                        cliects = MemoryCache.CacheItem(CacheKeys.Clients,
                         delegate ()
                         {
                             var server = new ILawyerServiceProvider();
@@ -166,7 +166,7 @@ namespace ee.iLawyer.ServiceProvider
         {
             try
             {
-                cliects = MemoryCacher.CacheItem(CacheKeys.Clients,
+                cliects = MemoryCache.CacheItem(CacheKeys.Clients,
                 delegate ()
                 {
                     var server = new ILawyerServiceProvider();
@@ -202,7 +202,7 @@ namespace ee.iLawyer.ServiceProvider
             {
                 try
                 {
-                    var areas = MemoryCacher.CacheItem(CacheKeys.AreaInfo,
+                    var areas = MemoryCache.CacheItem(CacheKeys.AreaInfo,
                         delegate ()
                         {
                             var server = new ILawyerServiceProvider();
@@ -237,7 +237,7 @@ namespace ee.iLawyer.ServiceProvider
             {
                 try
                 {
-                    var pickers = MemoryCacher.CacheItem(CacheKeys.ProjectCategories,
+                    var pickers = MemoryCache.CacheItem(CacheKeys.ProjectCategories,
                         delegate ()
                         {
                             var server = new ILawyerServiceProvider();
@@ -275,7 +275,7 @@ namespace ee.iLawyer.ServiceProvider
             {
                 try
                 {
-                    var pickers = MemoryCacher.CacheItem(CacheKeys.ProjectCauses,
+                    var pickers = MemoryCache.CacheItem(CacheKeys.ProjectCauses,
                         delegate ()
                         {
                             var server = new ILawyerServiceProvider();
@@ -310,7 +310,7 @@ namespace ee.iLawyer.ServiceProvider
             {
                 try
                 {
-                    var pickers = MemoryCacher.CacheItem<IList<Picker>>(CacheKeys.PropertyItemCategories,
+                    var pickers = MemoryCache.CacheItem<IList<Picker>>(CacheKeys.PropertyItemCategories,
                         delegate ()
                         {
                             var server = new ILawyerServiceProvider();

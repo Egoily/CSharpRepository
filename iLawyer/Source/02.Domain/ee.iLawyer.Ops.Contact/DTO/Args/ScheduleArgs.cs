@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
 using ee.Core.ComponentModel;
 using ee.Core.Framework.Schema;
+using ee.Core.Net;
 using System;
 using System.Collections.Generic;
 
 namespace ee.iLawyer.Ops.Contact.Args
 {
-    public class SaveOrUpdateScheduleRequest : BaseRequest
+    public class SaveOrUpdateScheduleRequest : RequestBase
     {
         /// <summary>
         /// 事项名称
@@ -65,7 +66,7 @@ namespace ee.iLawyer.Ops.Contact.Args
         public virtual string Id { get; set; }
 
     }
-    public class RemoveScheduleRequest : BaseRequest
+    public class RemoveScheduleRequest : RequestBase
     {
         /// <summary>
         /// 主键
@@ -73,7 +74,7 @@ namespace ee.iLawyer.Ops.Contact.Args
         [Required]
         public virtual IList<string> Ids { get; set; }
     }
-    public class QueryScheduleRequest : BasePageRequest
+    public class QueryScheduleRequest : PageRequest
     {
         public virtual int[] Keys { get; set; }
         public DateTime? FromTime { get; set; }

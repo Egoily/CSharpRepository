@@ -1,7 +1,7 @@
 ﻿using ee.Core.Logging;
 using ee.iLawyer.Ops.Contact.Args;
 using ee.iLawyer.Ops.Contact.DTO;
-using ee.Core.DataAccess;
+using ee.Core.NhDataAccess;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using System.Collections.Generic;

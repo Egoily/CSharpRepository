@@ -1,5 +1,6 @@
 ﻿using ee.Core.ComponentModel;
 using ee.Core.Framework.Schema;
+using ee.Core.Net;
 using ee.iLawyer.App.Wpf.ViewModels.Base;
 using ee.iLawyer.Ops.Contact.Args;
 using ee.iLawyer.Ops.Contact.AutoMapper;
@@ -27,23 +28,23 @@ namespace ee.iLawyer.App.Wpf.ViewModels
             serviceProvider = new ILawyerServiceProvider();
         }
 
-        public override BaseQueryResponse<Judge> Query()
+        public override QueryResponse<Judge> Query()
         {
             return serviceProvider.QueryJudge(new QueryJudgeRequest() { Name = SearchText });
         }
 
-        public override BaseResponse Create()
+        public override ResponseBase Create()
         {
             var request = DtoConverter.Mapper.Map<CreateJudgeRequest>(TreadObject);
             return serviceProvider.CreateJudge(request);
         }
-        public override BaseResponse Update()
+        public override ResponseBase Update()
         {
             var request = DtoConverter.Mapper.Map<UpdateJudgeRequest>(TreadObject);
             return serviceProvider.UpdateJudge(request);
         }
 
-        public override BaseResponse Remove()
+        public override ResponseBase Remove()
         {
             return serviceProvider.RemoveJudge(new RemoveJudgeRequest()
             {

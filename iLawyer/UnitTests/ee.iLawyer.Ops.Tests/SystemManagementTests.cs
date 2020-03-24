@@ -1,9 +1,10 @@
-﻿using ee.Core.DataAccess;
+﻿using ee.Core.NhDataAccess;
 using ee.Core.Logging;
 using ee.iLawyer.Ops.Contact.Args;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
+using ee.Core.Net;
 
 namespace ee.iLawyer.Ops.Tests
 {
@@ -26,7 +27,7 @@ namespace ee.iLawyer.Ops.Tests
             Build();
             service = new ILawyerService();
 
-            permissionModules = service.GetPermissionModules(new Core.Framework.Schema.BaseRequest()).QueryList.ToList();
+            permissionModules = service.GetPermissionModules(new RequestBase()).QueryList.ToList();
             roles = service.GetRoles(new GetRolesRequest()).QueryList.ToList();
         }
 

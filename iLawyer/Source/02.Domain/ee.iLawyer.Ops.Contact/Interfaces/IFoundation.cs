@@ -7,9 +7,9 @@ namespace ee.iLawyer.Ops.Contact.Interfaces
 {
     public interface IFoundation
     {
-        BaseQueryResponse<Area> GetAreas(GetAreasRequest request);
+        QueryResponse<Area> GetAreas(GetAreasRequest request);
 
-        BaseQueryResponse<Picker> GetPickers(GetPickersRequest request);
+        QueryResponse<Picker> GetPickers(GetPickersRequest request);
 
     }
 }

@@ -1,20 +1,21 @@
 ﻿using ee.Core.Framework.Schema;
+using ee.Core.Net;
 using System.Collections.Generic;
 
 namespace ee.iLawyer.Ops.Contact.Args
 {
 
-    public class GetRolesRequest : BaseRequest
+    public class GetRolesRequest : RequestBase
     {
         public virtual bool WithPermissionModule { get; set; }
     }
-    public class QueryUserRequest : BaseRequest
+    public class QueryUserRequest : RequestBase
     {
         public virtual string UserName { get; set; }
         public virtual IEnumerable<int> RoleIds { get; set; }
     }
 
-    public class RegisterRequest : BaseRequest
+    public class RegisterRequest : RequestBase
     {
         public virtual string UserName { get; set; }
         public virtual string Password { get; set; }
@@ -23,17 +24,17 @@ namespace ee.iLawyer.Ops.Contact.Args
         public virtual IEnumerable<int> RoleIds { get; set; }
     }
 
-    public class LoginRequest : BaseRequest
+    public class LoginRequest : RequestBase
     {
         public virtual string LoginName { get; set; }
         public virtual string Password { get; set; }
     }
 
-    public class LogoutRequest : BaseRequest
+    public class LogoutRequest : RequestBase
     {
         public virtual int UserId { get; set; }
     }
-    public class GrantRequest : BaseRequest
+    public class GrantRequest : RequestBase
     {
         public virtual OperatePattern Pattern { get; set; }
         public virtual int UserId { get; set; }
@@ -42,13 +43,13 @@ namespace ee.iLawyer.Ops.Contact.Args
         public virtual IEnumerable<string> PermissionRestrictionIds { get; set; }
     }
 
-    public class UpdateUserRequest : BaseRequest
+    public class UpdateUserRequest : RequestBase
     {
         public virtual int UserId { get; set; }
         public virtual string NickName { get; set; }
         public virtual int? Status { get; set; }
     }
-    public class ChangePasswordRequest : BaseRequest
+    public class ChangePasswordRequest : RequestBase
     {
         public virtual int UserId { get; set; }
         public virtual string OldPassword { get; set; }

@@ -1,4 +1,5 @@
 ﻿using ee.Core.Framework.Schema;
+using ee.Core.Net;
 using ee.iLawyer.Ops.Contact.Args;
 using ee.iLawyer.Ops.Contact.DTO.ViewObjects.SystemManagement;
 
@@ -8,18 +9,18 @@ namespace ee.iLawyer.Ops.Contact.Interfaces
     {
 
 
-        BaseQueryResponse<PermissionModule> GetPermissionModules(BaseRequest request);
-        BaseQueryResponse<Role> GetRoles(GetRolesRequest request);
-        BaseQueryResponse<User> QueryUser(QueryUserRequest request);
+        QueryResponse<PermissionModule> GetPermissionModules(RequestBase request);
+        QueryResponse<Role> GetRoles(GetRolesRequest request);
+        QueryResponse<User> QueryUser(QueryUserRequest request);
 
 
-        BaseResponse Register(RegisterRequest request);
-        BaseObjectResponse<User> Login(LoginRequest request);
-        BaseResponse Logout(LogoutRequest request);
+        ResponseBase Register(RegisterRequest request);
+        ObjectResponse<User> Login(LoginRequest request);
+        ResponseBase Logout(LogoutRequest request);
 
-        BaseResponse Grant(GrantRequest request);
+        ResponseBase Grant(GrantRequest request);
 
-        BaseResponse UpdateUser(UpdateUserRequest request);
-        BaseResponse ChangePassword(ChangePasswordRequest request);
+        ResponseBase UpdateUser(UpdateUserRequest request);
+        ResponseBase ChangePassword(ChangePasswordRequest request);
     }
 }

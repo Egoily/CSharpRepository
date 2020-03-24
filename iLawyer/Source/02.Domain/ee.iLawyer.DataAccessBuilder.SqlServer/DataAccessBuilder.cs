@@ -1,4 +1,4 @@
-﻿using ee.Core.DataAccess;
+﻿using ee.Core.NhDataAccess;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;

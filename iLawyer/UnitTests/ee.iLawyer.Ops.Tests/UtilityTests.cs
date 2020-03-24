@@ -17,7 +17,7 @@ namespace ee.iLawyer.Ops.Tests
         [TestMethod()]
         public void Test()
         {
-            var a = new BaseObjectResponse<Court>()
+            var a = new ObjectResponse<Court>()
             {
                 Code = 0,
                 Message = "this is message.",
@@ -29,7 +29,7 @@ namespace ee.iLawyer.Ops.Tests
             var typeA = a.GetType();
             var typeObj = obj.GetType();
 
-            var dataRes = obj.ToBaseDataResponse();
+            var dataRes = obj.ToDataResponse();
         }
 
      

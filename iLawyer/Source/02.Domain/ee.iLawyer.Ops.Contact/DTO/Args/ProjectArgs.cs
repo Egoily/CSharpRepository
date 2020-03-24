@@ -2,12 +2,13 @@
 using AutoMapper.Configuration.Annotations;
 using ee.Core.ComponentModel;
 using ee.Core.Framework.Schema;
+using ee.Core.Net;
 using System;
 using System.Collections.Generic;
 
 namespace ee.iLawyer.Ops.Contact.Args
 {
-    public class SaveOrUpdateProjectRequest : BaseRequest
+    public class SaveOrUpdateProjectRequest : RequestBase
     {
         /// <summary>
         /// 项目类型代码
@@ -96,7 +97,7 @@ namespace ee.iLawyer.Ops.Contact.Args
 
 
     }
-    public class RemoveProjectRequest : BaseRequest
+    public class RemoveProjectRequest : RequestBase
     {
         /// <summary>
         /// 主键
@@ -104,7 +105,7 @@ namespace ee.iLawyer.Ops.Contact.Args
         [Required]
         public virtual IList<int> Ids { get; set; }
     }
-    public class QueryProjectRequest : BasePageRequest
+    public class QueryProjectRequest : PageRequest
     {
         public virtual int[] Keys { get; set; }
 
@@ -147,20 +148,20 @@ namespace ee.iLawyer.Ops.Contact.Args
     }
 
 
-    public class GetProjectCategoriesRequest : BaseRequest
+    public class GetProjectCategoriesRequest : RequestBase
     {
 
     }
-    public class GetProjectCausesRequest : BaseRequest
+    public class GetProjectCausesRequest : RequestBase
     {
 
     }
-    public class SaveOrUpdateProjectTodoListRequest : BaseRequest
+    public class SaveOrUpdateProjectTodoListRequest : RequestBase
     {
         public virtual int ProjectId { get; set; }
         public virtual IEnumerable<DTO.ViewObjects.Schedule> TodoList { get; set; }
     }
-    public class SaveOrUpdateProjectProgressRequest : BaseRequest
+    public class SaveOrUpdateProjectProgressRequest : RequestBase
     {
         public virtual int ProjectId { get; set; }
         public virtual IEnumerable<DTO.ViewObjects.ProjectProgress> Progresses { get; set; }

@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using ee.Core.ComponentModel;
 using AutoMapper;
 using ee.iLawyer.Ops.Contact.DTO.ViewObjects;
+using ee.Core.Net;
 
 namespace ee.iLawyer.Ops.Contact.Args
 {
 
-    public class SaveOrUpdateClientRequest : BaseRequest
+    public class SaveOrUpdateClientRequest : RequestBase
     {
         /// <summary>
         /// 客户名
@@ -58,7 +59,7 @@ namespace ee.iLawyer.Ops.Contact.Args
 
 
 
-    public class RemoveClientRequest : BaseRequest
+    public class RemoveClientRequest : RequestBase
     {
         /// <summary>
         /// 主键
@@ -66,7 +67,7 @@ namespace ee.iLawyer.Ops.Contact.Args
         [Required]
         public virtual IList<int> Ids { get; set; }
     }
-    public class QueryClientRequest : BasePageRequest
+    public class QueryClientRequest : PageRequest
     {
         public virtual int[] Keys { get; set; }
         /// <summary>

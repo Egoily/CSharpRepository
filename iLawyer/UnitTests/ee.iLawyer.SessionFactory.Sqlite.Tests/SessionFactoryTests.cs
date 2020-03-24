@@ -1,5 +1,5 @@
 ﻿using ee.iLawyer.DataAccessBuilder.Sqlite;
-using ee.Core.DataAccess;
+using ee.Core.NhDataAccess;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ee.iLawyer.SessionFactory.Sqlite.Tests

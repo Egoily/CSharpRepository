@@ -19,7 +19,7 @@ namespace ee.Core.Wpf.ValidationRules
         {
             string regex = string.Empty;
             if (validationType != ValidationType.None && validationType != ValidationType.Str)
-                regex = Utility.EnumUtility.GetDescription(validationType);
+                regex = Utils.EnumUtils.GetDescription(validationType);
 
             if (!string.IsNullOrWhiteSpace(regex))
             {

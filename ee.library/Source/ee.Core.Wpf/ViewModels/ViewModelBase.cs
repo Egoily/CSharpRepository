@@ -86,7 +86,7 @@ namespace ee.Core.Wpf.ViewModels
         {
             get
             {
-                return ee.Core.Utility.DesignerLibrary.IsInDesignMode;
+                return Utils.DesignerLibrary.IsInDesignMode;
             }
         }
 

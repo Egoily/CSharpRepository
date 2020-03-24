@@ -1,5 +1,6 @@
 ﻿using ee.Core.ComponentModel;
 using ee.Core.Framework.Schema;
+using ee.Core.Net;
 using ee.Core.Wpf.Designs;
 using ee.iLawyer.App.Wpf.ViewModels.Base;
 using ee.iLawyer.Ops.Contact.Args;
@@ -71,23 +72,23 @@ namespace ee.iLawyer.App.Wpf.ViewModels
             RemoveProgress(o as ProjectProgress);
         }
 
-        public override BaseQueryResponse<Project> Query()
+        public override QueryResponse<Project> Query()
         {
             return serviceProvider.QueryProject(new QueryProjectRequest() { Name = SearchText });
         }
 
-        public override BaseResponse Create()
+        public override ResponseBase Create()
         {
             var request = DtoConverter.ConvertToCreateProjectRequest(TreadObject);
             return serviceProvider.CreateProject(request);
         }
-        public override BaseResponse Update()
+        public override ResponseBase Update()
         {
             var request = DtoConverter.ConvertToUpdateProjectRequest(TreadObject);
             return serviceProvider.UpdateProject(request);
         }
 
-        public override BaseResponse Remove()
+        public override ResponseBase Remove()
         {
             return serviceProvider.RemoveProject(new RemoveProjectRequest()
             {

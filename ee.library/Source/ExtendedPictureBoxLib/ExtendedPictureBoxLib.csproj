@@ -60,7 +60,7 @@
   <ItemGroup>
     <Reference Include="Animations, Version=1.1.0.0, Culture=neutral">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\ShareDll\Animations.dll</HintPath>
+      <HintPath>..\..\..\3rd party\Animations.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">

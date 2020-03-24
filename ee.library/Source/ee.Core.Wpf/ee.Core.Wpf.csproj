@@ -49,8 +49,13 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\ContractBase.cs" />
+    <Compile Include="Contracts\ContractHandle.cs" />
+    <Compile Include="Contracts\IContract.cs" />
+    <Compile Include="Contracts\INativeHandleContract.cs" />
     <Compile Include="Converters\EnumDicItemsSourceConverter.cs" />
     <Compile Include="Converters\EnumItemsSourceConverter.cs" />
+    <Compile Include="Converters\FuncConverter.cs" />
     <Compile Include="Converters\ValueConverter.cs" />
     <Compile Include="Enums\ActionMode.cs" />
     <Compile Include="Enums\ValidationType.cs" />
@@ -71,6 +76,17 @@
     <Compile Include="Interfaces\IDataOperation.cs" />
     <Compile Include="Interfaces\IDataPager.cs" />
     <Compile Include="Interfaces\IPermission.cs" />
+    <Compile Include="Media\Animation\ConnectedAnimation.cs" />
+    <Compile Include="Media\Animation\ConnectedAnimationService.cs" />
+    <Compile Include="Media\LuminanceForegroundExtension.cs" />
+    <Compile Include="Media\LuminanceReverseColor.cs" />
+    <Compile Include="Media\Matrix33.cs" />
+    <Compile Include="Media\TransformMatrix.cs" />
+    <Compile Include="Threading\DispatcherAsyncOperation.cs" />
+    <Compile Include="Threading\DispatcherContainer.cs" />
+    <Compile Include="Threading\InteractiveHostVisual.cs" />
+    <Compile Include="Threading\UIDispatcher.cs" />
+    <Compile Include="Threading\VisualTargetPresentationSource.cs" />
     <Compile Include="ValidationRules\CustomizeValidationRule.cs" />
     <Compile Include="ValidationRules\ValidationExceptionBehavior.cs" />
     <Compile Include="ViewModels\AbstractDataManipulationViewModel.cs" />
@@ -125,6 +141,17 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Windows\AsyncApplication.cs" />
+    <Compile Include="Windows\CoreWindow.cs" />
+    <Compile Include="Windows\Interop\ApplicationRestartManager.cs" />
+    <Compile Include="Windows\Interop\FrameworkElementAsyncAdapters.cs" />
+    <Compile Include="Windows\Interop\HwndAsyncSource.cs" />
+    <Compile Include="Windows\Interop\NativeHandleAddInAdapter.cs" />
+    <Compile Include="Windows\Interop\NativeHandleHostAdapter.cs" />
+    <Compile Include="Windows\Interop\WindowMessage.cs" />
+    <Compile Include="Windows\WindowBlur.cs" />
+    <Compile Include="Windows\WindowIconExtensions.cs" />
+    <Compile Include="Xaml\DependencyMarkupExtension.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -183,7 +210,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ee.Core.Framework\ee.Core.Framework.csproj">
-      <Project>{7D3D1F1D-973E-464A-9E60-B33CD0B34163}</Project>
+      <Project>{b3a38eaf-10ce-4768-bab1-50ae82a3bcb7}</Project>
       <Name>ee.Core.Framework</Name>
     </ProjectReference>
     <ProjectReference Include="..\ee.Core\ee.Core.csproj">

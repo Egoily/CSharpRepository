@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using ee.Core.ComponentModel;
 using AutoMapper;
+using ee.Core.Net;
 
 namespace ee.iLawyer.Ops.Contact.Args
 {
-    public class SaveOrUpdateJudgeRequest : BaseRequest
+    public class SaveOrUpdateJudgeRequest : RequestBase
     {
         /// <summary>
         /// 法官名
@@ -49,7 +50,7 @@ namespace ee.iLawyer.Ops.Contact.Args
         public virtual int Id { get; set; }
    
     }
-    public class RemoveJudgeRequest : BaseRequest
+    public class RemoveJudgeRequest : RequestBase
     {
         /// <summary>
         /// 主键
@@ -57,7 +58,7 @@ namespace ee.iLawyer.Ops.Contact.Args
         [Required]
         public virtual IList<int> Ids { get; set; }
     }
-    public class QueryJudgeRequest : BasePageRequest
+    public class QueryJudgeRequest : PageRequest
     {
         public virtual int[] Keys { get; set; }
         /// <summary>

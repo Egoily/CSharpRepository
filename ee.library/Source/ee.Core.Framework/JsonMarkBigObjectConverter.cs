@@ -1,4 +1,4 @@
-﻿using ee.Core.Json;
+﻿using ee.Core.Annotations;
 using Newtonsoft.Json;
 using System;
 using System.Collections;
@@ -98,11 +98,11 @@ namespace ee.Core.Framework
                         }
                         else
                         {
-                            var attr = pi.GetCustomAttributes(typeof(JsonMarkAttibute), true).FirstOrDefault();
+                            var attr = pi.GetCustomAttributes(typeof(MarkAttibute), true).FirstOrDefault();
                             if (attr != null)
                             {
                                 writer.WritePropertyName(pi.Name);
-                                var jsonMarkBigObjectAttibute = attr as JsonMarkAttibute;
+                                var jsonMarkBigObjectAttibute = attr as MarkAttibute;
                                 var marker = jsonMarkBigObjectAttibute.GetMarker(subValue);
                                 writer.WriteValue(marker.ToString());
 

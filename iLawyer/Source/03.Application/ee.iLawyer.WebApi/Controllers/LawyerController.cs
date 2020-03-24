@@ -11,12 +11,12 @@ namespace ee.iLawyer.WebApi.Controllers
     {
         #region * Infr
         [Route("infr/areas"), HttpPost]
-        public BaseDataResponse GetAreas([FromBody] GetAreasRequest request)
+        public DataResponse GetAreas([FromBody] GetAreasRequest request)
         {
-            return ServiceProcessor.CreateProcessor<GetAreasRequest, BaseDataResponse>(MethodBase.GetCurrentMethod())
+            return ServiceProcessor.CreateProcessor<GetAreasRequest, DataResponse>(MethodBase.GetCurrentMethod())
                  .Input(request, true)
                  .Process(req => { return Service.GetAreas(req); })
-                 .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<BaseDataResponse>(Converters.ToBaseDataResponse))
+                 .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<DataResponse>(Converters.ToDataResponse))
                  .Build();
         }
 
@@ -27,12 +27,12 @@ namespace ee.iLawyer.WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [Route("infr/pickers"), HttpPost]
-        public BaseDataResponse GetPickers([FromBody] GetPickersRequest request)
+        public DataResponse GetPickers([FromBody] GetPickersRequest request)
         {
-            return ServiceProcessor.CreateProcessor<GetPickersRequest, BaseDataResponse>(MethodBase.GetCurrentMethod())
+            return ServiceProcessor.CreateProcessor<GetPickersRequest, DataResponse>(MethodBase.GetCurrentMethod())
                   .Input(request, true)
                   .Process(req => { return Service.GetPickers(req); })
-                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<BaseDataResponse>(Converters.ToBaseDataResponse))
+                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<DataResponse>(Converters.ToDataResponse))
                   .Build();
         }
 
@@ -40,107 +40,107 @@ namespace ee.iLawyer.WebApi.Controllers
 
         #region * System User Management
         [Route("sys/register"), HttpPost]
-        public BaseDataResponse Register(RegisterRequest request)
+        public DataResponse Register(RegisterRequest request)
         {
-            return ServiceProcessor.CreateProcessor<RegisterRequest, BaseDataResponse>(MethodBase.GetCurrentMethod())
+            return ServiceProcessor.CreateProcessor<RegisterRequest, DataResponse>(MethodBase.GetCurrentMethod())
                 .Input(request, true)
                 .Process(req => { return Service.Register(req); })
-                .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<BaseDataResponse>(Converters.ToBaseDataResponse))
+                .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<DataResponse>(Converters.ToDataResponse))
                 .Build();
         }
         [Route("sys/login"), HttpPost]
-        public BaseDataResponse Login(LoginRequest request)
+        public DataResponse Login(LoginRequest request)
         {
-            return ServiceProcessor.CreateProcessor<LoginRequest, BaseDataResponse>(MethodBase.GetCurrentMethod())
+            return ServiceProcessor.CreateProcessor<LoginRequest, DataResponse>(MethodBase.GetCurrentMethod())
                 .Input(request, true)
                 .Process(req => { return Service.Login(req); })
-                .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<BaseDataResponse>(Converters.ToBaseDataResponse))
+                .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<DataResponse>(Converters.ToDataResponse))
                 .Build();
         }
         [Route("sys/logout"), HttpPost]
-        public BaseDataResponse Logout(LogoutRequest request)
+        public DataResponse Logout(LogoutRequest request)
         {
-            return ServiceProcessor.CreateProcessor<LogoutRequest, BaseDataResponse>(MethodBase.GetCurrentMethod())
+            return ServiceProcessor.CreateProcessor<LogoutRequest, DataResponse>(MethodBase.GetCurrentMethod())
                 .Input(request, true)
                 .Process(req => { return Service.Logout(req); })
-                .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<BaseDataResponse>(Converters.ToBaseDataResponse))
+                .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<DataResponse>(Converters.ToDataResponse))
                 .Build();
         }
         [Route("sys/grant"), HttpPost]
-        public BaseDataResponse Grant(GrantRequest request)
+        public DataResponse Grant(GrantRequest request)
         {
-            return ServiceProcessor.CreateProcessor<GrantRequest, BaseDataResponse>(MethodBase.GetCurrentMethod())
+            return ServiceProcessor.CreateProcessor<GrantRequest, DataResponse>(MethodBase.GetCurrentMethod())
                 .Input(request, true)
                 .Process(req => { return Service.Grant(req); })
-                .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<BaseDataResponse>(Converters.ToBaseDataResponse))
+                .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<DataResponse>(Converters.ToDataResponse))
                 .Build();
         }
         [Route("sys/updateuser"), HttpPost]
-        public BaseDataResponse UpdateUser(UpdateUserRequest request)
+        public DataResponse UpdateUser(UpdateUserRequest request)
         {
-            return ServiceProcessor.CreateProcessor<UpdateUserRequest, BaseDataResponse>(MethodBase.GetCurrentMethod())
+            return ServiceProcessor.CreateProcessor<UpdateUserRequest, DataResponse>(MethodBase.GetCurrentMethod())
                 .Input(request, true)
                 .Process(req => { return Service.UpdateUser(req); })
-                .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<BaseDataResponse>(Converters.ToBaseDataResponse))
+                .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<DataResponse>(Converters.ToDataResponse))
                 .Build();
         }
         [Route("sys/changepassword"), HttpPost]
-        public BaseDataResponse ChangePassword(ChangePasswordRequest request)
+        public DataResponse ChangePassword(ChangePasswordRequest request)
         {
-            return ServiceProcessor.CreateProcessor<ChangePasswordRequest, BaseDataResponse>(MethodBase.GetCurrentMethod())
+            return ServiceProcessor.CreateProcessor<ChangePasswordRequest, DataResponse>(MethodBase.GetCurrentMethod())
                 .Input(request, true)
                 .Process(req => { return Service.ChangePassword(req); })
-                .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<BaseDataResponse>(Converters.ToBaseDataResponse))
+                .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<DataResponse>(Converters.ToDataResponse))
                 .Build();
         }
         #endregion
 
         #region * Court
         [Route("court/get"), HttpPost]
-        public BaseDataResponse GetCourt(BaseIdRequest request)
+        public DataResponse GetCourt(IdRequest request)
         {
-            return ServiceProcessor.CreateProcessor<BaseIdRequest, BaseDataResponse>(MethodBase.GetCurrentMethod())
+            return ServiceProcessor.CreateProcessor<IdRequest, DataResponse>(MethodBase.GetCurrentMethod())
                   .Input(request, true)
                   .Process(req => { return Service.GetCourt(req); })
-                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<BaseDataResponse>(Converters.ToBaseDataResponse))
+                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<DataResponse>(Converters.ToDataResponse))
                   .Build();
 
         }
         [Route("court/create"), HttpPost]
-        public BaseDataResponse CreateCourt([FromBody]CreateCourtRequest request)
+        public DataResponse CreateCourt([FromBody]CreateCourtRequest request)
         {
-            return ServiceProcessor.CreateProcessor<CreateCourtRequest, BaseDataResponse>(MethodBase.GetCurrentMethod())
+            return ServiceProcessor.CreateProcessor<CreateCourtRequest, DataResponse>(MethodBase.GetCurrentMethod())
                   .Input(request, true)
                   .Process(req => { return Service.CreateCourt(req); })
-                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<BaseDataResponse>(Converters.ToBaseDataResponse))
+                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<DataResponse>(Converters.ToDataResponse))
                   .Build();
         }
         [Route("court/update"), HttpPost]
-        public BaseDataResponse UpdateCourt([FromBody]UpdateCourtRequest request)
+        public DataResponse UpdateCourt([FromBody]UpdateCourtRequest request)
         {
-            return ServiceProcessor.CreateProcessor<UpdateCourtRequest, BaseDataResponse>(MethodBase.GetCurrentMethod())
+            return ServiceProcessor.CreateProcessor<UpdateCourtRequest, DataResponse>(MethodBase.GetCurrentMethod())
                   .Input(request, true)
                   .Process(req => { return Service.UpdateCourt(req); })
-                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<BaseDataResponse>(Converters.ToBaseDataResponse))
+                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<DataResponse>(Converters.ToDataResponse))
                   .Build();
         }
 
         [Route("court/remove"), HttpPost]
-        public BaseDataResponse DeleteCourt(RemoveCourtRequest request)
+        public DataResponse DeleteCourt(RemoveCourtRequest request)
         {
-            return ServiceProcessor.CreateProcessor<RemoveCourtRequest, BaseDataResponse>(MethodBase.GetCurrentMethod())
+            return ServiceProcessor.CreateProcessor<RemoveCourtRequest, DataResponse>(MethodBase.GetCurrentMethod())
                   .Input(request, true)
                   .Process(req => { return Service.RemoveCourt(req); })
-                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<BaseDataResponse>(Converters.ToBaseDataResponse))
+                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<DataResponse>(Converters.ToDataResponse))
                   .Build();
         }
         [Route("court/query"), HttpPost]
-        public BaseDataResponse QueryCourt(QueryCourtRequest request)
+        public DataResponse QueryCourt(QueryCourtRequest request)
         {
-            return ServiceProcessor.CreateProcessor<QueryCourtRequest, BaseDataResponse>(MethodBase.GetCurrentMethod())
+            return ServiceProcessor.CreateProcessor<QueryCourtRequest, DataResponse>(MethodBase.GetCurrentMethod())
                   .Input(request, true)
                   .Process(req => { return Service.QueryCourt(req); })
-                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<BaseDataResponse>(Converters.ToBaseDataResponse))
+                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<DataResponse>(Converters.ToDataResponse))
                   .Build();
 
         }
@@ -148,50 +148,50 @@ namespace ee.iLawyer.WebApi.Controllers
 
         #region * Judge
         [Route("judge/get"), HttpPost]
-        public BaseDataResponse GetJudge(BaseIdRequest request)
+        public DataResponse GetJudge(IdRequest request)
         {
-            return ServiceProcessor.CreateProcessor<BaseIdRequest, BaseDataResponse>(MethodBase.GetCurrentMethod())
+            return ServiceProcessor.CreateProcessor<IdRequest, DataResponse>(MethodBase.GetCurrentMethod())
                   .Input(request, true)
                   .Process(req => { return Service.GetJudge(req); })
-                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<BaseDataResponse>(Converters.ToBaseDataResponse))
+                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<DataResponse>(Converters.ToDataResponse))
                   .Build();
 
         }
         [Route("judge/create"), HttpPost]
-        public BaseDataResponse CreateJudge([FromBody]CreateJudgeRequest request)
+        public DataResponse CreateJudge([FromBody]CreateJudgeRequest request)
         {
-            return ServiceProcessor.CreateProcessor<CreateJudgeRequest, BaseDataResponse>(MethodBase.GetCurrentMethod())
+            return ServiceProcessor.CreateProcessor<CreateJudgeRequest, DataResponse>(MethodBase.GetCurrentMethod())
                   .Input(request, true)
                   .Process(req => { return Service.CreateJudge(req); })
-                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<BaseDataResponse>(Converters.ToBaseDataResponse))
+                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<DataResponse>(Converters.ToDataResponse))
                   .Build();
         }
         [Route("judge/update"), HttpPost]
-        public BaseDataResponse UpdateJudge([FromBody]UpdateJudgeRequest request)
+        public DataResponse UpdateJudge([FromBody]UpdateJudgeRequest request)
         {
-            return ServiceProcessor.CreateProcessor<UpdateJudgeRequest, BaseDataResponse>(MethodBase.GetCurrentMethod())
+            return ServiceProcessor.CreateProcessor<UpdateJudgeRequest, DataResponse>(MethodBase.GetCurrentMethod())
                   .Input(request, true)
                   .Process(req => { return Service.UpdateJudge(req); })
-                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<BaseDataResponse>(Converters.ToBaseDataResponse))
+                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<DataResponse>(Converters.ToDataResponse))
                   .Build();
         }
 
         [Route("judge/remove"), HttpPost]
-        public BaseDataResponse DeleteJudge(RemoveJudgeRequest request)
+        public DataResponse DeleteJudge(RemoveJudgeRequest request)
         {
-            return ServiceProcessor.CreateProcessor<RemoveJudgeRequest, BaseDataResponse>(MethodBase.GetCurrentMethod())
+            return ServiceProcessor.CreateProcessor<RemoveJudgeRequest, DataResponse>(MethodBase.GetCurrentMethod())
                   .Input(request, true)
                   .Process(req => { return Service.RemoveJudge(req); })
-                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<BaseDataResponse>(Converters.ToBaseDataResponse))
+                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<DataResponse>(Converters.ToDataResponse))
                   .Build();
         }
         [Route("judge/query"), HttpPost]
-        public BaseDataResponse QueryJudge(QueryJudgeRequest request)
+        public DataResponse QueryJudge(QueryJudgeRequest request)
         {
-            return ServiceProcessor.CreateProcessor<QueryJudgeRequest, BaseDataResponse>(MethodBase.GetCurrentMethod())
+            return ServiceProcessor.CreateProcessor<QueryJudgeRequest, DataResponse>(MethodBase.GetCurrentMethod())
                   .Input(request, true)
                   .Process(req => { return Service.QueryJudge(req); })
-                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<BaseDataResponse>(Converters.ToBaseDataResponse))
+                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<DataResponse>(Converters.ToDataResponse))
                   .Build();
 
         }
@@ -199,50 +199,50 @@ namespace ee.iLawyer.WebApi.Controllers
 
         #region * Client
         [Route("client/get"), HttpPost]
-        public BaseDataResponse GetClient(BaseIdRequest request)
+        public DataResponse GetClient(IdRequest request)
         {
-            return ServiceProcessor.CreateProcessor<BaseIdRequest, BaseDataResponse>(MethodBase.GetCurrentMethod())
+            return ServiceProcessor.CreateProcessor<IdRequest, DataResponse>(MethodBase.GetCurrentMethod())
                   .Input(request, true)
                   .Process(req => { return Service.GetClient(req); })
-                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<BaseDataResponse>(Converters.ToBaseDataResponse))
+                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<DataResponse>(Converters.ToDataResponse))
                   .Build();
 
         }
         [Route("client/create"), HttpPost]
-        public BaseDataResponse CreateClient([FromBody]CreateClientRequest request)
+        public DataResponse CreateClient([FromBody]CreateClientRequest request)
         {
-            return ServiceProcessor.CreateProcessor<CreateClientRequest, BaseDataResponse>(MethodBase.GetCurrentMethod())
+            return ServiceProcessor.CreateProcessor<CreateClientRequest, DataResponse>(MethodBase.GetCurrentMethod())
                   .Input(request, true)
                   .Process(req => { return Service.CreateClient(req); })
-                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<BaseDataResponse>(Converters.ToBaseDataResponse))
+                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<DataResponse>(Converters.ToDataResponse))
                   .Build();
         }
         [Route("client/update"), HttpPost]
-        public BaseDataResponse UpdateClient([FromBody]UpdateClientRequest request)
+        public DataResponse UpdateClient([FromBody]UpdateClientRequest request)
         {
-            return ServiceProcessor.CreateProcessor<UpdateClientRequest, BaseDataResponse>(MethodBase.GetCurrentMethod())
+            return ServiceProcessor.CreateProcessor<UpdateClientRequest, DataResponse>(MethodBase.GetCurrentMethod())
                   .Input(request, true)
                   .Process(req => { return Service.UpdateClient(req); })
-                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<BaseDataResponse>(Converters.ToBaseDataResponse))
+                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<DataResponse>(Converters.ToDataResponse))
                   .Build();
         }
 
         [Route("client/remove"), HttpPost]
-        public BaseDataResponse DeleteClient(RemoveClientRequest request)
+        public DataResponse DeleteClient(RemoveClientRequest request)
         {
-            return ServiceProcessor.CreateProcessor<RemoveClientRequest, BaseDataResponse>(MethodBase.GetCurrentMethod())
+            return ServiceProcessor.CreateProcessor<RemoveClientRequest, DataResponse>(MethodBase.GetCurrentMethod())
                   .Input(request, true)
                   .Process(req => { return Service.RemoveClient(req); })
-                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<BaseDataResponse>(Converters.ToBaseDataResponse))
+                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<DataResponse>(Converters.ToDataResponse))
                   .Build();
         }
         [Route("client/query"), HttpPost]
-        public BaseDataResponse QueryClient(QueryClientRequest request)
+        public DataResponse QueryClient(QueryClientRequest request)
         {
-            return ServiceProcessor.CreateProcessor<QueryClientRequest, BaseDataResponse>(MethodBase.GetCurrentMethod())
+            return ServiceProcessor.CreateProcessor<QueryClientRequest, DataResponse>(MethodBase.GetCurrentMethod())
                   .Input(request, true)
                   .Process(req => { return Service.QueryClient(req); })
-                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<BaseDataResponse>(Converters.ToBaseDataResponse))
+                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<DataResponse>(Converters.ToDataResponse))
                   .Build();
 
         }
@@ -250,50 +250,50 @@ namespace ee.iLawyer.WebApi.Controllers
 
         #region * Project
         [Route("project/get"), HttpPost]
-        public BaseDataResponse GetProject(BaseIdRequest request)
+        public DataResponse GetProject(IdRequest request)
         {
-            return ServiceProcessor.CreateProcessor<BaseIdRequest, BaseDataResponse>(MethodBase.GetCurrentMethod())
+            return ServiceProcessor.CreateProcessor<IdRequest, DataResponse>(MethodBase.GetCurrentMethod())
                   .Input(request, true)
                   .Process(req => { return Service.GetProject(req); })
-                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<BaseDataResponse>(Converters.ToBaseDataResponse))
+                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<DataResponse>(Converters.ToDataResponse))
                   .Build();
 
         }
         [Route("project/create"), HttpPost]
-        public BaseDataResponse CreateProject([FromBody]CreateProjectRequest request)
+        public DataResponse CreateProject([FromBody]CreateProjectRequest request)
         {
-            return ServiceProcessor.CreateProcessor<CreateProjectRequest, BaseDataResponse>(MethodBase.GetCurrentMethod())
+            return ServiceProcessor.CreateProcessor<CreateProjectRequest, DataResponse>(MethodBase.GetCurrentMethod())
                   .Input(request, true)
                   .Process(req => { return Service.CreateProject(req); })
-                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<BaseDataResponse>(Converters.ToBaseDataResponse))
+                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<DataResponse>(Converters.ToDataResponse))
                   .Build();
         }
         [Route("project/update"), HttpPost]
-        public BaseDataResponse UpdateProject([FromBody]UpdateProjectRequest request)
+        public DataResponse UpdateProject([FromBody]UpdateProjectRequest request)
         {
-            return ServiceProcessor.CreateProcessor<UpdateProjectRequest, BaseDataResponse>(MethodBase.GetCurrentMethod())
+            return ServiceProcessor.CreateProcessor<UpdateProjectRequest, DataResponse>(MethodBase.GetCurrentMethod())
                   .Input(request, true)
                   .Process(req => { return Service.UpdateProject(req); })
-                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<BaseDataResponse>(Converters.ToBaseDataResponse))
+                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<DataResponse>(Converters.ToDataResponse))
                   .Build();
         }
 
         [Route("project/remove"), HttpPost]
-        public BaseDataResponse DeleteProject(RemoveProjectRequest request)
+        public DataResponse DeleteProject(RemoveProjectRequest request)
         {
-            return ServiceProcessor.CreateProcessor<RemoveProjectRequest, BaseDataResponse>(MethodBase.GetCurrentMethod())
+            return ServiceProcessor.CreateProcessor<RemoveProjectRequest, DataResponse>(MethodBase.GetCurrentMethod())
                   .Input(request, true)
                   .Process(req => { return Service.RemoveProject(req); })
-                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<BaseDataResponse>(Converters.ToBaseDataResponse))
+                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<DataResponse>(Converters.ToDataResponse))
                   .Build();
         }
         [Route("project/query"), HttpPost]
-        public BaseDataResponse QueryProject(QueryProjectRequest request)
+        public DataResponse QueryProject(QueryProjectRequest request)
         {
-            return ServiceProcessor.CreateProcessor<QueryProjectRequest, BaseDataResponse>(MethodBase.GetCurrentMethod())
+            return ServiceProcessor.CreateProcessor<QueryProjectRequest, DataResponse>(MethodBase.GetCurrentMethod())
                   .Input(request, true)
                   .Process(req => { return Service.QueryProject(req); })
-                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<BaseDataResponse>(Converters.ToBaseDataResponse))
+                  .UsingResponseConverter(new Core.Framework.Processor.ResponseConverter<DataResponse>(Converters.ToDataResponse))
                   .Build();
 
         }

@@ -1,5 +1,6 @@
 ﻿using ee.Core.Data;
 using ee.Core.Framework.Schema;
+using ee.Core.Net;
 using ee.Core.Wpf.Enums;
 using ee.Core.Wpf.ViewModels;
 using System;
@@ -58,7 +59,7 @@ namespace ee.iLawyer.App.Wpf.ViewModels.Base
             base.ExecuteRemoveCommand(o);
         }
 
-        public override void DataManipulationCompleted(ref BaseResponse response)
+        public override void DataManipulationCompleted(ref ResponseBase response)
         {
             base.DataManipulationCompleted(ref response);
             if (!response.IsOk())
@@ -69,22 +70,22 @@ namespace ee.iLawyer.App.Wpf.ViewModels.Base
 
 
 
-        public override BaseResponse Create()
+        public override ResponseBase Create()
         {
             throw new NotImplementedException();
         }
 
-        public override BaseQueryResponse<T> Query()
+        public override QueryResponse<T> Query()
         {
             throw new NotImplementedException();
         }
 
-        public override BaseResponse Remove()
+        public override ResponseBase Remove()
         {
             throw new NotImplementedException();
         }
 
-        public override BaseResponse Update()
+        public override ResponseBase Update()
         {
             throw new NotImplementedException();
         }

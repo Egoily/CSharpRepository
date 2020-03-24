@@ -1,5 +1,5 @@
 ﻿using ee.Core.Framework.Schema;
-using ee.Core.Http;
+using ee.Core.Net;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
 
@@ -9,23 +9,24 @@ namespace ee.iLawyer.ServiceProvider
     {
         public static string EndPoint = Configuration.Data.ServerUri;
 
-        public static BaseDataResponse Process(string resource, BaseRequest request, int? timeout = 60 * 1000)
+        public static async Task<DataResponse> ProcessAsync(string resource, RequestBase request, int timeout = 60 * 1000)
         {
             var uri = EndPoint + resource;
-            var response = HttpInvoker.PostToString(uri, null, JsonConvert.SerializeObject(request), timeout);
-            return JsonConvert.DeserializeObject<BaseDataResponse>(response);
+
+            var response = await HttpInvoker.PostToStringAsync(uri, null, JsonConvert.SerializeObject(request), timeout).ConfigureAwait(false);
+
+            return JsonConvert.DeserializeObject<DataResponse>(response);
+
+
         }
-        public static Task<BaseDataResponse> ProcessAsync(string resource, BaseRequest request, int? timeout = 60 * 1000)
+        public static async Task<DataResponse> PostProcessAsync(string resource, RequestBase request, int timeout = 60 * 1000)
         {
-            var uri = EndPoint + resource;
 
-            return Task.Run(() =>
+            using (var client = new FluentClient(EndPoint))
             {
-                var response = HttpInvoker.PostToString(uri, null, JsonConvert.SerializeObject(request), timeout);
-                return JsonConvert.DeserializeObject<BaseDataResponse>(response);
-            });
-
-
+                client.BaseClient.Timeout = System.TimeSpan.FromMilliseconds(timeout);
+                return await client.PostAsync(resource, request).As<DataResponse>();
+            }
 
         }
     }

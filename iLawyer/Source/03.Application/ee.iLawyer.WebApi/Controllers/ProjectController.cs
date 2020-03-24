@@ -1,4 +1,5 @@
 ﻿using ee.Core.Framework.Schema;
+using ee.Core.Net;
 using ee.iLawyer.Ops.Contact.DTO.ViewObjects;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -10,19 +11,19 @@ namespace ee.iLawyer.WebApi.Controllers
     public class ProjectController : BaseController
     {
         // GET api/Client/5
-        public BaseObjectResponse<Project> Get(int id)
+        public ObjectResponse<Project> Get(int id)
         {
-            return Service.GetProject(new BaseIdRequest() { Id = id });
+            return Service.GetProject(new IdRequest() { Id = id });
         }
         // POST api/Client
-        public BaseResponse Post([FromBody]dynamic para)
+        public ResponseBase Post([FromBody]dynamic para)
         {
             var request = JsonConvert.DeserializeObject<Ops.Contact.Args.CreateProjectRequest>(para.ToString());
             return Service.CreateProject(request);
         }
 
         // PUT api/Client/{id}
-        public BaseResponse Put(int id, [FromBody]dynamic para)
+        public ResponseBase Put(int id, [FromBody]dynamic para)
         {
             var request = JsonConvert.DeserializeObject<Ops.Contact.Args.UpdateProjectRequest>(para.ToString());
             request.Id = id;
@@ -30,12 +31,12 @@ namespace ee.iLawyer.WebApi.Controllers
         }
 
         // DELETE api/Client/{id}
-        public BaseResponse Delete(int id)
+        public ResponseBase Delete(int id)
         {
             return Service.RemoveProject(new Ops.Contact.Args.RemoveProjectRequest() { Ids = new List<int>() { id } });
         }
         [Route("query"), HttpGet]
-        public BaseQueryResponse<Project> Query(string categoryCode, string code, string name, string level, string dealDateFrom, string dealDateTo, int? ownerId, int pageIndex, int pageSize)
+        public QueryResponse<Project> Query(string categoryCode, string code, string name, string level, string dealDateFrom, string dealDateTo, int? ownerId, int pageIndex, int pageSize)
         {
             return Service.QueryProject(
                 new Ops.Contact.Args.QueryProjectRequest()

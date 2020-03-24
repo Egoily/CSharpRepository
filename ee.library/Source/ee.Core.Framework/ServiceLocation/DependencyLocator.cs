@@ -63,7 +63,8 @@ namespace ee.Core.Framework.ServiceLocation
             }
             if (container.ComponentRegistry?.Registrations?.Any() ?? false)
             {
-                return container.ComponentRegistry?.Registrations.Select(x => container.ResolveComponent(x, null));
+                return container.ComponentRegistry?.Registrations.Select(x =>
+                container.ResolveComponent(new ResolveRequest(x.Services.FirstOrDefault(), x, null)));
             }
             else
             {

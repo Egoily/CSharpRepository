@@ -53,6 +53,10 @@
       <Project>{7d3d1f1d-973e-464a-9e60-b33cd0b34163}</Project>
       <Name>ee.Core.Framework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\ee.library\Source\ee.Core.Net\ee.Core.Net.csproj">
+      <Project>{5235f889-c142-4466-bc6a-d684659c3870}</Project>
+      <Name>ee.Core.Net</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\ee.library\Source\ee.Core\ee.Core.csproj">
       <Project>{a01c4da2-f6bb-469b-9bfc-e294c02b94d5}</Project>
       <Name>ee.Core</Name>

@@ -1,5 +1,6 @@
 ﻿using ee.Core.Exceptions;
 using ee.Core.Framework.Schema;
+using ee.Core.Net;
 using Newtonsoft.Json;
 using System;
 using System.Linq;
@@ -8,8 +9,8 @@ using System.Text;
 namespace ee.Core.Framework.Processor
 {
     public abstract class ProcessorInternal<TRequest, TResponse> : BaseProcessor<TRequest, TResponse>
-                    where TRequest : BaseRequest
-                    where TResponse : BaseResponse, new()
+                    where TRequest : RequestBase
+                    where TResponse : ResponseBase, new()
     {
 
         public override TResponse Build()
@@ -111,14 +112,14 @@ namespace ee.Core.Framework.Processor
 
 
 
-                if (response is BaseDataResponse)
+                if (response is DataResponse)
                 {
                     string data = string.Empty;
-                    if ((response as BaseDataResponse).DataObject != null)
+                    if ((response as DataResponse).DataObject != null)
                     {
                         try
                         {
-                            data = JsonConvert.SerializeObject((response as BaseDataResponse).DataObject, JsonSetting);
+                            data = JsonConvert.SerializeObject((response as DataResponse).DataObject, JsonSetting);
                         }
                         catch (Exception)
                         { }

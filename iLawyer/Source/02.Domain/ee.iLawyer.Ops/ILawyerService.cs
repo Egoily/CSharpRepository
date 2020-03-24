@@ -1,6 +1,6 @@
 ﻿using ee.Core.Data;
-using ee.Core.DataAccess;
-using ee.Core.DataAccess.Repository;
+using ee.Core.NhDataAccess;
+using ee.Core.NhDataAccess.Repository;
 using ee.Core.Exceptions;
 using ee.Core.Framework;
 using ee.Core.Framework.Schema;
@@ -13,7 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-
+using ee.Core.Net;
 
 namespace ee.iLawyer.Ops
 {
@@ -48,12 +48,12 @@ namespace ee.iLawyer.Ops
         }
 
 
-        public BaseResponse Test(BaseRequest request)
+        public ResponseBase Test(RequestBase request)
         {
-            return ServiceProcessor.CreateProcessor<BaseRequest, BaseResponse>(MethodBase.GetCurrentMethod(), request)
+            return ServiceProcessor.CreateProcessor<RequestBase, ResponseBase>(MethodBase.GetCurrentMethod(), request)
                 .Process(req =>
                 {
-                    var response = new BaseResponse();
+                    var response = new ResponseBase();
 
                     //System.Threading.Tasks.Parallel.For(1, 100, index =>
                     //{
@@ -75,12 +75,12 @@ namespace ee.iLawyer.Ops
 
 
 
-        public BaseQueryResponse<Contact.DTO.ViewObjects.Area> GetAreas(GetAreasRequest request)
+        public QueryResponse<Contact.DTO.ViewObjects.Area> GetAreas(GetAreasRequest request)
         {
-            return ServiceProcessor.CreateProcessor<GetAreasRequest, BaseQueryResponse<Contact.DTO.ViewObjects.Area>>(MethodBase.GetCurrentMethod(), request)
+            return ServiceProcessor.CreateProcessor<GetAreasRequest, QueryResponse<Contact.DTO.ViewObjects.Area>>(MethodBase.GetCurrentMethod(), request)
                   .Process(req =>
                    {
-                       var response = new BaseQueryResponse<Contact.DTO.ViewObjects.Area>();
+                       var response = new QueryResponse<Contact.DTO.ViewObjects.Area>();
 
                        var queryCriterions = new List<ICriterion>();
 
@@ -132,12 +132,12 @@ namespace ee.iLawyer.Ops
         }
 
 
-        public BaseQueryResponse<Contact.DTO.ViewObjects.Picker> GetPickers(GetPickersRequest request)
+        public QueryResponse<Contact.DTO.ViewObjects.Picker> GetPickers(GetPickersRequest request)
         {
-            return ServiceProcessor.CreateProcessor<GetPickersRequest, BaseQueryResponse<Contact.DTO.ViewObjects.Picker>>(MethodBase.GetCurrentMethod(), request)
+            return ServiceProcessor.CreateProcessor<GetPickersRequest, QueryResponse<Contact.DTO.ViewObjects.Picker>>(MethodBase.GetCurrentMethod(), request)
                   .Process(req =>
                   {
-                      var response = new BaseQueryResponse<Contact.DTO.ViewObjects.Picker>();
+                      var response = new QueryResponse<Contact.DTO.ViewObjects.Picker>();
                       using (var repo = new NhEntityRepository<Db.Entities.Foundation.Picklist>())
                       {
                           (IEnumerable<Db.Entities.Foundation.Picklist>, int?) query;
@@ -168,27 +168,27 @@ namespace ee.iLawyer.Ops
 
         #region * ISystemUserManagement
 
-        public BaseQueryResponse<Contact.DTO.ViewObjects.SystemManagement.PermissionModule> GetPermissionModules(BaseRequest request)
+        public QueryResponse<Contact.DTO.ViewObjects.SystemManagement.PermissionModule> GetPermissionModules(RequestBase request)
         {
             throw new NotImplementedException();
         }
 
-        public BaseQueryResponse<Contact.DTO.ViewObjects.SystemManagement.Role> GetRoles(GetRolesRequest request)
+        public QueryResponse<Contact.DTO.ViewObjects.SystemManagement.Role> GetRoles(GetRolesRequest request)
         {
             throw new NotImplementedException();
         }
 
-        public BaseQueryResponse<Contact.DTO.ViewObjects.SystemManagement.User> QueryUser(QueryUserRequest request)
+        public QueryResponse<Contact.DTO.ViewObjects.SystemManagement.User> QueryUser(QueryUserRequest request)
         {
             throw new NotImplementedException();
         }
 
-        public BaseResponse Register(RegisterRequest request)
+        public ResponseBase Register(RegisterRequest request)
         {
-            return ServiceProcessor.CreateProcessor<RegisterRequest, BaseResponse>(MethodBase.GetCurrentMethod(), request)
+            return ServiceProcessor.CreateProcessor<RegisterRequest, ResponseBase>(MethodBase.GetCurrentMethod(), request)
                  .Process(req =>
                  {
-                     var response = new BaseResponse();
+                     var response = new ResponseBase();
                      using (var repo = new NhGlobalRepository())
                      {
                          var users = repo.Query<Db.Entities.RBAC.SysUser>(x => x.UserName == req.UserName);
@@ -219,12 +219,12 @@ namespace ee.iLawyer.Ops
                  ).Build();
         }
 
-        public BaseObjectResponse<Contact.DTO.ViewObjects.SystemManagement.User> Login(LoginRequest request)
+        public ObjectResponse<Contact.DTO.ViewObjects.SystemManagement.User> Login(LoginRequest request)
         {
-            return ServiceProcessor.CreateProcessor<LoginRequest, BaseObjectResponse<Contact.DTO.ViewObjects.SystemManagement.User>>(MethodBase.GetCurrentMethod(), request)
+            return ServiceProcessor.CreateProcessor<LoginRequest, ObjectResponse<Contact.DTO.ViewObjects.SystemManagement.User>>(MethodBase.GetCurrentMethod(), request)
                   .Process(req =>
                   {
-                      var response = new BaseObjectResponse<Contact.DTO.ViewObjects.SystemManagement.User>();
+                      var response = new ObjectResponse<Contact.DTO.ViewObjects.SystemManagement.User>();
                       using (var repo = new NhGlobalRepository())
                       {
 
@@ -259,15 +259,15 @@ namespace ee.iLawyer.Ops
                   ).Build();
         }
 
-        public BaseResponse Logout(LogoutRequest request)
+        public ResponseBase Logout(LogoutRequest request)
         {
             throw new NotImplementedException();
         }
 
 
-        public BaseResponse Grant(GrantRequest request)
+        public ResponseBase Grant(GrantRequest request)
         {
-            return ServiceProcessor.CreateProcessor<GrantRequest, BaseResponse>(MethodBase.GetCurrentMethod(), request)
+            return ServiceProcessor.CreateProcessor<GrantRequest, ResponseBase>(MethodBase.GetCurrentMethod(), request)
                 .Inbound(() =>
                 {
                     if (request.RoleIds == null)
@@ -286,7 +286,7 @@ namespace ee.iLawyer.Ops
                 })
                  .Process(req =>
                  {
-                     var response = new BaseResponse();
+                     var response = new ResponseBase();
                      using (var repo = new NhGlobalRepository())
                      {
 
@@ -399,12 +399,12 @@ namespace ee.iLawyer.Ops
                  ).Build();
         }
 
-        public BaseResponse UpdateUser(UpdateUserRequest request)
+        public ResponseBase UpdateUser(UpdateUserRequest request)
         {
-            return ServiceProcessor.CreateProcessor<UpdateUserRequest, BaseResponse>(MethodBase.GetCurrentMethod(), request)
+            return ServiceProcessor.CreateProcessor<UpdateUserRequest, ResponseBase>(MethodBase.GetCurrentMethod(), request)
                   .Process(req =>
                   {
-                      var response = new BaseResponse();
+                      var response = new ResponseBase();
                       using (var repo = new NhGlobalRepository())
                       {
 
@@ -431,9 +431,9 @@ namespace ee.iLawyer.Ops
                   ).Build();
         }
 
-        public BaseResponse ChangePassword(ChangePasswordRequest request)
+        public ResponseBase ChangePassword(ChangePasswordRequest request)
         {
-            return ServiceProcessor.CreateProcessor<ChangePasswordRequest, BaseResponse>(MethodBase.GetCurrentMethod(), request)
+            return ServiceProcessor.CreateProcessor<ChangePasswordRequest, ResponseBase>(MethodBase.GetCurrentMethod(), request)
                 .Inbound(
                 () =>
                 {
@@ -444,7 +444,7 @@ namespace ee.iLawyer.Ops
                 })
                  .Process(req =>
                  {
-                     var response = new BaseResponse();
+                     var response = new ResponseBase();
                      using (var repo = new NhGlobalRepository())
                      {
 
@@ -470,12 +470,12 @@ namespace ee.iLawyer.Ops
         #endregion
 
 
-        public BaseResponse CreateCourt(CreateCourtRequest request)
+        public ResponseBase CreateCourt(CreateCourtRequest request)
         {
-            return ServiceProcessor.CreateProcessor<CreateCourtRequest, BaseResponse>(MethodBase.GetCurrentMethod(), request)
+            return ServiceProcessor.CreateProcessor<CreateCourtRequest, ResponseBase>(MethodBase.GetCurrentMethod(), request)
                   .Process(req =>
                    {
-                       var response = new BaseResponse();
+                       var response = new ResponseBase();
                        using (var repo = new NhEntityRepository<Db.Entities.Court>())
                        {
                            var court = repo.Query(x => x.Name == req.Name)?.FirstOrDefault();
@@ -502,12 +502,12 @@ namespace ee.iLawyer.Ops
                    }
                   ).Build();
         }
-        public BaseResponse UpdateCourt(UpdateCourtRequest request)
+        public ResponseBase UpdateCourt(UpdateCourtRequest request)
         {
-            return ServiceProcessor.CreateProcessor<UpdateCourtRequest, BaseResponse>(MethodBase.GetCurrentMethod(), request)
+            return ServiceProcessor.CreateProcessor<UpdateCourtRequest, ResponseBase>(MethodBase.GetCurrentMethod(), request)
                   .Process(req =>
                    {
-                       var response = new BaseResponse();
+                       var response = new ResponseBase();
                        using (var repo = new NhEntityRepository<Db.Entities.Court>())
                        {
                            var court = repo.GetById(req.Id);
@@ -528,12 +528,12 @@ namespace ee.iLawyer.Ops
                    }
                   ).Build();
         }
-        public BaseResponse RemoveCourt(RemoveCourtRequest request)
+        public ResponseBase RemoveCourt(RemoveCourtRequest request)
         {
-            return ServiceProcessor.CreateProcessor<RemoveCourtRequest, BaseResponse>(MethodBase.GetCurrentMethod(), request)
+            return ServiceProcessor.CreateProcessor<RemoveCourtRequest, ResponseBase>(MethodBase.GetCurrentMethod(), request)
                   .Process(req =>
                    {
-                       var response = new BaseResponse();
+                       var response = new ResponseBase();
                        using (var repo = new NhEntityRepository<Db.Entities.Court>())
                        {
                            foreach (var id in req.Ids)
@@ -549,12 +549,12 @@ namespace ee.iLawyer.Ops
                    }
                   ).Build();
         }
-        public BaseObjectResponse<Contact.DTO.ViewObjects.Court> GetCourt(BaseIdRequest request)
+        public ObjectResponse<Contact.DTO.ViewObjects.Court> GetCourt(IdRequest request)
         {
-            return ServiceProcessor.CreateProcessor<BaseIdRequest, BaseObjectResponse<Contact.DTO.ViewObjects.Court>>(MethodBase.GetCurrentMethod(), request)
+            return ServiceProcessor.CreateProcessor<IdRequest, ObjectResponse<Contact.DTO.ViewObjects.Court>>(MethodBase.GetCurrentMethod(), request)
                   .Process(req =>
                    {
-                       var response = new BaseObjectResponse<Contact.DTO.ViewObjects.Court>();
+                       var response = new ObjectResponse<Contact.DTO.ViewObjects.Court>();
                        using (var repo = new NhEntityRepository<Db.Entities.Court>())
                        {
                            var entity = repo.GetById(request.Id);
@@ -564,9 +564,9 @@ namespace ee.iLawyer.Ops
                    }
                   ).Build();
         }
-        public BaseQueryResponse<Contact.DTO.ViewObjects.Court> QueryCourt(QueryCourtRequest request)
+        public QueryResponse<Contact.DTO.ViewObjects.Court> QueryCourt(QueryCourtRequest request)
         {
-            return ServiceProcessor.CreateProcessor<QueryCourtRequest, BaseQueryResponse<Contact.DTO.ViewObjects.Court>>(MethodBase.GetCurrentMethod(), request)
+            return ServiceProcessor.CreateProcessor<QueryCourtRequest, QueryResponse<Contact.DTO.ViewObjects.Court>>(MethodBase.GetCurrentMethod(), request)
                   .Inbound(() =>
                    {
                        if (request.Rank != null)
@@ -593,7 +593,7 @@ namespace ee.iLawyer.Ops
                    })
                   .Process(req =>
                    {
-                       var response = new BaseQueryResponse<Contact.DTO.ViewObjects.Court>();
+                       var response = new QueryResponse<Contact.DTO.ViewObjects.Court>();
 
                        var queryCriterions = new List<ICriterion>();
 
@@ -642,12 +642,12 @@ namespace ee.iLawyer.Ops
         }
 
 
-        public BaseResponse CreateJudge(CreateJudgeRequest request)
+        public ResponseBase CreateJudge(CreateJudgeRequest request)
         {
-            return ServiceProcessor.CreateProcessor<CreateJudgeRequest, BaseResponse>(MethodBase.GetCurrentMethod(), request)
+            return ServiceProcessor.CreateProcessor<CreateJudgeRequest, ResponseBase>(MethodBase.GetCurrentMethod(), request)
                   .Process(req =>
                    {
-                       var response = new BaseResponse();
+                       var response = new ResponseBase();
                        using (var repo = new NhGlobalRepository())
                        {
                            var judge = repo.Query<Db.Entities.Judge>(x => x.Name == req.Name && x.ContactNo == req.ContactNo).FirstOrDefault();
@@ -674,12 +674,12 @@ namespace ee.iLawyer.Ops
                    }
                   ).Build();
         }
-        public BaseResponse UpdateJudge(UpdateJudgeRequest request)
+        public ResponseBase UpdateJudge(UpdateJudgeRequest request)
         {
-            return ServiceProcessor.CreateProcessor<UpdateJudgeRequest, BaseResponse>(MethodBase.GetCurrentMethod(), request)
+            return ServiceProcessor.CreateProcessor<UpdateJudgeRequest, ResponseBase>(MethodBase.GetCurrentMethod(), request)
                   .Process(req =>
                    {
-                       var response = new BaseResponse();
+                       var response = new ResponseBase();
                        using (var repo = new NhGlobalRepository())
                        {
                            var judge = repo.GetById<Db.Entities.Judge>(req.Id);
@@ -701,12 +701,12 @@ namespace ee.iLawyer.Ops
                    }
                   ).Build();
         }
-        public BaseResponse RemoveJudge(RemoveJudgeRequest request)
+        public ResponseBase RemoveJudge(RemoveJudgeRequest request)
         {
-            return ServiceProcessor.CreateProcessor<RemoveJudgeRequest, BaseResponse>(MethodBase.GetCurrentMethod(), request)
+            return ServiceProcessor.CreateProcessor<RemoveJudgeRequest, ResponseBase>(MethodBase.GetCurrentMethod(), request)
                   .Process(req =>
                    {
-                       var response = new BaseResponse();
+                       var response = new ResponseBase();
                        using (var repo = new NhEntityRepository<Db.Entities.Judge>())
                        {
                            foreach (var id in req.Ids)
@@ -722,12 +722,12 @@ namespace ee.iLawyer.Ops
                    }
                   ).Build();
         }
-        public BaseObjectResponse<Contact.DTO.ViewObjects.Judge> GetJudge(BaseIdRequest request)
+        public ObjectResponse<Contact.DTO.ViewObjects.Judge> GetJudge(IdRequest request)
         {
-            return ServiceProcessor.CreateProcessor<BaseIdRequest, BaseObjectResponse<Contact.DTO.ViewObjects.Judge>>(MethodBase.GetCurrentMethod(), request)
+            return ServiceProcessor.CreateProcessor<IdRequest, ObjectResponse<Contact.DTO.ViewObjects.Judge>>(MethodBase.GetCurrentMethod(), request)
                   .Process(req =>
                    {
-                       var response = new BaseObjectResponse<Contact.DTO.ViewObjects.Judge>();
+                       var response = new ObjectResponse<Contact.DTO.ViewObjects.Judge>();
                        using (var repo = new NhEntityRepository<Db.Entities.Judge>())
                        {
                            var entity = repo.GetById(request.Id);
@@ -737,9 +737,9 @@ namespace ee.iLawyer.Ops
                    }
                   ).Build();
         }
-        public BaseQueryResponse<Contact.DTO.ViewObjects.Judge> QueryJudge(QueryJudgeRequest request)
+        public QueryResponse<Contact.DTO.ViewObjects.Judge> QueryJudge(QueryJudgeRequest request)
         {
-            return ServiceProcessor.CreateProcessor<QueryJudgeRequest, BaseQueryResponse<Contact.DTO.ViewObjects.Judge>>(MethodBase.GetCurrentMethod(), request)
+            return ServiceProcessor.CreateProcessor<QueryJudgeRequest, QueryResponse<Contact.DTO.ViewObjects.Judge>>(MethodBase.GetCurrentMethod(), request)
                   .Inbound(() =>
                    {
                        if (request.Grade != null)
@@ -767,7 +767,7 @@ namespace ee.iLawyer.Ops
                    })
                   .Process(req =>
                    {
-                       var response = new BaseQueryResponse<Contact.DTO.ViewObjects.Judge>();
+                       var response = new QueryResponse<Contact.DTO.ViewObjects.Judge>();
 
                        var queryCriterions = new List<ICriterion>();
 
@@ -806,14 +806,14 @@ namespace ee.iLawyer.Ops
         }
 
 
-        public BaseResponse CreateClient(CreateClientRequest request)
+        public ResponseBase CreateClient(CreateClientRequest request)
         {
             var now = DateTime.Now;
 
-            return ServiceProcessor.CreateProcessor<CreateClientRequest, BaseResponse>(MethodBase.GetCurrentMethod(), request)
+            return ServiceProcessor.CreateProcessor<CreateClientRequest, ResponseBase>(MethodBase.GetCurrentMethod(), request)
                   .Process(req =>
                    {
-                       var response = new BaseResponse();
+                       var response = new ResponseBase();
                        using (var repo = new NhGlobalRepository())
                        {
 
@@ -861,13 +861,13 @@ namespace ee.iLawyer.Ops
                   ).Build();
 
         }
-        public BaseResponse UpdateClient(UpdateClientRequest request)
+        public ResponseBase UpdateClient(UpdateClientRequest request)
         {
             var now = DateTime.Now;
-            return ServiceProcessor.CreateProcessor<UpdateClientRequest, BaseResponse>(MethodBase.GetCurrentMethod(), request)
+            return ServiceProcessor.CreateProcessor<UpdateClientRequest, ResponseBase>(MethodBase.GetCurrentMethod(), request)
                   .Process(req =>
                    {
-                       var response = new BaseResponse();
+                       var response = new ResponseBase();
                        using (var repo = new NhGlobalRepository())
                        {
                            var client = repo.GetById<Db.Entities.Client>(req.Id);
@@ -942,12 +942,12 @@ namespace ee.iLawyer.Ops
                   ).Build();
 
         }
-        public BaseResponse RemoveClient(RemoveClientRequest request)
+        public ResponseBase RemoveClient(RemoveClientRequest request)
         {
-            return ServiceProcessor.CreateProcessor<RemoveClientRequest, BaseResponse>(MethodBase.GetCurrentMethod(), request)
+            return ServiceProcessor.CreateProcessor<RemoveClientRequest, ResponseBase>(MethodBase.GetCurrentMethod(), request)
                   .Process(req =>
                    {
-                       var response = new BaseResponse();
+                       var response = new ResponseBase();
                        using (var repo = new NhEntityRepository<Db.Entities.Client>())
                        {
                            foreach (var id in req.Ids)
@@ -963,12 +963,12 @@ namespace ee.iLawyer.Ops
                    }
                   ).Build();
         }
-        public BaseObjectResponse<Contact.DTO.ViewObjects.Client> GetClient(BaseIdRequest request)
+        public ObjectResponse<Contact.DTO.ViewObjects.Client> GetClient(IdRequest request)
         {
-            return ServiceProcessor.CreateProcessor<BaseIdRequest, BaseObjectResponse<Contact.DTO.ViewObjects.Client>>(MethodBase.GetCurrentMethod(), request)
+            return ServiceProcessor.CreateProcessor<IdRequest, ObjectResponse<Contact.DTO.ViewObjects.Client>>(MethodBase.GetCurrentMethod(), request)
                   .Process(req =>
                    {
-                       var response = new BaseObjectResponse<Contact.DTO.ViewObjects.Client>();
+                       var response = new ObjectResponse<Contact.DTO.ViewObjects.Client>();
                        using (var repo = new NhEntityRepository<Db.Entities.Client>())
                        {
                            var entity = repo.GetById(request.Id);
@@ -979,12 +979,12 @@ namespace ee.iLawyer.Ops
                   ).Build();
 
         }
-        public BaseQueryResponse<Contact.DTO.ViewObjects.Client> QueryClient(QueryClientRequest request)
+        public QueryResponse<Contact.DTO.ViewObjects.Client> QueryClient(QueryClientRequest request)
         {
-            return ServiceProcessor.CreateProcessor<QueryClientRequest, BaseQueryResponse<Contact.DTO.ViewObjects.Client>>(MethodBase.GetCurrentMethod(), request)
+            return ServiceProcessor.CreateProcessor<QueryClientRequest, QueryResponse<Contact.DTO.ViewObjects.Client>>(MethodBase.GetCurrentMethod(), request)
                   .Process(req =>
                    {
-                       var response = new BaseQueryResponse<Contact.DTO.ViewObjects.Client>();
+                       var response = new QueryResponse<Contact.DTO.ViewObjects.Client>();
 
                        var queryCriterions = new List<ICriterion>();
 
@@ -1020,14 +1020,14 @@ namespace ee.iLawyer.Ops
         }
 
 
-        public BaseResponse CreateProject(CreateProjectRequest request)
+        public ResponseBase CreateProject(CreateProjectRequest request)
         {
             var now = DateTime.Now;
 
-            return ServiceProcessor.CreateProcessor<CreateProjectRequest, BaseResponse>(MethodBase.GetCurrentMethod(), request)
+            return ServiceProcessor.CreateProcessor<CreateProjectRequest, ResponseBase>(MethodBase.GetCurrentMethod(), request)
                   .Process(req =>
                    {
-                       var response = new BaseResponse();
+                       var response = new ResponseBase();
                        using (var repo = new NhGlobalRepository())
                        {
 
@@ -1087,14 +1087,14 @@ namespace ee.iLawyer.Ops
                    }
                   ).Build();
         }
-        public BaseResponse UpdateProject(UpdateProjectRequest request)
+        public ResponseBase UpdateProject(UpdateProjectRequest request)
         {
             var now = DateTime.Now;
 
-            return ServiceProcessor.CreateProcessor<UpdateProjectRequest, BaseResponse>(MethodBase.GetCurrentMethod(), request)
+            return ServiceProcessor.CreateProcessor<UpdateProjectRequest, ResponseBase>(MethodBase.GetCurrentMethod(), request)
                   .Process(req =>
                    {
-                       var response = new BaseResponse();
+                       var response = new ResponseBase();
                        using (var repo = new NhGlobalRepository())
                        {
                            var project = repo.GetById<Db.Entities.Project>(req.Id);
@@ -1313,12 +1313,12 @@ namespace ee.iLawyer.Ops
                    }
                   ).Build();
         }
-        public BaseResponse RemoveProject(RemoveProjectRequest request)
+        public ResponseBase RemoveProject(RemoveProjectRequest request)
         {
-            return ServiceProcessor.CreateProcessor<RemoveProjectRequest, BaseResponse>(MethodBase.GetCurrentMethod(), request)
+            return ServiceProcessor.CreateProcessor<RemoveProjectRequest, ResponseBase>(MethodBase.GetCurrentMethod(), request)
                   .Process(req =>
                    {
-                       var response = new BaseResponse();
+                       var response = new ResponseBase();
                        using (var repo = new NhEntityRepository<Db.Entities.Project>())
                        {
                            foreach (var id in req.Ids)
@@ -1335,12 +1335,12 @@ namespace ee.iLawyer.Ops
                   ).Build();
 
         }
-        public BaseObjectResponse<Contact.DTO.ViewObjects.Project> GetProject(BaseIdRequest request)
+        public ObjectResponse<Contact.DTO.ViewObjects.Project> GetProject(IdRequest request)
         {
-            return ServiceProcessor.CreateProcessor<BaseIdRequest, BaseObjectResponse<Contact.DTO.ViewObjects.Project>>(MethodBase.GetCurrentMethod(), request)
+            return ServiceProcessor.CreateProcessor<IdRequest, ObjectResponse<Contact.DTO.ViewObjects.Project>>(MethodBase.GetCurrentMethod(), request)
                   .Process(req =>
                    {
-                       var response = new BaseObjectResponse<Contact.DTO.ViewObjects.Project>();
+                       var response = new ObjectResponse<Contact.DTO.ViewObjects.Project>();
                        using (var repo = new NhEntityRepository<Db.Entities.Project>())
                        {
                            var entity = repo.GetById(request.Id);
@@ -1350,9 +1350,9 @@ namespace ee.iLawyer.Ops
                    }
                   ).Build();
         }
-        public BaseQueryResponse<Contact.DTO.ViewObjects.Project> QueryProject(QueryProjectRequest request)
+        public QueryResponse<Contact.DTO.ViewObjects.Project> QueryProject(QueryProjectRequest request)
         {
-            return ServiceProcessor.CreateProcessor<QueryProjectRequest, BaseQueryResponse<Contact.DTO.ViewObjects.Project>>(MethodBase.GetCurrentMethod(), request)
+            return ServiceProcessor.CreateProcessor<QueryProjectRequest, QueryResponse<Contact.DTO.ViewObjects.Project>>(MethodBase.GetCurrentMethod(), request)
                   .Inbound(() =>
                    {
                        if (!string.IsNullOrEmpty(request.DealDateFrom))
@@ -1374,7 +1374,7 @@ namespace ee.iLawyer.Ops
                    })
                   .Process(req =>
                    {
-                       var response = new BaseQueryResponse<Contact.DTO.ViewObjects.Project>();
+                       var response = new QueryResponse<Contact.DTO.ViewObjects.Project>();
                        var queryCriterions = new List<ICriterion>();
 
 
@@ -1433,14 +1433,14 @@ namespace ee.iLawyer.Ops
                    }
                   ).Build();
         }
-        public BaseResponse SaveOrUpdateProjectTodoList(SaveOrUpdateProjectTodoListRequest request)
+        public ResponseBase SaveOrUpdateProjectTodoList(SaveOrUpdateProjectTodoListRequest request)
         {
             var now = DateTime.Now;
 
-            return ServiceProcessor.CreateProcessor<SaveOrUpdateProjectTodoListRequest, BaseResponse>(MethodBase.GetCurrentMethod(), request)
+            return ServiceProcessor.CreateProcessor<SaveOrUpdateProjectTodoListRequest, ResponseBase>(MethodBase.GetCurrentMethod(), request)
                   .Process(req =>
                    {
-                       var response = new BaseResponse();
+                       var response = new ResponseBase();
                        //TODO:
                        using (var repo = new NhGlobalRepository())
                        {
@@ -1512,14 +1512,14 @@ namespace ee.iLawyer.Ops
                    }
                   ).Build();
         }
-        public BaseResponse SaveOrUpdateProjectProgress(SaveOrUpdateProjectProgressRequest request)
+        public ResponseBase SaveOrUpdateProjectProgress(SaveOrUpdateProjectProgressRequest request)
         {
             var now = DateTime.Now;
 
-            return ServiceProcessor.CreateProcessor<SaveOrUpdateProjectProgressRequest, BaseResponse>(MethodBase.GetCurrentMethod(), request)
+            return ServiceProcessor.CreateProcessor<SaveOrUpdateProjectProgressRequest, ResponseBase>(MethodBase.GetCurrentMethod(), request)
                   .Process(req =>
                    {
-                       var response = new BaseResponse();
+                       var response = new ResponseBase();
                        //TODO:
                        using (var repo = new NhGlobalRepository())
                        {
@@ -1580,27 +1580,27 @@ namespace ee.iLawyer.Ops
 
         }
 
-        public BaseResponse CreateSchedule(CreateScheduleRequest request)
+        public ResponseBase CreateSchedule(CreateScheduleRequest request)
         {
             throw new NotImplementedException();
         }
 
-        public BaseResponse UpdateSchedule(UpdateScheduleRequest request)
+        public ResponseBase UpdateSchedule(UpdateScheduleRequest request)
         {
             throw new NotImplementedException();
         }
 
-        public BaseResponse RemoveSchedule(RemoveScheduleRequest request)
+        public ResponseBase RemoveSchedule(RemoveScheduleRequest request)
         {
             throw new NotImplementedException();
         }
 
-        public BaseObjectResponse<Schedule> GetSchedule(BaseIdRequest<string> request)
+        public ObjectResponse<Schedule> GetSchedule(IdRequest<string> request)
         {
             throw new NotImplementedException();
         }
 
-        public BaseQueryResponse<Schedule> QuerySchedule(QueryScheduleRequest request)
+        public QueryResponse<Schedule> QuerySchedule(QueryScheduleRequest request)
         {
             throw new NotImplementedException();
         }
